@@ -9,3 +9,8 @@ It's for cool kids only, yo.
 ## Local developement
 
 1. Open index.html in your browser pleasee.
+
+
+## Very important:
+
+    No girls allowed! This is only for cooooooooooooool boys.
