@@ -1,0 +1,311 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://Player/Player.shader" type="Shader" id=1]
+[ext_resource path="res://Player/Player.gd" type="Script" id=4]
+[ext_resource path="res://assets/shoe/spritesheet_shoe.png" type="Texture" id=21]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/active = false
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "move_down"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "move_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=7]
+blend_point_0/node = SubResource( 2 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 3 )
+blend_point_1/pos = Vector2( 0, 0 )
+blend_point_2/node = SubResource( 4 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 5 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_point_4/node = SubResource( 6 )
+blend_point_4/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "move_down"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "move_up"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=13]
+blend_point_0/node = SubResource( 8 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 9 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 10 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 11 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_point_4/node = SubResource( 12 )
+blend_point_4/pos = Vector2( 0, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=16]
+states/Idle/node = SubResource( 7 )
+states/Idle/position = Vector2( 681, 93 )
+states/Move/node = SubResource( 13 )
+states/Move/position = Vector2( 512, 93 )
+transitions = [ "Idle", "Move", SubResource( 14 ), "Move", "Idle", SubResource( 15 ) ]
+start_node = "Move"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
+
+[sub_resource type="Animation" id=18]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13, 14, 15, 16 ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "idle_up"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 19 ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "Start"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "Stop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 22.7914, 14.4114 )
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 24.8099, 10.5892 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+scale = Vector2( 3, 3 )
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 19.4567, 8.88927 )
+texture = ExtResource( 21 )
+hframes = 20
+frame = 15
+
+[node name="AnimationTree" type="AnimationTree" parent="Sprite"]
+tree_root = SubResource( 16 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 17 )
+parameters/Idle/blend_position = Vector2( 0, 0 )
+parameters/Move/blend_position = Vector2( -0.00154561, 0.00862074 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/idle = SubResource( 18 )
+anims/idle_left = SubResource( 19 )
+anims/idle_up = SubResource( 20 )
+anims/move_down = SubResource( 21 )
+anims/move_left = SubResource( 22 )
+anims/move_right = SubResource( 23 )
+anims/move_up = SubResource( 24 )
+
+[node name="FlashShaderPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Start = SubResource( 25 )
+anims/Stop = SubResource( 26 )
+
+[node name="BulletSpawn" type="Position2D" parent="."]
+position = Vector2( 47.089, 9.9484 )
+
+[node name="TileCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 19.548, 8.83983 )
+scale = Vector2( 0.73, 0.73 )
+shape = SubResource( 27 )
+
+[node name="EnemyHitBox" type="Area2D" parent="."]
+position = Vector2( -0.210226, 6.58702 )
+collision_layer = 0
+
+[node name="EnemyCollision" type="CollisionShape2D" parent="EnemyHitBox"]
+position = Vector2( 18.4551, 5.0467 )
+scale = Vector2( 0.73, 0.73 )
+shape = SubResource( 28 )
+
+[node name="BulletHitBox" type="Area2D" parent="."]
+position = Vector2( 24.1758, 4.41471 )
+collision_layer = 0
+collision_mask = 4
+
+[node name="BulletCollision" type="CollisionShape2D" parent="BulletHitBox"]
+position = Vector2( -3.86272, 8.36558 )
+scale = Vector2( 0.643283, 0.662715 )
+shape = SubResource( 28 )
+
+[node name="CooldownManual" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="CooldownAuto" type="Timer" parent="."]
+
+[node name="HolddownTime" type="Timer" parent="CooldownAuto"]
+wait_time = 0.4
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="area_entered" from="EnemyHitBox" to="." method="_on_EnemyHitBox_area_entered"]
+[connection signal="area_entered" from="BulletHitBox" to="." method="_on_BulletHitBox_area_entered"]
+[connection signal="timeout" from="CooldownManual" to="." method="_on_CooldownManual_timeout"]
+[connection signal="timeout" from="CooldownAuto/HolddownTime" to="." method="_on_HolddownTime_timeout"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]

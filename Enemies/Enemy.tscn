@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=17]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 9 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "spawn"
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "idle", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "idle", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16, 9 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 116.857, 42.7138 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 9 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemy",
+]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 17 )
+
+[node name="TileCollision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.854747, 0 )
+
+[node name="bulletPosition" type="Position2D" parent="Sprite"]
+position = Vector2( -17.1881, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/idle = SubResource( 2 )
+anims/spawn = SubResource( 3 )
+
+[node name="EntityHitbox" type="Area2D" parent="."]
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="EntityHitbox"]
+position = Vector2( 9.53674e-07, 0 )
+shape = SubResource( 4 )
+disabled = true
+
+[node name="CurrentPosition" type="Position2D" parent="."]
+
+[node name="ShotTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Activation_area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="activation" type="CollisionShape2D" parent="Activation_area"]
+shape = SubResource( 5 )
+disabled = true
+
+[node name="BulletHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="BulletCollision" type="CollisionShape2D" parent="BulletHitbox"]
+shape = SubResource( 6 )
+disabled = true
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
+[connection signal="body_entered" from="Activation_area" to="." method="_on_Activation_area_body_entered"]
+[connection signal="body_exited" from="Activation_area" to="." method="_on_Activation_area_body_exited"]
+[connection signal="area_entered" from="BulletHitbox" to="." method="_on_BulletHitbox_area_entered"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://UI/Menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/Menu/Start.png" type="Texture" id=2]
+[ext_resource path="res://assets/Menu/button_start_pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/Menu/Credicks.png" type="Texture" id=4]
+[ext_resource path="res://assets/Menu/button_credits_pressed.png" type="Texture" id=5]
+[ext_resource path="res://assets/Menu/Quit.png" type="Texture" id=6]
+[ext_resource path="res://assets/Menu/button_quit_pressed.png" type="Texture" id=7]
+[ext_resource path="res://assets/Menu/title.png" type="Texture" id=8]
+
+[node name="Menu" type="Control"]
+anchor_left = -0.00139198
+anchor_right = 0.998608
+anchor_bottom = 1.0
+margin_right = -16.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_start" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -74.5
+margin_top = 45.5
+margin_right = 74.5
+margin_bottom = 82.5
+texture_normal = ExtResource( 2 )
+texture_hover = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_credits" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -74.5
+margin_top = 99.5
+margin_right = 74.5
+margin_bottom = 178.5
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_quit" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -74.5
+margin_top = 232.5
+margin_right = 74.5
+margin_bottom = 269.5
+texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 640.843, 166.124 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[connection signal="pressed" from="Button_start" to="." method="_on_Button_start_pressed"]
+[connection signal="pressed" from="Button_quit" to="." method="_on_Button_quit_pressed"]

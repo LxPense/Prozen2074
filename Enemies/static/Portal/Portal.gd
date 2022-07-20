@@ -1,0 +1,23 @@
+extends "res://Enemies/Enemy.gd"
+
+const BULLET_RANDOMSTUFF = preload("res://Bullets/Bullet_RandomStuff.tscn") 
+
+
+func _init().(100, 0, 3):
+	can_shoot = true
+	shot_ready = false
+	hasActivation = true
+	follow = false
+	pass
+
+func shoot():
+	if(shot_ready):
+		var newBullet = BULLET_RANDOMSTUFF.instance()
+		newBullet.transform = $Sprite/bulletPosition.global_transform
+		newBullet.set_direction("left")
+		$"/root/Game/Level/BulletsList".add_child(newBullet)
+		shot_ready = false
+
+func _on_Activation_area_body_entered(body):
+	if body.is_in_group("player") && hasActivation:
+		print("AAAa")

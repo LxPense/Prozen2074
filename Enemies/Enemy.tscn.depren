@@ -1,0 +1,84 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle2.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle3.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle4.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle5.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle6.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle1.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle9.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle10.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle11.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle8.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle12.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle7.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack3.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack4.png" type="Texture" id=14]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack2.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack1.png" type="Texture" id=16]
+[ext_resource path="res://Enemies/dynamic/Enemy.gd" type="Script" id=17]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullIdle13.png" type="Texture" id=18]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack5.png" type="Texture" id=19]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack8.png" type="Texture" id=20]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack7.png" type="Texture" id=21]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack10.png" type="Texture" id=22]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack11.png" type="Texture" id=23]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack9.png" type="Texture" id=24]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack6.png" type="Texture" id=25]
+[ext_resource path="res://assets/enemy/flamingSkull/bskullAttack12.png" type="Texture" id=26]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "idle",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 19 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": true,
+"name": "triggered",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.97928
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 16.5566
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 8.23316
+
+[node name="Enemy" type="KinematicBody2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 17 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "idle"
+frame = 9
+playing = true
+
+[node name="activation_area" type="Area2D" parent="."]
+space_override = 3
+
+[node name="activ_area" type="CollisionShape2D" parent="activation_area"]
+position = Vector2( 2.98023e-08, 0 )
+scale = Vector2( 3, 3 )
+shape = SubResource( 2 )
+
+[node name="collision_area" type="Area2D" parent="."]
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="collision_area"]
+position = Vector2( -3.12924e-07, -3.47197e-06 )
+shape = SubResource( 3 )
+
+[node name="TileCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.333, 2.333 )
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="activation_area" to="." method="_on_activation_area_body_entered"]
+[connection signal="body_exited" from="activation_area" to="." method="_on_activation_area_body_exited"]
+[connection signal="area_entered" from="collision_area" to="." method="_on_collision_area_area_entered"]
+[connection signal="body_entered" from="collision_area" to="." method="_on_collision_area_body_entered"]
