@@ -228,9 +228,7 @@ extents = Vector2( 22.7914, 14.4114 )
 [sub_resource type="RectangleShape2D" id=28]
 extents = Vector2( 24.8099, 10.5892 )
 
-[node name="Player" type="KinematicBody2D" groups=[
-"player",
-]]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 scale = Vector2( 3, 3 )
 collision_layer = 8
 collision_mask = 2
@@ -241,7 +239,7 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 15
+frame = 16
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 16 )

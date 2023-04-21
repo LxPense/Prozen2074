@@ -15,9 +15,6 @@ anchor_right = 0.998608
 anchor_bottom = 1.0
 margin_right = -16.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button_start" type="TextureButton" parent="."]
 anchor_left = 0.5

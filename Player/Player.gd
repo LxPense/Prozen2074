@@ -78,7 +78,8 @@ func check_input():
 		
 func animate(velocity):
 	animationTree.set("parameters/Move/blend_position", velocity)
-	animationTree.set("parameters/Idle/blend_position", velocity)
+	#animationTree.set("parameters/Idle/blend_position", velocity)
+	pass
 	
 func shoot_manual():
 	if manual_shot_ready:
