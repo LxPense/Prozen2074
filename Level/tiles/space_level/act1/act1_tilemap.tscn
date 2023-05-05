@@ -1,17 +1,212 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://Level/tiles/space_level/act1/act1_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Level/tiles/space_level/act1/tiles/asteroid.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/dynamic/Shuttle/Shuttle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/FlamingSkull.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/static/Portal/Portal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/dynamic/BrokenThruster/BrokenThruster.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemies/dynamic/Drone/Drone.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+
+[sub_resource type="TileSet" id=19]
+0/name = "asteroid.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 192, 192 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 48, 48 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 1 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
 
 [node name="tilemap" type="Node2D"]
 scale = Vector2( 1.36, 1.36 )
 
 [node name="Kachelebene 1" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
+tile_set = SubResource( 19 )
 cell_size = Vector2( 48, 48 )
-cell_quadrant_size = 48
-cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
 show_collision = true
 compatibility_mode = true
 collision_layer = 2
 format = 1
-tile_data = PoolIntArray( -65531, 16, 0, -65530, 16, 0, -65529, 16, 0, -65527, 16, 0, -65526, 16, 0, 2, 25, 0, 3, 25, 0, 4, 25, 0, 5, 16, 65536, 6, 16, 65538, 7, 16, 0, 9, 16, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 3, 15, 25, 0, 16, 25, 0, 17, 25, 3, 20, 8, 0, 35, 8, 0, 36, 8, 0, 37, 8, 0, 38, 8, 0, 39, 8, 0, 40, 8, 0, 41, 8, 0, 42, 8, 0, 43, 8, 0, 44, 8, 0, 51, 8, 0, 52, 8, 0, 53, 8, 0, 311, 8, 0, 312, 8, 0, 315, 8, 0, 316, 8, 0, 320, 8, 0, 335, 8, 0, 65541, 16, 0, 65542, 16, 0, 65543, 16, 0, 65544, 16, 0, 65549, 0, 0, 65550, 0, 0, 65556, 8, 0, 65573, 8, 0, 65574, 8, 0, 65575, 8, 0, 65576, 8, 0, 65577, 8, 0, 65578, 8, 0, 65579, 8, 0, 65586, 8, 0, 65587, 8, 0, 65589, 8, 0, 65590, 8, 0, 65871, 8, 0, 131092, 8, 0, 131121, 8, 0, 131126, 8, 0, 131127, 8, 0, 131407, 8, 0, 196656, 8, 0, 196657, 8, 0, 196662, 8, 0, 196663, 8, 0, 196664, 8, 0, 196943, 8, 0, 262192, 8, 0, 262193, 8, 0, 262194, 8, 0, 262198, 8, 0, 262200, 8, 0, 262201, 8, 0, 262446, 8, 0, 262447, 8, 0, 262448, 8, 0, 262449, 8, 0, 262450, 8, 0, 262451, 8, 0, 262452, 8, 0, 262453, 8, 0, 262479, 8, 0, 327711, 8, 0, 327712, 8, 0, 327713, 8, 0, 327714, 8, 0, 327715, 8, 0, 327716, 8, 0, 327717, 8, 0, 327718, 8, 0, 327719, 8, 0, 327720, 8, 0, 327721, 8, 0, 327722, 8, 0, 327723, 8, 0, 327728, 8, 0, 327729, 8, 0, 327734, 8, 0, 327735, 8, 0, 327736, 8, 0, 327826, 8, 0, 327827, 8, 0, 328015, 8, 0, 393222, 16, 0, 393223, 16, 0, 393224, 16, 0, 393247, 8, 0, 393248, 8, 0, 393249, 8, 0, 393250, 8, 0, 393251, 8, 0, 393252, 8, 0, 393253, 8, 0, 393254, 8, 0, 393255, 8, 0, 393256, 8, 0, 393257, 8, 0, 393258, 8, 0, 393259, 8, 0, 393260, 8, 0, 393265, 8, 0, 393266, 8, 0, 393267, 8, 0, 393268, 8, 0, 393269, 8, 0, 393270, 8, 0, 393271, 8, 0, 393283, 8, 0, 393284, 8, 0, 393285, 8, 0, 393425, 8, 0, 393474, 8, 0, 393536, 8, 0, 458752, 8, 0, 458762, 8, 0, 458772, 8, 0, 458782, 8, 0, 458783, 8, 0, 458796, 8, 0, 458797, 8, 0, 458803, 8, 0, 458804, 8, 0, 458805, 8, 0, 458806, 8, 0, 458807, 8, 0, 459058, 8, 0, 459072, 8, 0, 459087, 8, 0, 524289, 8, 0, 524290, 8, 0, 524291, 8, 0, 524292, 8, 0, 524293, 8, 0, 524294, 8, 0, 524295, 8, 0, 524296, 8, 0, 524297, 8, 0, 524299, 8, 0, 524300, 8, 0, 524301, 8, 0, 524302, 8, 0, 524303, 8, 0, 524304, 8, 0, 524305, 8, 0, 524306, 8, 0, 524307, 8, 0, 524309, 8, 0, 524310, 8, 0, 524311, 8, 0, 524312, 8, 0, 524313, 8, 0, 524314, 8, 0, 524315, 8, 0, 524316, 8, 0, 524317, 8, 0, 524319, 8, 0, 524333, 8, 0, 524341, 8, 0, 524342, 8, 0, 524343, 8, 0, 524608, 8, 0, 524623, 8, 0, 524637, 8, 0, 589869, 8, 0, 589870, 8, 0, 590144, 8, 0, 590159, 8, 0, 655364, 1, 0, 655406, 8, 0, 655407, 8, 0, 655408, 8, 0, 655663, 8, 0, 655664, 8, 0, 655665, 8, 0, 655666, 8, 0, 655667, 8, 0, 655668, 8, 0, 655680, 8, 0, 655695, 8, 0, 720944, 8, 0, 720945, 8, 0, 720946, 8, 0, 720947, 8, 0, 720948, 8, 0, 720950, 8, 0, 720951, 8, 0, 720952, 8, 0, 720953, 8, 0, 720954, 8, 0, 721205, 8, 0, 721206, 8, 0, 721216, 8, 0, 721231, 8, 0, 786484, 8, 0, 786485, 8, 0, 786486, 8, 0, 786487, 8, 0, 786488, 8, 0, 786489, 8, 0, 786490, 8, 0, 786752, 8, 0, 852288, 8, 0, 852303, 8, 0, 917824, 8, 0, 917839, 8, 0, 983360, 8, 0, 983375, 8, 0, 1048896, 8, 0, 1048911, 8, 0, 1114447, 8, 0 )
+tile_data = PoolIntArray( 196617, 0, 0, 196618, 0, 1, 196619, 0, 3, 262153, 0, 65536, 262154, 0, 65537, 262155, 0, 131075, 327689, 0, 65536, 327690, 0, 65537, 327691, 0, 131075, 393225, 0, 65536, 393226, 0, 65537, 393227, 0, 65539, 458761, 0, 196608, 458762, 0, 196609, 458763, 0, 196611, 655363, 0, 0, 655364, 0, 1, 655365, 0, 1, 655366, 0, 1, 655367, 0, 1, 655368, 0, 3 )
+
+[node name="Enemies" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FlamingSkull" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 2166.78, 66.1342 )
+
+[node name="Shuttle" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 1125.15, 85.4513 )
+collision_layer = 2
+
+[node name="Drone" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 2262, 242 )
+collision_layer = 2
+
+[node name="Portal" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 1832, 418 )
+
+[node name="BrokenThruster" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 1638, 272 )
+collision_layer = 2

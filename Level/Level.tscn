@@ -18,12 +18,20 @@ transform = Transform2D( 1, 0, 0, 1, -640, -360 )
 motion_scale = Vector2( 0, 0 )
 
 [node name="bg_spacebase" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 position = Vector2( -12, 0 )
 scale = Vector2( 3.5008, 3.5 )
 texture = ExtResource( 10 )
 centered = false
 
+[node name="bg_space" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
+position = Vector2( -12, 0 )
+scale = Vector2( 3.5008, 3.5 )
+centered = false
+
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 motion_scale = Vector2( 0.2, 0.2 )
 motion_mirroring = Vector2( 5000, 0 )
 
@@ -33,24 +41,25 @@ scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 11 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 motion_scale = Vector2( 0.4, 0.4 )
 
 [node name="bg_cloud" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
-visible = false
 modulate = Color( 1, 1, 1, 0.298039 )
 position = Vector2( 8752, 632 )
 scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 12 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 motion_scale = Vector2( 0.6, 0.6 )
 
 [node name="bg_spacestar1" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-visible = false
 position = Vector2( 8752, 632 )
 scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 6 )
 
 [node name="tiles" type="Node2D" parent="."]
+visible = false
 
 [node name="tilemap" parent="tiles" instance=ExtResource( 1 )]

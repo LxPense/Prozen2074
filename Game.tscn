@@ -24,25 +24,31 @@ position = Vector2( 60.1837, 340.481 )
 [node name="HUD" parent="Level/Player" instance=ExtResource( 5 )]
 
 [node name="Enemies" type="Node2D" parent="Level"]
+visible = false
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="FlamingSkull" parent="Level/Enemies" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2166.78, 66.1342 )
 
 [node name="Shuttle" parent="Level/Enemies" instance=ExtResource( 10 )]
+visible = false
 position = Vector2( 1125.15, 85.4513 )
 collision_layer = 2
 
 [node name="Drone" parent="Level/Enemies" instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 2262, 242 )
 collision_layer = 2
 
 [node name="Portal" parent="Level/Enemies" instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 1832, 418 )
 
 [node name="BrokenThruster" parent="Level/Enemies" instance=ExtResource( 11 )]
+visible = false
 position = Vector2( 1638, 272 )
 collision_layer = 2
 
