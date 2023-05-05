@@ -1,17 +1,12 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bullets/Bullet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Enemies/dynamic/FlamingSkull/FlamingSkull.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Level/tiles/space_level/act1/act1_tilemap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Enemies/dynamic/Drone/Drone.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Camera.gd" type="Script" id=9]
-[ext_resource path="res://Enemies/dynamic/Shuttle/Shuttle.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Enemies/dynamic/BrokenThruster/BrokenThruster.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Enemies/static/Portal/Portal.tscn" type="PackedScene" id=12]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -22,35 +17,6 @@ script = ExtResource( 2 )
 position = Vector2( 60.1837, 340.481 )
 
 [node name="HUD" parent="Level/Player" instance=ExtResource( 5 )]
-
-[node name="Enemies" type="Node2D" parent="Level"]
-visible = false
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="FlamingSkull" parent="Level/Enemies" instance=ExtResource( 6 )]
-visible = false
-position = Vector2( 2166.78, 66.1342 )
-
-[node name="Shuttle" parent="Level/Enemies" instance=ExtResource( 10 )]
-visible = false
-position = Vector2( 1125.15, 85.4513 )
-collision_layer = 2
-
-[node name="Drone" parent="Level/Enemies" instance=ExtResource( 8 )]
-visible = false
-position = Vector2( 2262, 242 )
-collision_layer = 2
-
-[node name="Portal" parent="Level/Enemies" instance=ExtResource( 12 )]
-visible = false
-position = Vector2( 1832, 418 )
-
-[node name="BrokenThruster" parent="Level/Enemies" instance=ExtResource( 11 )]
-visible = false
-position = Vector2( 1638, 272 )
-collision_layer = 2
 
 [node name="BulletsList" type="Node2D" parent="Level"]
 __meta__ = {

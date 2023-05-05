@@ -47,6 +47,7 @@ script = ExtResource( 2 )
 [node name="BulletAnimation" parent="." index="0"]
 frames = SubResource( 1 )
 animation = "phone"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" parent="." index="1"]

@@ -1,22 +1,14 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Level/tiles/space_level/act1/tiles/asteroid.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/dynamic/Shuttle/Shuttle.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Enemies/dynamic/FlamingSkull/FlamingSkull.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/static/Portal/Portal.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Enemies/dynamic/BrokenThruster/BrokenThruster.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Enemies/dynamic/Drone/Drone.tscn" type="PackedScene" id=6]
-
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
@@ -25,16 +17,10 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
-points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
-
 [sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
-points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=13]
@@ -55,6 +41,18 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 [sub_resource type="ConvexPolygonShape2D" id=20]
 points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 0, 48, 48, 0, 48, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=22]
+points = PoolVector2Array( 0, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=23]
+points = PoolVector2Array( 0, 48, 0, 0, 48, 0, 48, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 48, 0, 48, 48, 0, 0, 0, 0 )
+
 [sub_resource type="TileSet" id=19]
 0/name = "asteroid.png 0"
 0/texture = ExtResource( 1 )
@@ -73,16 +71,10 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
+0/shape = SubResource( 3 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 1 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
 "autotile_coord": Vector2( 1, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
@@ -93,12 +85,6 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 4 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 3, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 5 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 1 ),
@@ -113,12 +99,6 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 "shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
-"autotile_coord": Vector2( 3, 3 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 9 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
 "autotile_coord": Vector2( 2, 3 ),
 "one_way": false,
 "one_way_margin": 1.0,
@@ -129,12 +109,6 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 11 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 0, 3 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 12 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 1 ),
@@ -172,6 +146,30 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
 "one_way_margin": 1.0,
 "shape": SubResource( 20 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 22 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 23 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 
@@ -193,20 +191,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="FlamingSkull" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 2166.78, 66.1342 )
-
 [node name="Shuttle" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 1125.15, 85.4513 )
+position = Vector2( 1704.41, 106.618 )
 collision_layer = 2
 
 [node name="Drone" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 2262, 242 )
+position = Vector2( 2230.15, 294.118 )
 collision_layer = 2
 
 [node name="Portal" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1832, 418 )
-
-[node name="BrokenThruster" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 1638, 272 )
-collision_layer = 2
+position = Vector2( 1250, 415.441 )
