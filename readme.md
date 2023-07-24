@@ -4,4 +4,4 @@ The whole project data of Prozen2074, a space shoot 'em up that's been in develo
 
 ## Local developement
 
-1. Open index.html in your browser pleasee.
+1. Open index.html in your browser please.
