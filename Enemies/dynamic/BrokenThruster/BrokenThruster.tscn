@@ -46,6 +46,7 @@ tracks/0/keys = {
 [node name="BrokenThruster" instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
 script = ExtResource( 11 )
+movement_type = 0
 
 [node name="TileCollision" parent="." index="0"]
 position = Vector2( -7.54, 0 )
@@ -58,7 +59,7 @@ position = Vector2( 0.920889, 0 )
 rotation = -1.5708
 texture = ExtResource( 2 )
 hframes = 10
-frame = 3
+frame = 9
 
 [node name="AnimationPlayer" parent="Sprite" index="1"]
 playback_default_blend_time = 2.0
