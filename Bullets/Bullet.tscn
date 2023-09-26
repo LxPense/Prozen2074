@@ -14,9 +14,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 4.49289, 1.5 )
 
-[node name="Bullet" type="Area2D" groups=[
-"bullet",
-]]
+[node name="Bullet" type="Area2D" groups=["bullet"]]
 scale = Vector2( 1.36, 1.36 )
 collision_layer = 4
 collision_mask = 0

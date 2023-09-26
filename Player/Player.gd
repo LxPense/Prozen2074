@@ -85,6 +85,7 @@ func shoot_manual():
 	if manual_shot_ready:
 		var bullet = Bullet.instance()
 		bullet.transform = $BulletSpawn.global_transform
+		bullet.set_collision_layer_bit(4, true)
 		$"/root/Game/Level/BulletsList".add_child(bullet)
 		manual_shot_ready = false
 		
@@ -92,6 +93,7 @@ func shoot_auto():
 	if automatic_shot_ready and $CooldownAuto.time_left <= 0:
 		var bullet = Bullet.instance()
 		bullet.transform = $BulletSpawn.global_transform
+		bullet.set_collision_layer_bit(4, true)
 		$"/root/Game/Level/BulletsList".add_child(bullet)
 		automatic_shot_ready = false
 		

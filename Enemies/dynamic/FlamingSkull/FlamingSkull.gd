@@ -13,5 +13,6 @@ func _on_Activation_area_body_entered(body):	# If the player enters the activati
 		following = true
 	
 	
-func _on_Activation_area_body_exited(body):	# If the player enters the activation_area
+func _on_Activation_area_body_exited(body):	# If the player exits the activation_area
 	pass
+	
