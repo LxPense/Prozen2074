@@ -88,6 +88,9 @@ anims/idle = SubResource( 2 )
 anims/spawn = SubResource( 3 )
 anims/triggered = SubResource( 4 )
 
+[node name="EntityHitbox" parent="." index="2"]
+collision_mask = 8
+
 [node name="PlayerCollision" parent="EntityHitbox" index="0"]
 position = Vector2( 9.53674e-07, 8 )
 shape = SubResource( 5 )

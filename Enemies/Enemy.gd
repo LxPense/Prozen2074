@@ -157,7 +157,7 @@ func followPlayer():
 		
 func _on_BulletHitbox_area_entered(area):
 	if area.is_in_group("bullet"):
-		onHit()
+			onHit()
 
 
 
