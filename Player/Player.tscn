@@ -239,7 +239,7 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 15
+frame = 12
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 16 )
@@ -285,7 +285,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="BulletCollision" type="CollisionShape2D" parent="BulletHitBox"]
-position = Vector2( -3.86272, 8.36558 )
+position = Vector2( -4.1758, 7.58529 )
 scale = Vector2( 0.643283, 0.662715 )
 shape = SubResource( 28 )
 
@@ -302,8 +302,14 @@ wait_time = 0.4
 wait_time = 2.0
 one_shot = true
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 19.3333, 8 )
+scale = Vector2( 2, 1.4 )
+
 [connection signal="area_entered" from="EnemyHitBox" to="." method="_on_EnemyHitBox_area_entered"]
 [connection signal="area_entered" from="BulletHitBox" to="." method="_on_BulletHitBox_area_entered"]
 [connection signal="timeout" from="CooldownManual" to="." method="_on_CooldownManual_timeout"]
 [connection signal="timeout" from="CooldownAuto/HolddownTime" to="." method="_on_HolddownTime_timeout"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

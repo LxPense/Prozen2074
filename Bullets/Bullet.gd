@@ -14,9 +14,9 @@ func _physics_process(delta):
 		position -= transform.x * speed * delta 
 
 func check_out_of_bounds():
-	if position.x > $"/root/Game/Level/Camera".offset.x + 1280:
+	if position.x > $"/root/Game/View/Camera".offset.x + 1280:
 		self.queue_free()
-	elif position.x < $"/root/Game/Level/Camera".offset.x:
+	elif position.x < $"/root/Game/View/Camera".offset.x:
 		self.queue_free()
 		
 		

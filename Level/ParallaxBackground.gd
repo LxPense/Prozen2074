@@ -1,0 +1,7 @@
+class_name Prozen_ParallaxBackground
+extends ParallaxBackground
+
+func _ready():
+	pass # Replace with function body.
+
+

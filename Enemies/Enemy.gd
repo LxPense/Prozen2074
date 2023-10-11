@@ -6,6 +6,10 @@ var firstActivation = false #holds boolean if the activation is the first one or
 var starting_pos
 var movement
 
+onready var states = {
+	
+}
+
 var health = 1
 var score = 0
 var speed = 200
@@ -43,7 +47,9 @@ func can_shoot_at(max_movement):
 	if current_movement == max_movement:
 		can_shoot = true
 	
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
+	#states._physics_process(_delta)
+	
 	check_inside_camera()
 	if(inside_camera):
 		
@@ -51,7 +57,7 @@ func _physics_process(_delta):
 		canMove = true
 		
 		if player == null:
-			player = $"/root/Game/Level/Player"
+			player = $"/root/Game/View/Player"
 	
 		if canMove:
 			handle_movement()
@@ -99,14 +105,14 @@ func move(movement_vector, movement_nr, keep_movement, loop): #movement_nr ident
 # Checks whether the enemy is inside/near the camera
 func check_inside_camera():
 	#If the enemy is inside the camera, then active is set to true
-	if position.x + $"EntityHitbox/PlayerCollision".shape.extents.x > $"/root/Game/Level/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x <= $"/root/Game/Level/Camera".offset.x + 1280 + OUTSIDE_BUFFER \
+	if position.x + $"EntityHitbox/PlayerCollision".shape.extents.x > $"/root/Game/View/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x <= $"/root/Game/View/Camera".offset.x + 1280 + OUTSIDE_BUFFER \
 	  and position.y > 0 and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y < 720:
 		inside_camera = true
 		
 	
 	#If the enemy spawns above the camera and is OUTSIDE_BUFFER pixels outside of it, this code makes it move
 	# NOTE: The outside buffer is important so that the truster doesn't stop for some reason
-	elif position.x > $"/root/Game/Level/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x < $"/root/Game/Level/Camera".offset.x + 1280 \
+	elif position.x > $"/root/Game/View/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x < $"/root/Game/View/Camera".offset.x + 1280 \
 		and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y + OUTSIDE_BUFFER > 0: 
 		handle_movement()
 		inside_camera = false
@@ -114,11 +120,11 @@ func check_inside_camera():
 	
 	#If the enemy spawns to the right of the camera and is OUTSIDE_BUFFER pixels outside of it, this code makes it move
 	elif position.y > 0 and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y < 720  \
-		and position.x > $"/root/Game/Level/Camera".offset.x + 1280 and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x - OUTSIDE_BUFFER < $"/root/Game/Level/Camera".offset.x + 1280:
+		and position.x > $"/root/Game/View/Camera".offset.x + 1280 and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x - OUTSIDE_BUFFER < $"/root/Game/View/Camera".offset.x + 1280:
 		handle_movement()
 		inside_camera = true
 		
-	elif position.x <= $"/root/Game/Level/Camera".offset.x - OUTSIDE_BUFFER:
+	elif position.x <= $"/root/Game/View/Camera".offset.x - OUTSIDE_BUFFER:
 		inside_camera = false
 			
 func onHit():
@@ -132,7 +138,7 @@ func shoot():
 		var newBullet = BULLET.instance()
 		newBullet.transform = $Sprite/bulletPosition.global_transform
 		newBullet.set_direction("left")
-		$"/root/Game/Level/BulletsList".add_child(newBullet)
+		$"/root/Game/View/BulletsList".add_child(newBullet)
 		shot_ready = false
 	
 func despawn():

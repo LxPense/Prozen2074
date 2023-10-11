@@ -14,9 +14,9 @@ func updateScore(score):
 	$TextDisplay/TextHolder/ScoreText.text = "Score: %s" % (str(score))
 	
 func _on_Update_timeout():
-	if($"/root/Game/Level/Player".score > current_score):
-		updateScore($"/root/Game/Level/Player".score)
-		current_score = $"/root/Game/Level/Player".score
+	if($"/root/Game/View/Player".score > current_score):
+		updateScore($"/root/Game/View/Player".score)
+		current_score = $"/root/Game/View/Player".score
 			
 # This method changes the heart animation
 # heartnum stands for the first (1), second (2) and third (3) heart

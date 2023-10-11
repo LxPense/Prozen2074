@@ -13,7 +13,7 @@ var automatic_shot_ready = false
 
 var health = 3
 var vulnerable = true
-
+var inside_screen: bool = false
 #Lives is stored inside the singleton PlayerVariables, so it remains the same even when the Level-scene is reset (which happens if the player loses all its health)
 var lives
 
@@ -24,7 +24,7 @@ signal heart_depleted(heart, active)
 var current_hitting_area = null
 onready var animationPlayer = $Sprite/AnimationPlayer
 onready var animationTree = $Sprite/AnimationTree
-onready var animationState = $Sprite/AnimationTree.get("parameters/playback")
+#onready var animationState = $Sprite/AnimationTree.get("parameters/playback")
 onready var flashShaderPlayer = $Sprite/FlashShaderPlayer 
 
 func _ready():
@@ -33,24 +33,21 @@ func _ready():
 
 func _physics_process(_delta):
 	check_input()
-	check_outside()
 	
 	position = position + WallVariables.WALL_CURRENT_MOVEMENT
 	PlayerVariables.player_position = position
 
 func check_input():
 	var velocity = Vector2.ZERO	
-	print($"/root/Game/Level/Camera".offset.x)
-	print(position.x)
 	
-	if Input.is_action_pressed("move_right") and (position.x + 110 < $"/root/Game/Level/Camera".offset.x + 1280):
+	if Input.is_action_pressed("move_right") and (position.x + 110 < $"/root/Game/View/Camera".offset.x + 1280):
 		velocity.x += 1
-	elif Input.is_action_pressed("move_right") and position.x + 110 >= $"/root/Game/Level/Camera".offset.x + 1280:			#Not good: values (128, , 52) are from trial and error, are not exact
+	elif Input.is_action_pressed("move_right") and position.x + 110 >= $"/root/Game/View/Camera".offset.x + 1280:			#Not good: values (128, , 52) are from trial and error, are not exact
 		velocity.x = 0															#Too bad!
 
-	if Input.is_action_pressed("move_left") and (position.x >= $"/root/Game/Level/Camera".offset.x):
+	if Input.is_action_pressed("move_left") and (position.x >= $"/root/Game/View/Camera".offset.x):
 		velocity.x -= 1
-	elif Input.is_action_pressed("move_left") and position.x <= $"/root/Game/Level/Camera".offset.x:
+	elif Input.is_action_pressed("move_left") and position.x <= $"/root/Game/View/Camera".offset.x:
 		velocity.x += 0															#There is no change because the player can get crushed by tiles in the left direction, changing it would mean that the player couldn't get crushed
 
 	if Input.is_action_pressed("move_up") and (position.y >= 0):
@@ -76,9 +73,13 @@ func check_input():
 	move_and_slide(velocity.normalized() * SPEED)
 	animate(velocity)
 		
+		
+		#TODO 01.2023: Since adding the scripts for the state-machine, this somehow gives an exception
+		#	   		   find out what's going wrong and complete the state-machine
+		
 func animate(velocity):
 	animationTree.set("parameters/Move/blend_position", velocity)
-	#animationTree.set("parameters/Idle/blend_position", velocity)
+	animationTree.set("parameters/Idle/blend_position", velocity)
 	pass
 	
 func shoot_manual():
@@ -86,7 +87,7 @@ func shoot_manual():
 		var bullet = Bullet.instance()
 		bullet.transform = $BulletSpawn.global_transform
 		bullet.set_collision_layer_bit(4, true)
-		$"/root/Game/Level/BulletsList".add_child(bullet)
+		$"/root/Game/View/BulletsList".add_child(bullet)
 		manual_shot_ready = false
 		
 func shoot_auto():
@@ -94,12 +95,8 @@ func shoot_auto():
 		var bullet = Bullet.instance()
 		bullet.transform = $BulletSpawn.global_transform
 		bullet.set_collision_layer_bit(4, true)
-		$"/root/Game/Level/BulletsList".add_child(bullet)
+		$"/root/Game/View/BulletsList".add_child(bullet)
 		automatic_shot_ready = false
-		
-func check_outside():
-	if position.x + 111 <= $"/root/Game/Level/Camera".offset.x:
-		get_tree().change_scene("res://UI/Menu.tscn")
 
 func hit():
 	if vulnerable:	
@@ -149,3 +146,12 @@ func _on_EnemyHitBox_area_entered(area):
 	if area.name == "EntityHitbox" and current_hitting_area != area or area != null:
 		current_hitting_area = area
 		hit()
+
+func _on_VisibilityNotifier2D_screen_exited():
+	inside_screen = false
+	get_tree().change_scene("res://UI/Menu.tscn")
+	
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	inside_screen = true

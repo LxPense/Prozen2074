@@ -8,8 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "BaseState",
+"language": "GDScript",
+"path": "res://Enemies/BaseState.gd"
+}, {
+"base": "ParallaxBackground",
+"class": "Prozen_ParallaxBackground",
+"language": "GDScript",
+"path": "res://Level/ParallaxBackground.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://States/State.gd"
+} ]
 _global_script_class_icons={
+"BaseState": "",
+"Prozen_ParallaxBackground": "",
+"State": ""
 }
 
 [application]

@@ -5,7 +5,7 @@ func _init().(100, 200, 2):
 	shot_ready = false
 	hasActivation = true
 	follow = true
-	pass
+	
 	
 func _on_Activation_area_body_entered(body):	# If the player enters the activation_area
 	if body.is_in_group("player") && hasActivation:

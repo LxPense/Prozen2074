@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://Enemies/BaseState.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -96,6 +97,11 @@ collision_mask = 16
 [node name="BulletCollision" type="CollisionShape2D" parent="BulletHitbox"]
 shape = SubResource( 6 )
 disabled = true
+
+[node name="State_Manager" type="Node" parent="."]
+
+[node name="BaseState" type="Node" parent="."]
+script = ExtResource( 2 )
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="body_entered" from="Activation_area" to="." method="_on_Activation_area_body_entered"]
