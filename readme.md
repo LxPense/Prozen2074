@@ -1,7 +1,3 @@
 # Prozen2074
 
-The whole project data of Prozen2074, a space shoot 'em up that's been in developement for 5+ years!
-
-## Local developement
-
-1. Open index.html in your browser pleasee.
+The whole project data of Prozen2074, a shoot 'em up that is being developed by me and Zyto
