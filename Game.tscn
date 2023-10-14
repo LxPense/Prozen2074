@@ -42,4 +42,4 @@ __meta__ = {
 [node name="Level_Controller" type="Node" parent="View"]
 script = ExtResource( 7 )
 
-[node name="Level_Space1" parent="View/Level_Controller" instance=ExtResource( 3 )]
+[node name="Level" parent="View/Level_Controller" instance=ExtResource( 3 )]

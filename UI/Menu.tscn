@@ -10,10 +10,10 @@
 [ext_resource path="res://assets/Menu/title.png" type="Texture" id=8]
 
 [node name="Menu" type="Control"]
-anchor_left = -0.00139198
 anchor_right = 0.998608
 anchor_bottom = 1.0
-margin_right = -16.0
+margin_left = 1.78173
+margin_right = 1.78174
 script = ExtResource( 1 )
 
 [node name="Button_start" type="TextureButton" parent="."]
