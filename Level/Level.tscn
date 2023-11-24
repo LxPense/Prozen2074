@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Level/tiles.gd" type="Script" id=1]
 [ext_resource path="res://Level/Level.gd" type="Script" id=2]
 [ext_resource path="res://Level/Enemies.gd" type="Script" id=3]
-[ext_resource path="res://Assets/misc/bootsplash.png" type="Texture" id=4]
+[ext_resource path="res://Assets/misc/hue.png" type="Texture" id=4]
+[ext_resource path="res://Level/PlayerPointer.gd" type="Script" id=5]
 [ext_resource path="res://Level/ParallaxBackground.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 86.875, 359.125 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -16,7 +20,6 @@ script = ExtResource( 9 )
 z_index = -10
 
 [node name="image1" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 4 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
@@ -86,3 +89,25 @@ cell_size = Vector2( 48, 48 )
 cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
 show_collision = true
 format = 1
+
+[node name="LevelEnd" type="Area2D" parent="other"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="EndMarker" type="CollisionShape2D" parent="other/LevelEnd"]
+position = Vector2( 53, 187 )
+shape = SubResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="other/LevelEnd/EndMarker"]
+margin_left = -89.0
+margin_top = -358.0
+margin_right = 111.0
+margin_bottom = 362.0
+rect_scale = Vector2( 0.91476, 1.00247 )
+texture = ExtResource( 4 )
+
+[node name="PlayerPointer" type="Node2D" parent="other"]
+position = Vector2( 448, 208 )
+script = ExtResource( 5 )
+
+[connection signal="body_entered" from="other/LevelEnd" to="." method="_on_Area2D_body_entered"]

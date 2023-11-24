@@ -150,8 +150,6 @@ func _on_EnemyHitBox_area_entered(area):
 func _on_VisibilityNotifier2D_screen_exited():
 	inside_screen = false
 	get_tree().change_scene("res://UI/Menu.tscn")
-	
-
 
 func _on_VisibilityNotifier2D_screen_entered():
 	inside_screen = true

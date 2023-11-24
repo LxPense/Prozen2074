@@ -4,6 +4,7 @@ var current_score = 0
 
 func _ready():
 	updateScore(0)
+	
 	# Sets the text for the lives to the default starting amount (for example 3)
 	$Lives/LivesText.text = str(PlayerVariables.get_lives())
 

@@ -15,7 +15,7 @@ func shoot():
 		var newBullet = BULLET_RANDOMSTUFF.instance()
 		newBullet.transform = $Sprite/bulletPosition.global_transform
 		newBullet.set_direction("left")
-		$"/root/Game/Level/BulletsList".add_child(newBullet)
+		$"/root/Game/View/BulletsList".add_child(newBullet)
 		shot_ready = false
 
 func _on_Activation_area_body_entered(body):
