@@ -24,4 +24,4 @@ texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 300000, 720 )
 
 [node name="EndMarker" parent="other/LevelEnd" index="0"]
-position = Vector2( 1411, 10 )
+position = Vector2( 4065, 8 )
