@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/starfx.png-3d4068a9c067137deee476d0ab66ede3.stex"
+path="res://.import/starfx.png-5b972576ab0b795777b020007411a5f3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/Shuttle/laser/starfx.png"
-dest_files=[ "res://.import/starfx.png-3d4068a9c067137deee476d0ab66ede3.stex" ]
+source_file="res://Assets/enemy/dynamic/Shuttle/laser/starfx.png"
+dest_files=[ "res://.import/starfx.png-5b972576ab0b795777b020007411a5f3.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

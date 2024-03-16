@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Catpoo_04.png-3776f21d8a30831941fb299813f46333.stex"
+path="res://.import/Catpoo_04.png-ceebb1c3a882368609abb5a05a289608.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Catpoo/Catpoo_04.png"
-dest_files=[ "res://.import/Catpoo_04.png-3776f21d8a30831941fb299813f46333.stex" ]
+source_file="res://Assets/bosses/Catpoo/Catpoo_04.png"
+dest_files=[ "res://.import/Catpoo_04.png-ceebb1c3a882368609abb5a05a289608.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

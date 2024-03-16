@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_thruster.png-bd1559174f4dafc496ec162aa3788df9.stex"
+path="res://.import/spritesheet_thruster.png-1575381ef1cbcdc79d31ec258ed8b763.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/BrokenThruster/spritesheet_thruster.png"
-dest_files=[ "res://.import/spritesheet_thruster.png-bd1559174f4dafc496ec162aa3788df9.stex" ]
+source_file="res://Assets/enemy/dynamic/BrokenThruster/spritesheet_thruster.png"
+dest_files=[ "res://.import/spritesheet_thruster.png-1575381ef1cbcdc79d31ec258ed8b763.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/p-puree1.png-e33424cc93695864ce899fa91bf162e1.stex"
+path="res://.import/p-puree1.png-566ee3537796343b78a627cc2e7cca3c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/static/Portal/projectiles/p-puree1.png"
-dest_files=[ "res://.import/p-puree1.png-e33424cc93695864ce899fa91bf162e1.stex" ]
+source_file="res://Assets/enemy/static/Portal/projectiles/p-puree1.png"
+dest_files=[ "res://.import/p-puree1.png-566ee3537796343b78a627cc2e7cca3c.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

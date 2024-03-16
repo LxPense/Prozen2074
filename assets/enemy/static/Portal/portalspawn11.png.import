@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portalspawn11.png-42815393b96a6d39dc3d21845d8c9cba.stex"
+path="res://.import/portalspawn11.png-ab8160da83842ca18b0a3ecd6dfac14f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/static/Portal/portalspawn11.png"
-dest_files=[ "res://.import/portalspawn11.png-42815393b96a6d39dc3d21845d8c9cba.stex" ]
+source_file="res://Assets/enemy/static/Portal/portalspawn11.png"
+dest_files=[ "res://.import/portalspawn11.png-ab8160da83842ca18b0a3ecd6dfac14f.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

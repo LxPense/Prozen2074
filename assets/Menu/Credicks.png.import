@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Credicks.png-7a1b5c518a71e659a590543bea52602f.stex"
+path="res://.import/Credicks.png-e1e2c5c69304c4bde86d425d937c7a94.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Menu/Credicks.png"
-dest_files=[ "res://.import/Credicks.png-7a1b5c518a71e659a590543bea52602f.stex" ]
+source_file="res://Assets/Menu/Credicks.png"
+dest_files=[ "res://.import/Credicks.png-e1e2c5c69304c4bde86d425d937c7a94.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

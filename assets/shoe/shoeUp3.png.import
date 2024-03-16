@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shoeUp3.png-97abf76459dd25d1966038964280ff01.stex"
+path="res://.import/shoeUp3.png-9b8c0b896916222cde48af1710f7964c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shoe/shoeUp3.png"
-dest_files=[ "res://.import/shoeUp3.png-97abf76459dd25d1966038964280ff01.stex" ]
+source_file="res://Assets/shoe/shoeUp3.png"
+dest_files=[ "res://.import/shoeUp3.png-9b8c0b896916222cde48af1710f7964c.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

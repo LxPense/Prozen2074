@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/p-phone3.png-1cfb4ac6ab19df3555e833fe81da797d.stex"
+path="res://.import/p-phone3.png-6f3325082dc5bf44419940204d6b4b5d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bullet/portal_bullet/p-phone3.png"
-dest_files=[ "res://.import/p-phone3.png-1cfb4ac6ab19df3555e833fe81da797d.stex" ]
+source_file="res://Assets/bullet/portal_bullet/p-phone3.png"
+dest_files=[ "res://.import/p-phone3.png-6f3325082dc5bf44419940204d6b4b5d.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

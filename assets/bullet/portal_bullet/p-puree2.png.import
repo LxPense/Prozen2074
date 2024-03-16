@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/p-puree2.png-5d717c0c89b8d514e51e9fd99439cb6b.stex"
+path="res://.import/p-puree2.png-3de1309e09ab3ee801e7f1999b22daac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bullet/portal_bullet/p-puree2.png"
-dest_files=[ "res://.import/p-puree2.png-5d717c0c89b8d514e51e9fd99439cb6b.stex" ]
+source_file="res://Assets/bullet/portal_bullet/p-puree2.png"
+dest_files=[ "res://.import/p-puree2.png-3de1309e09ab3ee801e7f1999b22daac.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

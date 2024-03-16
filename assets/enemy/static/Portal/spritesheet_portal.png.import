@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_portal.png-7aef375c8b69f5045418f4a3623e9951.stex"
+path="res://.import/spritesheet_portal.png-a3028b589e623b2defa309b93c4537e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/static/Portal/spritesheet_portal.png"
-dest_files=[ "res://.import/spritesheet_portal.png-7aef375c8b69f5045418f4a3623e9951.stex" ]
+source_file="res://Assets/enemy/static/Portal/spritesheet_portal.png"
+dest_files=[ "res://.import/spritesheet_portal.png-a3028b589e623b2defa309b93c4537e5.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

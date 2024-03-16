@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CatpooGUTTAGOFAST.png-e820ab276502c04d36ac0f0930c7919a.stex"
+path="res://.import/CatpooGUTTAGOFAST.png-ee87ed8d79c0080c25d7b7ad2cb0b4d5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Catpoo/CatpooGUTTAGOFAST.png"
-dest_files=[ "res://.import/CatpooGUTTAGOFAST.png-e820ab276502c04d36ac0f0930c7919a.stex" ]
+source_file="res://Assets/bosses/Catpoo/CatpooGUTTAGOFAST.png"
+dest_files=[ "res://.import/CatpooGUTTAGOFAST.png-ee87ed8d79c0080c25d7b7ad2cb0b4d5.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

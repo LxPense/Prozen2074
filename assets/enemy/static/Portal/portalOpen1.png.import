@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portalOpen1.png-265a26e8ca466a22214c0b8e9ac5d2fa.stex"
+path="res://.import/portalOpen1.png-d3262eed7a13e4364d9593c88649bf21.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/static/Portal/portalOpen1.png"
-dest_files=[ "res://.import/portalOpen1.png-265a26e8ca466a22214c0b8e9ac5d2fa.stex" ]
+source_file="res://Assets/enemy/static/Portal/portalOpen1.png"
+dest_files=[ "res://.import/portalOpen1.png-d3262eed7a13e4364d9593c88649bf21.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/button_start_pressed.png-d6654c98fb176547af9ff4449ca62cf8.stex"
+path="res://.import/button_start_pressed.png-4a07be82f7d345fe6dfe2da42ba14a0e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Menu/button_start_pressed.png"
-dest_files=[ "res://.import/button_start_pressed.png-d6654c98fb176547af9ff4449ca62cf8.stex" ]
+source_file="res://Assets/Menu/button_start_pressed.png"
+dest_files=[ "res://.import/button_start_pressed.png-4a07be82f7d345fe6dfe2da42ba14a0e.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

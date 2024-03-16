@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/p-flag3.png-7ccc50b52fec6e7bbc9bca2706a53899.stex"
+path="res://.import/p-flag3.png-07c7a8b959da76bffcb1de85f65ffbbc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bullet/portal_bullet/p-flag3.png"
-dest_files=[ "res://.import/p-flag3.png-7ccc50b52fec6e7bbc9bca2706a53899.stex" ]
+source_file="res://Assets/bullet/portal_bullet/p-flag3.png"
+dest_files=[ "res://.import/p-flag3.png-07c7a8b959da76bffcb1de85f65ffbbc.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

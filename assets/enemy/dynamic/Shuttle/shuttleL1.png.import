@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shuttleL1.png-c2128aa9a4601e0d123ec7a29657f440.stex"
+path="res://.import/shuttleL1.png-ff7f006d490d28cdbaeb3263498e8fa9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/Shuttle/shuttleL1.png"
-dest_files=[ "res://.import/shuttleL1.png-c2128aa9a4601e0d123ec7a29657f440.stex" ]
+source_file="res://Assets/enemy/dynamic/Shuttle/shuttleL1.png"
+dest_files=[ "res://.import/shuttleL1.png-ff7f006d490d28cdbaeb3263498e8fa9.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

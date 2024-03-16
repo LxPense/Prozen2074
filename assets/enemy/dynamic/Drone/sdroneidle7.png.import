@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sdroneidle7.png-bb72321faf8786457392a208dac4035c.stex"
+path="res://.import/sdroneidle7.png-7c45c885751fe8870814ac32e43fa278.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/Drone/sdroneidle7.png"
-dest_files=[ "res://.import/sdroneidle7.png-bb72321faf8786457392a208dac4035c.stex" ]
+source_file="res://Assets/enemy/dynamic/Drone/sdroneidle7.png"
+dest_files=[ "res://.import/sdroneidle7.png-7c45c885751fe8870814ac32e43fa278.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

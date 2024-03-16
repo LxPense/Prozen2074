@@ -10,23 +10,29 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "ActState",
+"language": "GDScript",
+"path": "res://States/ActStates/ActState.gd"
+}, {
+"base": "Node",
+"class": "ActStateMachine",
+"language": "GDScript",
+"path": "res://Level/Level.gd"
+}, {
+"base": "Node",
 "class": "BaseState",
 "language": "GDScript",
 "path": "res://Enemies/BaseState.gd"
 }, {
-"base": "ParallaxBackground",
-"class": "Prozen_ParallaxBackground",
-"language": "GDScript",
-"path": "res://Level/ParallaxBackground.gd"
-}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://States/State.gd"
+"path": "res://Enemies/State.gd"
 } ]
 _global_script_class_icons={
+"ActState": "",
+"ActStateMachine": "",
 "BaseState": "",
-"Prozen_ParallaxBackground": "",
 "State": ""
 }
 
@@ -39,7 +45,7 @@ boot_splash/image="res://assets/misc/bootsplash.png"
 [autoload]
 
 PlayerVariables="*res://Global/PlayerVariables.gd"
-WallVariables="*res://Camera.gd"
+CameraSettings="*res://Global/CameraSettings.gd"
 
 [display]
 
@@ -50,13 +56,16 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/BitmapFontCutterPlus/plugin.cfg", "res://addons/vnen.tiled_importer/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/BitmapFontCutterPlus/plugin.cfg" )
 
 [global]
 
 layer=false
 mask=false
 boots=false
+view=false
+window=false
+Display=false
 
 [importer_defaults]
 

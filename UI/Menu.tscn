@@ -21,10 +21,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -74.5
-margin_top = 45.5
-margin_right = 74.5
-margin_bottom = 82.5
+margin_left = -69.8909
+margin_top = 1.0
+margin_right = 79.1091
+margin_bottom = 38.0
 texture_normal = ExtResource( 2 )
 texture_hover = ExtResource( 3 )
 
@@ -33,25 +33,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -74.5
-margin_top = 99.5
-margin_right = 74.5
-margin_bottom = 178.5
+margin_left = -69.8909
+margin_top = 55.0
+margin_right = 79.1091
+margin_bottom = 134.0
 texture_normal = ExtResource( 4 )
 texture_hover = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button_quit" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -74.5
-margin_top = 232.5
-margin_right = 74.5
-margin_bottom = 269.5
+margin_left = -69.8909
+margin_top = 188.0
+margin_right = 79.1091
+margin_bottom = 225.0
 texture_normal = ExtResource( 6 )
 texture_hover = ExtResource( 7 )
 __meta__ = {

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/thrustFiringloop4.png-3b598edffaa3a8247c336555911642ea.stex"
+path="res://.import/thrustFiringloop4.png-6102b2b6a6ca25bbfe10a6db5165df11.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/BrokenThruster/thrustFiringloop4.png"
-dest_files=[ "res://.import/thrustFiringloop4.png-3b598edffaa3a8247c336555911642ea.stex" ]
+source_file="res://Assets/enemy/dynamic/BrokenThruster/thrustFiringloop4.png"
+dest_files=[ "res://.import/thrustFiringloop4.png-6102b2b6a6ca25bbfe10a6db5165df11.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

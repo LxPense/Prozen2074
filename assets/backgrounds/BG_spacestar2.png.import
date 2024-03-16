@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BG_spacestar2.png-e28985af7225d0600e2cab2734aa219c.stex"
+path="res://.import/BG_spacestar2.png-e41b272d8771890051b844f460f05b1d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/BG_spacestar2.png"
-dest_files=[ "res://.import/BG_spacestar2.png-e28985af7225d0600e2cab2734aa219c.stex" ]
+source_file="res://Assets/backgrounds/BG_spacestar2.png"
+dest_files=[ "res://.import/BG_spacestar2.png-e41b272d8771890051b844f460f05b1d.stex" ]
 
 [params]
 
@@ -19,15 +19,16 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

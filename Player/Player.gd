@@ -1,9 +1,6 @@
 extends KinematicBody2D
 
-const SPEED = 400
-
-#starting_pos holds the original position for further purposes, for example when the level is reset
-var starting_pos
+const SPEED = 8
 
 var score = 0
 var Bullet = preload("res://Bullets/Bullet.tscn")
@@ -14,6 +11,7 @@ var automatic_shot_ready = false
 var health = 3
 var vulnerable = true
 var inside_screen: bool = false
+
 #Lives is stored inside the singleton PlayerVariables, so it remains the same even when the Level-scene is reset (which happens if the player loses all its health)
 var lives
 
@@ -27,18 +25,24 @@ onready var animationTree = $Sprite/AnimationTree
 #onready var animationState = $Sprite/AnimationTree.get("parameters/playback")
 onready var flashShaderPlayer = $Sprite/FlashShaderPlayer 
 
+# is used to handle the logic of what happens when the player leaves the screen
+onready var screen_exited_expected = false
+
 func _ready():
 	lives = PlayerVariables.get_lives()
-	starting_pos = position
-
+	position = PlayerVariables.player_spawn_position
+	screen_exited_expected = PlayerVariables.screen_exited_expected
+	PlayerVariables.player_instance = self
+	
 func _physics_process(_delta):
 	check_input()
 	
-	position = position + WallVariables.WALL_CURRENT_MOVEMENT
-	PlayerVariables.player_position = position
+	position = position + CameraSettings.WALL_CURRENT_MOVEMENT
 
 func check_input():
 	var velocity = Vector2.ZERO	
+	
+	# Code to check in which direction the player is going
 	
 	if Input.is_action_pressed("move_right") and (position.x + 110 < $"/root/Game/View/Camera".offset.x + 1280):
 		velocity.x += 1
@@ -58,8 +62,11 @@ func check_input():
 	
 	if Input.is_action_pressed("move_down") and (position.y + 92 <= 720):
 		velocity.y += 1
+		
 	elif Input.is_action_pressed("move_down") and position.y + 92 >= 720:
 		velocity.y = 0
+	
+	# Code to handle the shooting
 	
 	if Input.is_action_just_pressed("shoot"):
 		automatic_shot_ready = false
@@ -69,13 +76,9 @@ func check_input():
 	if Input.is_action_pressed("shoot"):
 		if(automatic_shot_ready):
 			shoot_auto()	
-
-	move_and_slide(velocity.normalized() * SPEED)
+	
+	position = position + move_and_slide(velocity.normalized() * SPEED)
 	animate(velocity)
-		
-		
-		#TODO 01.2023: Since adding the scripts for the state-machine, this somehow gives an exception
-		#	   		   find out what's going wrong and complete the state-machine
 		
 func animate(velocity):
 	animationTree.set("parameters/Move/blend_position", velocity)
@@ -147,9 +150,28 @@ func _on_EnemyHitBox_area_entered(area):
 		current_hitting_area = area
 		hit()
 
+
+# Checks whether the player is inside the visible area of the screen, if not, the game is interrupted
+# When an act is changed, there is a small window in which the player is not inside the screen
+# -> however, this is expected behaviour and gets corrected shortly after
+# -> For this reason, there's a variable screen_exited_expected, so that the game won't interrupt
+
+"""
+The following two functions handle the spawning of the player
+Generally, there is a Node called VisibilityNotifier2D inside the player. 
+This node checks whether the player enters or leaves the visible screen
+"""
+
 func _on_VisibilityNotifier2D_screen_exited():
 	inside_screen = false
-	get_tree().change_scene("res://UI/Menu.tscn")
+	screen_exited_expected = PlayerVariables.screen_exited_expected
+	
+	if(!screen_exited_expected):
+		get_tree().change_scene("res://UI/Menu.tscn")
 
 func _on_VisibilityNotifier2D_screen_entered():
+	PlayerVariables.screen_exited_expected = false
+	screen_exited_expected = PlayerVariables.screen_exited_expected
 	inside_screen = true
+	
+	position = PlayerVariables.player_spawn_position	

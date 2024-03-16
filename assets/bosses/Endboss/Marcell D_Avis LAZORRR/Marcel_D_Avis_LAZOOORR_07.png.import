@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Marcel_D_Avis_LAZOOORR_07.png-4c8de601e57e612c8ae0f36b2f575779.stex"
+path="res://.import/Marcel_D_Avis_LAZOOORR_07.png-77dd8d7419a165934af034b6c797f8f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Endboss/Marcell D_Avis LAZORRR/Marcel_D_Avis_LAZOOORR_07.png"
-dest_files=[ "res://.import/Marcel_D_Avis_LAZOOORR_07.png-4c8de601e57e612c8ae0f36b2f575779.stex" ]
+source_file="res://Assets/bosses/Endboss/Marcell D_Avis LAZORRR/Marcel_D_Avis_LAZOOORR_07.png"
+dest_files=[ "res://.import/Marcel_D_Avis_LAZOOORR_07.png-77dd8d7419a165934af034b6c797f8f9.stex" ]
 
 [params]
 

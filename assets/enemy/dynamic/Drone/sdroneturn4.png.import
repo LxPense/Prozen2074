@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sdroneturn4.png-dadc2c261b8d0bfbe1dbbd489cf6532d.stex"
+path="res://.import/sdroneturn4.png-7c5b8a8310b51f3572596f17e0f0c211.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/Drone/sdroneturn4.png"
-dest_files=[ "res://.import/sdroneturn4.png-dadc2c261b8d0bfbe1dbbd489cf6532d.stex" ]
+source_file="res://Assets/enemy/dynamic/Drone/sdroneturn4.png"
+dest_files=[ "res://.import/sdroneturn4.png-7c5b8a8310b51f3572596f17e0f0c211.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/extralife.png-559f9e3784d859bc6ad4d7a13b43df99.stex"
+path="res://.import/extralife.png-b5bcfbc91ddc0c5f9e44cfcb7c4bdf3a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Player/extralife.png"
-dest_files=[ "res://.import/extralife.png-559f9e3784d859bc6ad4d7a13b43df99.stex" ]
+source_file="res://Assets/UI/Player/extralife.png"
+dest_files=[ "res://.import/extralife.png-b5bcfbc91ddc0c5f9e44cfcb7c4bdf3a.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

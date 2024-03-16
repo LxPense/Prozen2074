@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shoeIdle1.png-28e343a94ac27ab11ca53105127df951.stex"
+path="res://.import/shoeIdle1.png-790cc51c6992e0c5cdae60e99bef5557.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shoe/shoeIdle1.png"
-dest_files=[ "res://.import/shoeIdle1.png-28e343a94ac27ab11ca53105127df951.stex" ]
+source_file="res://Assets/shoe/shoeIdle1.png"
+dest_files=[ "res://.import/shoeIdle1.png-790cc51c6992e0c5cdae60e99bef5557.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

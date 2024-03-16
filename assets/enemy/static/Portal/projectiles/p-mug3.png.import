@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/p-mug3.png-d0404e1ec428ab21bd1b0681d682f804.stex"
+path="res://.import/p-mug3.png-3b9b1887b5e80cbfd43327fe7f513e09.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/static/Portal/projectiles/p-mug3.png"
-dest_files=[ "res://.import/p-mug3.png-d0404e1ec428ab21bd1b0681d682f804.stex" ]
+source_file="res://Assets/enemy/static/Portal/projectiles/p-mug3.png"
+dest_files=[ "res://.import/p-mug3.png-3b9b1887b5e80cbfd43327fe7f513e09.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

@@ -1,113 +1,774 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://Level/tiles.gd" type="Script" id=1]
-[ext_resource path="res://Level/Level.gd" type="Script" id=2]
+[ext_resource path="res://Level/ActEnd.gd" type="Script" id=1]
 [ext_resource path="res://Level/Enemies.gd" type="Script" id=3]
-[ext_resource path="res://Assets/misc/hue.png" type="Texture" id=4]
-[ext_resource path="res://Level/PlayerPointer.gd" type="Script" id=5]
-[ext_resource path="res://Level/ParallaxBackground.gd" type="Script" id=9]
+[ext_resource path="res://Level/PlayerPointer.gd" type="Script" id=4]
+[ext_resource path="res://Level/ParallaxBackground.gd" type="Script" id=5]
+[ext_resource path="res://Level/ActStateMachine.gd" type="Script" id=6]
+[ext_resource path="res://Level/tiles.gd" type="Script" id=7]
+[ext_resource path="res://Assets/backgrounds/BG_spacestar1.png" type="Texture" id=8]
+[ext_resource path="res://Assets/misc/hue.png" type="Texture" id=9]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="GDScript" id=38]
+script/source = "var current_act
+
+#This signal is used to notify the level-handler that it can change the level
+signal can_change_level
+
+func _ready():
+	pass
+		
+func _process(_delta):
+	if(current_act == get_node(\"ActStateMachine/Finished\")):
+		signal_level_change()
+
+#This method signals the level-controller (inside the Game-scene) that it can change the level: this only happens when level_end_reached is true 
+func signal_level_change():
+	emit_signal(\"can_change_level\")
+
+func update_level_state():
+	pass
+
+\"\"\" 
+Every layer consists out of 2 images (sprites) 2x4 = 8 images (sprites) in total
+Not every image has to be set, if so, then it should be null.   
+\"\"\"
+
+# Called, when the player reaches the end of the level
+func _on_Area2D_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		level_end_reached = true
+		pass
+"
+
+[sub_resource type="GDScript" id=49]
+script/source = "extends ActState
+
+signal act1_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	CameraSettings.reset_camera()
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+# Called when the act enters the state_machine 
+	
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act1_finished\")
+"
+
+[sub_resource type="RectangleShape2D" id=50]
 extents = Vector2( 86.875, 359.125 )
 
+[sub_resource type="GDScript" id=51]
+script/source = "extends ActState
+
+signal act2_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	CameraSettings.reset_camera()
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+# Called when the act leaves the state_machine	
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act2_finished\")
+"
+
+[sub_resource type="GDScript" id=52]
+script/source = "extends ActState
+
+signal act_boss_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	CameraSettings.reset_camera()
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+# Called when the act leaves the state_machine 
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_boss_finished\")
+
+"
+
+[sub_resource type="GDScript" id=53]
+script/source = "extends ActState
+
+signal act_end_finished
+
+# Called when the act enters the state_machine 
+func enter():
+	CameraSettings.reset_camera()
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+# Called when the act leaves the state_machine
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_end_finished\")
+"
+
+[sub_resource type="GDScript" id=29]
+script/source = "extends ActState
+
+signal act1_transition_finished
+
+func handle_input(_event: InputEvent):
+	pass
+
+func enter():
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
+	pass
+	
+func exit():
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
+	
+func update(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
+func _on_AnimationPlayer_animation_finished(act1_transition):
+	emit_signal(\"act1_transition_finished\")
+"
+
+[sub_resource type="GDScript" id=37]
+script/source = "extends Node2D
+
+# Everything inside here acts as a resource for the animationplayer
+
+func _ready():
+	pass
+"
+
+[sub_resource type="GDScript" id=31]
+script/source = "extends ActState
+
+signal act2_transition_finished
+
+func handle_input(_event: InputEvent):
+	pass
+
+func enter():
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"act2_transition\")
+	pass
+	
+func exit():
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
+	
+func update(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
+func _on_AnimationPlayer_animation_finished(act2_transition):
+	emit_signal(\"act2_transition_finished\")
+"
+
+[sub_resource type="GDScript" id=36]
+script/source = "extends Node2D
+
+# Everything inside here acts as a resource for the animationplayer
+
+func _ready():
+	pass
+"
+
+[sub_resource type="GDScript" id=54]
+script/source = "extends ActState
+
+signal act1_finished
+
+# This function is called when the act enters the state_machine 
+func enter():
+	CameraSettings.reset_camera()
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+# This function is called when the act leaves the state_machine
+func exit():
+	pass
+	
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act1_finished\")
+"
+
+[sub_resource type="GDScript" id=35]
+script/source = "extends Node2D
+
+# Everything inside here acts as a resource for the animationplayer
+
+func _ready():
+	pass
+"
+
 [node name="Level" type="Node2D"]
-script = ExtResource( 2 )
+script = SubResource( 38 )
+initial_state = null
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-script = ExtResource( 9 )
+[node name="ActStateMachine" type="Node" parent="."]
+script = ExtResource( 6 )
+initial_state = NodePath("Act1")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Act1" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 49 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Act1"]
+script = ExtResource( 5 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
+visible = false
 z_index = -10
 
-[node name="image1" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 8 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 6400, 720 )
 
-[node name="image2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer"]
 centered = false
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
+visible = false
 z_index = -9
 
-[node name="image1" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="image2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
+visible = false
 z_index = -8
 motion_scale = Vector2( 0, 0 )
 
-[node name="image1" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3"]
 modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="image2" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
+visible = false
 z_index = -7
 motion_scale = Vector2( 0, 0 )
 
-[node name="image1" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="image2" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
-[node name="other" type="Node2D" parent="."]
+[node name="other" type="Node2D" parent="ActStateMachine/Act1"]
+visible = false
 
-[node name="enemyHandler" type="Node2D" parent="other"]
+[node name="enemyHandler" type="Node2D" parent="ActStateMachine/Act1/other"]
 script = ExtResource( 3 )
 
-[node name="tilemapHandler" type="Node2D" parent="other"]
-script = ExtResource( 1 )
+[node name="tilemapHandler" type="Node2D" parent="ActStateMachine/Act1/other"]
+script = ExtResource( 7 )
 
-[node name="TileMap_1" type="TileMap" parent="other/tilemapHandler"]
+[node name="TileMap_1" type="TileMap" parent="ActStateMachine/Act1/other/tilemapHandler"]
 cell_size = Vector2( 48, 48 )
 cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
 show_collision = true
 format = 1
 
-[node name="TileMap_2" type="TileMap" parent="other/tilemapHandler"]
+[node name="TileMap_2" type="TileMap" parent="ActStateMachine/Act1/other/tilemapHandler"]
 cell_size = Vector2( 48, 48 )
 cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
 show_collision = true
 format = 1
 
-[node name="LevelEnd" type="Area2D" parent="other"]
+[node name="ActEnd" type="Area2D" parent="ActStateMachine/Act1/other"]
+position = Vector2( 1184, 169 )
 collision_layer = 0
 collision_mask = 8
+script = ExtResource( 1 )
 
-[node name="EndMarker" type="CollisionShape2D" parent="other/LevelEnd"]
-position = Vector2( 53, 187 )
-shape = SubResource( 1 )
+[node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Act1/other/ActEnd"]
+position = Vector2( 335, 195 )
+shape = SubResource( 50 )
 
-[node name="TextureRect" type="TextureRect" parent="other/LevelEnd/EndMarker"]
+[node name="TextureRect" type="TextureRect" parent="ActStateMachine/Act1/other/ActEnd/EndMarker"]
 margin_left = -89.0
 margin_top = -358.0
 margin_right = 111.0
 margin_bottom = 362.0
 rect_scale = Vector2( 0.91476, 1.00247 )
-texture = ExtResource( 4 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="PlayerPointer" type="Node2D" parent="other"]
-position = Vector2( 448, 208 )
+[node name="PlayerPointer" type="Node2D" parent="ActStateMachine/Act1/other"]
+position = Vector2( 132, 126 )
+script = ExtResource( 4 )
+
+[node name="Act2" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 51 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Act2"]
 script = ExtResource( 5 )
 
-[connection signal="body_entered" from="other/LevelEnd" to="." method="_on_Area2D_body_entered"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
+visible = false
+z_index = -10
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 6400, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer"]
+centered = false
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
+visible = false
+z_index = -9
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
+visible = false
+z_index = -8
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 1, 1, 1, 0.298039 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
+visible = false
+z_index = -7
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="other" type="Node2D" parent="ActStateMachine/Act2"]
+visible = false
+
+[node name="enemyHandler" type="Node2D" parent="ActStateMachine/Act2/other"]
+script = ExtResource( 3 )
+
+[node name="tilemapHandler" type="Node2D" parent="ActStateMachine/Act2/other"]
+script = ExtResource( 7 )
+
+[node name="TileMap_1" type="TileMap" parent="ActStateMachine/Act2/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="TileMap_2" type="TileMap" parent="ActStateMachine/Act2/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="ActEnd" type="Area2D" parent="ActStateMachine/Act2/other"]
+position = Vector2( 1184, 169 )
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Act2/other/ActEnd"]
+position = Vector2( 335, 195 )
+shape = SubResource( 50 )
+
+[node name="TextureRect" type="TextureRect" parent="ActStateMachine/Act2/other/ActEnd/EndMarker"]
+margin_left = -89.0
+margin_top = -358.0
+margin_right = 111.0
+margin_bottom = 362.0
+rect_scale = Vector2( 0.91476, 1.00247 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PlayerPointer" type="Node2D" parent="ActStateMachine/Act2/other"]
+position = Vector2( 132, 126 )
+script = ExtResource( 4 )
+
+[node name="Boss" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 52 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Boss"]
+script = ExtResource( 5 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
+visible = false
+z_index = -10
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 6400, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer"]
+centered = false
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
+visible = false
+z_index = -9
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
+visible = false
+z_index = -8
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 1, 1, 1, 0.298039 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
+visible = false
+z_index = -7
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="other" type="Node2D" parent="ActStateMachine/Boss"]
+visible = false
+
+[node name="enemyHandler" type="Node2D" parent="ActStateMachine/Boss/other"]
+script = ExtResource( 3 )
+
+[node name="tilemapHandler" type="Node2D" parent="ActStateMachine/Boss/other"]
+script = ExtResource( 7 )
+
+[node name="TileMap_1" type="TileMap" parent="ActStateMachine/Boss/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="TileMap_2" type="TileMap" parent="ActStateMachine/Boss/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="ActEnd" type="Area2D" parent="ActStateMachine/Boss/other"]
+position = Vector2( 1184, 169 )
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Boss/other/ActEnd"]
+position = Vector2( 335, 195 )
+shape = SubResource( 50 )
+
+[node name="TextureRect" type="TextureRect" parent="ActStateMachine/Boss/other/ActEnd/EndMarker"]
+margin_left = -89.0
+margin_top = -358.0
+margin_right = 111.0
+margin_bottom = 362.0
+rect_scale = Vector2( 0.91476, 1.00247 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PlayerPointer" type="Node2D" parent="ActStateMachine/Boss/other"]
+position = Vector2( 132, 126 )
+script = ExtResource( 4 )
+
+[node name="Finished" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 53 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Finished"]
+script = ExtResource( 5 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground"]
+visible = false
+z_index = -10
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 6400, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer"]
+centered = false
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground"]
+visible = false
+z_index = -9
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer2"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground"]
+visible = false
+z_index = -8
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 1, 1, 1, 0.298039 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer3"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground"]
+visible = false
+z_index = -7
+motion_scale = Vector2( 0, 0 )
+
+[node name="image1" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="image2" type="Sprite" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer4"]
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1280, 720 )
+
+[node name="other" type="Node2D" parent="ActStateMachine/Finished"]
+visible = false
+
+[node name="enemyHandler" type="Node2D" parent="ActStateMachine/Finished/other"]
+script = ExtResource( 3 )
+
+[node name="tilemapHandler" type="Node2D" parent="ActStateMachine/Finished/other"]
+script = ExtResource( 7 )
+
+[node name="TileMap_1" type="TileMap" parent="ActStateMachine/Finished/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="TileMap_2" type="TileMap" parent="ActStateMachine/Finished/other/tilemapHandler"]
+cell_size = Vector2( 48, 48 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+show_collision = true
+format = 1
+
+[node name="ActEnd" type="Area2D" parent="ActStateMachine/Finished/other"]
+position = Vector2( 1184, 169 )
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Finished/other/ActEnd"]
+position = Vector2( 335, 195 )
+shape = SubResource( 50 )
+
+[node name="TextureRect" type="TextureRect" parent="ActStateMachine/Finished/other/ActEnd/EndMarker"]
+margin_left = -89.0
+margin_top = -358.0
+margin_right = 111.0
+margin_bottom = 362.0
+rect_scale = Vector2( 0.91476, 1.00247 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PlayerPointer" type="Node2D" parent="ActStateMachine/Finished/other"]
+position = Vector2( 132, 126 )
+script = ExtResource( 4 )
+
+[node name="Act1_transition" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 29 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Act1_transition"]
+
+[node name="cutscene" type="Node2D" parent="ActStateMachine/Act1_transition"]
+script = SubResource( 37 )
+
+[node name="ColorRect" type="ColorRect" parent="ActStateMachine/Act1_transition/cutscene"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Act2_transition" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 31 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Act2_transition"]
+
+[node name="cutscene" type="Node2D" parent="ActStateMachine/Act2_transition"]
+script = SubResource( 36 )
+
+[node name="ColorRect" type="ColorRect" parent="ActStateMachine/Act2_transition/cutscene"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Boss_transition" type="Node2D" parent="ActStateMachine"]
+script = SubResource( 54 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Boss_transition"]
+
+[node name="cutscene" type="Node2D" parent="ActStateMachine/Boss_transition"]
+script = SubResource( 35 )
+
+[node name="ColorRect" type="ColorRect" parent="ActStateMachine/Boss_transition/cutscene"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[connection signal="body_entered" from="ActStateMachine/Act1/other/ActEnd" to="ActStateMachine/Act1" method="_on_ActEnd_body_entered"]
+[connection signal="body_entered" from="ActStateMachine/Act2/other/ActEnd" to="ActStateMachine/Act2" method="_on_ActEnd_body_entered"]
+[connection signal="body_entered" from="ActStateMachine/Boss/other/ActEnd" to="ActStateMachine/Boss" method="_on_ActEnd_body_entered"]
+[connection signal="body_entered" from="ActStateMachine/Finished/other/ActEnd" to="ActStateMachine/Finished" method="_on_ActEnd_body_entered"]

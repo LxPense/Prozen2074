@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lasCharge7.png-64521d2cee010f957ea79fb8a9f8a212.stex"
+path="res://.import/lasCharge7.png-f08d785fa462ab04e31536adfe01ab8d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/dynamic/Shuttle/laser/lasCharge7.png"
-dest_files=[ "res://.import/lasCharge7.png-64521d2cee010f957ea79fb8a9f8a212.stex" ]
+source_file="res://Assets/enemy/dynamic/Shuttle/laser/lasCharge7.png"
+dest_files=[ "res://.import/lasCharge7.png-f08d785fa462ab04e31536adfe01ab8d.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

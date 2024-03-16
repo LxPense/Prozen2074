@@ -4,6 +4,9 @@ extends Node
 """
 General info:
 	This Node is used to control the switching of levels
+	A level is divided into 2 acts
+	An act acts as a sublevel, each act has a transition, the transition is an animation that plays before starting another level/act
+	
 """
 
 # This variable always holds the number of the current level. 
@@ -17,7 +20,7 @@ var level_path: String = "res://Level/Levels/Level_%d.tscn"
 var node_name: String = "Level_%d"
 
 func _ready():
-	get_node("Level_1").connect("can_change_level", self, "change_level")
+	get_node("Level1/Level").connect("can_change_level", self, "change_level")
 
 
 func change_level():
@@ -28,7 +31,7 @@ func change_level():
 	current_level_num += 1
 	
 	# New level path gets concatenated with current_level_num (the level n+1, where n is number of the current level)
-	var new_level_path = "res://Level/Levels/Level_%d.tscn" % current_level_num
+	var new_level_path = "res://Level/Levels/Level_%d/LevelStateMachine/Complete.tscn" % current_level_num
 	# New level actually gets loaded
 	var new_node_name: String = node_name % current_level_num
 	var new_level = load(new_level_path).instance()
