@@ -2,6 +2,9 @@ extends Node
 
 signal transitioned(state_name)
 
+# Is used to notify the level_controller that the level is finished, level_nr is used to identify the level in itself by its number (f.e. 1, 2 ...)
+signal level_finished
+
 export var initial_state := NodePath()
 
 onready var state: ActState = get_node(initial_state)
@@ -161,6 +164,7 @@ func _on_Act1_transition_finished():
 func _on_Act2_transition_finished():
 	transition_to(act_boss.get_path())
 
+#If the transition after the boss-act has finished, the level_controller is notified that it can change the level
 func _on_Act_Boss_transition_finished():
-	transition_to(act_finished.get_path())
+	emit_signal("level_finished")
 

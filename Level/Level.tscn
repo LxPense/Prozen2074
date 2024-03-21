@@ -10,7 +10,14 @@
 [ext_resource path="res://Assets/misc/hue.png" type="Texture" id=9]
 
 [sub_resource type="GDScript" id=38]
-script/source = "var current_act
+script/source = "extends Node2D
+
+# This whole scene acts as a base for levels. Only create levels by inheriting this scene.
+
+# A level consist of 4 parallax layers at max
+var boss_defeated: bool = false
+var level_end_reached: bool = false
+var current_act
 
 #This signal is used to notify the level-handler that it can change the level
 signal can_change_level
@@ -282,7 +289,6 @@ func _ready():
 
 [node name="Level" type="Node2D"]
 script = SubResource( 38 )
-initial_state = null
 
 [node name="ActStateMachine" type="Node" parent="."]
 script = ExtResource( 6 )
