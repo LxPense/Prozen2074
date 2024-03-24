@@ -6,6 +6,10 @@ var WALL_CURRENT_MOVEMENT = Vector2(0, 0)
 # It is used to modify the camera inbetween scenes (for example resetting it)
 var camera : Camera2D = null
 
+# Shows whether the camera is moving or not
+var moving : bool
+
+
 # Resets the camera to the coordinates (0, 0)
 func reset_camera():
 	if(camera != null):
@@ -15,5 +19,6 @@ func reset_camera():
 		
 # Enables or disables the movement of the camera by activating or disabling it
 func change_camera_move(moving : bool):
-	camera.set_physics_process(moving)
+	self.moving = moving
+	camera.set_physics_process(self.moving)
 	

@@ -56,11 +56,18 @@ signal act1_finished
 # Called when the act enters the state_machine 
 
 func enter():
+	print(\"Entering level2\")
+	
 	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	
-# Called when the act enters the state_machine 
-	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
 func exit():
 	pass
 		
@@ -72,6 +79,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -91,8 +99,14 @@ signal act2_finished
 func enter():
 	CameraSettings.reset_camera()
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	CameraSettings.change_camera_move(true)
 	
 # Called when the act leaves the state_machine	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
 func exit():
 	pass
 		
@@ -104,6 +118,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -120,8 +135,15 @@ signal act_boss_finished
 func enter():
 	CameraSettings.reset_camera()
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	CameraSettings.change_camera_move(true)
 	
 # Called when the act leaves the state_machine 
+
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
 func exit():
 	pass
 		
@@ -133,6 +155,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -186,12 +209,19 @@ func enter():
 func exit():
 	CameraSettings.change_camera_move(true)
 	PlayerVariables.change_player_active(true)
-	
+
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
 func update(_delta: float):
 	pass
 	
 func physics_update(_delta: float):
 	pass
+
+\"\"\"
 
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
@@ -228,11 +258,18 @@ func exit():
 	CameraSettings.change_camera_move(true)
 	PlayerVariables.change_player_active(true)
 	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
 func update(_delta: float):
 	pass
 	
 func physics_update(_delta: float):
 	pass
+
+\"\"\"
 
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
@@ -253,7 +290,7 @@ func _ready():
 [sub_resource type="GDScript" id=54]
 script/source = "extends ActState
 
-signal act1_finished
+signal act_boss_finished
 
 # This function is called when the act enters the state_machine 
 func enter():
@@ -262,20 +299,24 @@ func enter():
 	
 # This function is called when the act leaves the state_machine
 func exit():
-	pass
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
 	
-func update_game(_delta: float):
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func update(_delta: float):
 	pass
 	
 func physics_update(_delta: float):
 	pass
 
-func _ready():
-	pass
+\"\"\"
 
-func _on_ActEnd_body_entered(body):
-	if(body.is_in_group(\"player\")):
-		emit_signal(\"act1_finished\")
+func _on_AnimationPlayer_animation_finished(act2_transition):
+	emit_signal(\"act_boss_transition_finished\")
 "
 
 [sub_resource type="GDScript" id=35]

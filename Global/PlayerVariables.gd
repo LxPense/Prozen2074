@@ -1,6 +1,7 @@
 extends Node
 
 export var lives = 3
+var player_visible : bool
 
 # determines the player position when he is spawning
 export var player_spawn_position = Vector2(60, 200)
@@ -21,7 +22,9 @@ func set_player_position(newPlayerPos: Vector2):
 # Enables or disables the player completely and hide him from the view
 func change_player_active(active : bool):
 	player_instance.set_physics_process(active)
-	player_instance.visible = active
+	player_visible = active
+	player_instance.visible = player_visible
+	
 
 func set_lives(_lives):
 	lives = _lives

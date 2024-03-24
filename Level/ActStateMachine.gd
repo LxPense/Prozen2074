@@ -47,9 +47,10 @@ func _ready():
 		child.state_machine = self
 	
 	# The first call of the enter-Function: This is used to enter the first act
-	state.set_process(true)
-	activate_act(act1)
 	
+	activate_act(state)
+	
+	state.set_process(true)
 	state.enter();
 	
 """

@@ -35,10 +35,12 @@ signal can_change_level
 
 func _ready():
 	pass
-		
+
+# This _process function checks whether the level can be switched (via signal_level_change)		
 func _process(_delta):
 	if(current_act == get_node(\"ActStateMachine/Finished\")):
 		signal_level_change()
+
 
 #This method signals the level-controller (inside the Game-scene) that it can change the level: this only happens when level_end_reached is true 
 func signal_level_change():
@@ -190,6 +192,7 @@ func _process(delta):
 		
 func _physics_process(delta):
 	state.physics_update(delta)
+	pass
 	
 # Is used to enter various acts, but not the first one (entering the first one is handled seperately)
 func transition_to(target_state_name) -> void:
@@ -204,13 +207,16 @@ func transition_to(target_state_name) -> void:
 	
 	state = get_node(target_state_name)
 	current_act = state
+	
 	activate_act(state)
 	
 	state.enter()
 
+# ------------------------- TEMPORARY FIX ----------------------------
 func _on_Act1_act_finished():
 	transition_to(act1_transition.get_path())
-
+	#transition_to(act_boss_transition.get_path())
+	
 func _on_Act2_act_finished():
 	transition_to(act2_transition.get_path())
 
@@ -240,11 +246,20 @@ signal act1_finished
 # Called when the act enters the state_machine 
 
 func enter():
+	print(\"Entering level1\")
 	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
 	
 # Called when the act enters the state_machine 
 	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't change anything about it -> they are needless 
+
 func exit():
 	pass
 		
@@ -256,6 +271,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -276,9 +292,17 @@ signal act2_finished
 
 func enter():
 	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	
 # Called when the act leaves the state_machine	
+
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't change anything about it -> they are needless 
+
 func exit():
 	pass
 		
@@ -290,6 +314,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -305,9 +330,17 @@ signal act_boss_finished
 
 func enter():
 	CameraSettings.reset_camera()
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	CameraSettings.change_camera_move(true)
 	
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+
 # Called when the act leaves the state_machine 
+
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't change anything about it -> they are needless 
+
 func exit():
 	pass
 		
@@ -319,6 +352,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -388,8 +422,12 @@ signal act_end_finished
 func enter():
 	CameraSettings.reset_camera()
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
-	
+	CameraSettings.change_camera_move(true)
+
 # Called when the act leaves the state_machine
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+
 func exit():
 	pass
 		
@@ -401,6 +439,7 @@ func physics_update(_delta: float):
 
 func _ready():
 	pass
+\"\"\"
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
@@ -416,11 +455,13 @@ func handle_input(_event: InputEvent):
 	pass
 
 func enter():
+	
+	# Camera pos is reset and movement disabled : there should be no camera-movement during transition
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(false)
+	
 	PlayerVariables.change_player_active(false)
 	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
-	pass
 	
 func exit():
 	CameraSettings.change_camera_move(true)
@@ -473,8 +514,11 @@ func handle_input(_event: InputEvent):
 	pass
 
 func enter():
+	
+	# Camera pos is reset and movement disabled : there should be no camera-movement during transition
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(false)
+	
 	PlayerVariables.change_player_active(false)
 	get_node(\"AnimationPlayer\").play(\"act2_transition\")
 	pass
@@ -545,8 +589,11 @@ func handle_input(_event: InputEvent):
 	pass
 
 func enter():
+	
+	# Camera pos is reset and movement disabled : there should be no camera-movement during transition
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(false)
+	
 	PlayerVariables.change_player_active(false)
 	get_node(\"AnimationPlayer\").play(\"animation_boss_transition\")
 	pass
