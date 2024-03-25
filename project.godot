@@ -41,6 +41,7 @@ _global_script_class_icons={
 config/name="Prozen2074"
 run/main_scene="res://UI/Menu.tscn"
 boot_splash/image="res://assets/misc/bootsplash.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 [autoload]
 
@@ -66,6 +67,7 @@ boots=false
 view=false
 window=false
 Display=false
+bootsplash=false
 
 [importer_defaults]
 

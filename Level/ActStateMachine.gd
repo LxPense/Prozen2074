@@ -146,6 +146,11 @@ func transition_to(target_state_name) -> void:
 	activate_act(state)
 	
 	state.enter()
+	
+# After the last tranisition has played, this function resets all values inside the scene to its defaults
+# It is used because transition_to can't be used in that context
+func conclude_level() -> void:
+	state.exit()
 
 func _on_Act1_act_finished():
 	transition_to(act1_transition.get_path())
@@ -167,5 +172,6 @@ func _on_Act2_transition_finished():
 
 #If the transition after the boss-act has finished, the level_controller is notified that it can change the level
 func _on_Act_Boss_transition_finished():
+	conclude_level()
 	emit_signal("level_finished")
 
