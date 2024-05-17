@@ -28,21 +28,23 @@ func _ready():
 # therefore the current_level_num is 1 for the very first level 
 
 func change_level():
-	# Old level is the level, that was just finished.
+	
+	# finished_level is the level, that was just finished.
 	# This reference needs to be created, to have a way to remove the finished level after loading the next level
 	var finished_level = level_path % current_level_num 
 	var finished_node_name = node_name % current_level_num
 	current_level_num = current_level_num + 1
+	
 	# New level path gets concatenated with current_level_num (the level n+1, where n is number of the current level)
-	#var new_level_path = "res://Level/Levels/Level_%d/LevelStateMachine/Complete.tscn" % current_level_num
 	var new_level_path = "res://Level/Levels/Level%d.tscn" % current_level_num
+	
 	# New level actually gets loaded
 	var new_node_name: String = node_name % current_level_num
 	var new_level = load(new_level_path).instance()
 	new_level.name = node_name % current_level_num
 	
 	# Finished level gets removed, so only one level is present at each time
-	# get_child(int num) holt das child_node mit dem index num -> 0 = erstes child im scene_tree von level_controller 
+	# get_child(int num) gets the child_node with the index num -> 0 = first child in the scene_tree of level_controller 
 	
 	get_child(0).queue_free()
 	# The new level gets added to the level_controller-tree

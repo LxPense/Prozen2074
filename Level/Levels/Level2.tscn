@@ -1,9 +1,274 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/misc/animations/simple_transition.tres" type="Animation" id=2]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+# This whole scene acts as a base for levels. Only create levels by inheriting this scene.
+
+# A level consist of 4 parallax layers at max
+var boss_defeated: bool = false
+var level_end_reached: bool = false
+var current_act
+
+#This signal is used to notify the level-handler that it can change the level
+signal can_change_level
+
+func _ready():
+	pass
+		
+func _process(_delta):
+	if(current_act == get_node(\"ActStateMachine/Finished\")):
+		signal_level_change()
+
+#This method signals the level-controller (inside the Game-scene) that it can change the level: this only happens when level_end_reached is true 
+func signal_level_change():
+	emit_signal(\"can_change_level\")
+
+func update_level_state():
+	pass
+
+\"\"\" 
+Every layer consists out of 2 images (sprites) 2x4 = 8 images (sprites) in total
+Not every image has to be set, if so, then it should be null.   
+\"\"\"
+
+# Called, when the player reaches the end of the level
+func _on_Area2D_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		level_end_reached = true
+		pass
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node
+
+signal transitioned(state_name)
+
+# Is used to notify the level_controller that the level is finished, level_nr is used to identify the level in itself by its number (f.e. 1, 2 ...)
+signal level_finished
+
+export var initial_state := NodePath()
+
+onready var state: ActState = get_node(initial_state)
+onready var act1 = get_node(\"Act1\")
+onready var act2 = get_node(\"Act2\")
+onready var act_boss = get_node(\"Boss\")
+onready var act_finished = get_node(\"Finished\")
+
+onready var act1_transition = get_node(\"Act1_transition\")
+onready var act2_transition = get_node(\"Act2_transition\")
+onready var act_boss_transition = get_node(\"Boss_transition\")
+
+# Holds a reference to the current playing act
+var current_act = null
+
+func _ready():
+	act1.connect(\"act1_finished\", self, \"_on_Act1_act_finished\")
+	act2.connect(\"act2_finished\", self, \"_on_Act2_act_finished\")
+	act_boss.connect(\"act_boss_finished\", self, \"_on_Boss_act_finished\")
+	act_finished.connect(\"act_end_finished\", self, \"_on_Finished_act_finished\")
+	
+	act1_transition.connect(\"act1_transition_finished\", self, \"_on_Act1_transition_finished\")
+	act2_transition.connect(\"act2_transition_finished\", self, \"_on_Act2_transition_finished\")
+	act_boss_transition.connect(\"boss_transition_finished\", self, \"_on_Act_Boss_transition_finished\")
+	# Note: The first act (act1) isn't deactivated because it's the starting act
+	
+	deactivate_act(act2)
+	deactivate_act(act_boss)
+	deactivate_act(act_finished)
+	deactivate_act(act1_transition)
+	deactivate_act(act2_transition)
+	deactivate_act(act_boss_transition)
+	current_act = initial_state
+	
+	yield(owner, \"ready\")
+	
+	# The same state-machine is applied to every state
+	
+	for child in get_children():
+		child.state_machine = self
+	
+	# The first call of the enter-Function: This is used to enter the first act
+	
+	activate_act(state)
+	
+	state.set_process(true)
+	state.enter();
+	
+\"\"\"
+This function deactivates everything inside an act (it works recursively)
+This function is therefore used to prevent the various acts to influence each other, as they are 
+all inside the scene-tree. 
+\"\"\"
+
+func deactivate_act(node : Node):
+	if node is ParallaxLayer:
+		node.visible = false	
+	elif node is Area2D:
+		node.hide()
+		node.set_monitoring(false)
+		node.visible = false
+	elif node is TileMap:
+		var tempTileMap = node as TileMap
+		tempTileMap.visible = false
+		tempTileMap.set_collision_layer_bit(1, 0)
+	elif node is ColorRect:
+		var tempColorRect = node as ColorRect
+		tempColorRect.visible = false
+	elif node is KinematicBody2D:
+		var tempKinematicBody = node as KinematicBody2D
+		tempKinematicBody.visible = true
+		tempKinematicBody.set_collision_layer_bit(1, 0)
+		tempKinematicBody.set_physics_process(false)
+	elif node is Node2D:
+		var tempNode = node as Node2D
+		tempNode.visible = false
+		
+	# Each node of an act further down the scene-tree that has children is called recursively
+	if(node != null && node.get_child_count() != 0):
+		for child in node.get_children():
+			deactivate_act(child)
+
+\"\"\"\"
+ This function activates everything inside an act (it works recursively)
+ This function is therefore used to prevent the various acts to influence each other, as they are 
+ all inside the scene-tree
+\"\"\"
+
+func activate_act(node):
+	if node is ParallaxLayer:
+		node.visible = true	
+	elif node is Area2D:
+		node.show()
+		node.set_monitoring(true)
+		node.visible = true
+	elif node is TileMap:
+		var tempTileMap = node as TileMap
+		tempTileMap.visible = true
+		tempTileMap.set_collision_layer_bit(1, 2)
+	elif node is ColorRect:
+		var tempColorRect = node as ColorRect
+		tempColorRect.visible = true
+	elif node is KinematicBody2D:
+		var tempKinematicBody = node as KinematicBody2D
+		tempKinematicBody.visible = true
+		tempKinematicBody.set_collision_layer_bit(1, 2)
+		tempKinematicBody.set_physics_process(true)
+	elif node is Node2D:
+		var tempNode = node as Node2D
+		tempNode.visible = true
+	
+	if(node != null && node.get_child_count() != 0):
+		for child in node.get_children():
+			activate_act(child)
+		
+
+func _unhandled_input(event: InputEvent):
+	state.handle_input(event)
+
+func _process(delta):
+	state.update(delta)
+		
+func _physics_process(delta):
+	state.physics_update(delta)
+	
+# Is used to enter various acts, but not the first one (entering the first one is handled seperately)
+func transition_to(target_state_name) -> void:
+	if not has_node(target_state_name):
+		return 
+	
+	# exit-function is called on the currrent act
+	state.exit()
+	deactivate_act(target_state_name)
+	# After the previous state has exited, it is removed from the scene tree
+	remove_child(state)
+	
+	state = get_node(target_state_name)
+	current_act = state
+	activate_act(state)
+	
+	state.enter()
+	
+# After the last tranisition has played, this function resets all values inside the scene to its defaults
+# It is used because transition_to can't be used in that context
+func conclude_level() -> void:
+	state.exit()
+
+func _on_Act1_act_finished():
+	transition_to(act1_transition.get_path())
+
+func _on_Act2_act_finished():
+	transition_to(act2_transition.get_path())
+
+func _on_Boss_act_finished():
+	transition_to(act_boss_transition.get_path())
+
+func _on_Finished_act_finished():
+	print(\"Congrats!\")
+
+func _on_Act1_transition_finished():
+	transition_to(act2.get_path())
+	
+func _on_Act2_transition_finished():
+	transition_to(act_boss.get_path())
+
+#If the transition after the boss-act has finished, the level_controller is notified that it can change the level
+func _on_Act_Boss_transition_finished():
+	conclude_level()
+	emit_signal(\"level_finished\")
+
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends ActState
+
+signal act1_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	print(\"Entering level2\")
+	
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+\"\"\"
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act1_finished\")
+"
+
 [node name="Level2" instance=ExtResource( 1 )]
+script = SubResource( 1 )
+
+[node name="ActStateMachine" parent="." index="0"]
+script = SubResource( 2 )
+
+[node name="Act1" parent="ActStateMachine" index="0"]
+position = Vector2( 0, 2 )
+script = SubResource( 3 )
 
 [node name="other" parent="ActStateMachine/Act1" index="1"]
 visible = true
@@ -15,13 +280,22 @@ position = Vector2( -557, 184 )
 position = Vector2( 187, 485 )
 
 [node name="Act2" parent="ActStateMachine" index="1"]
-visible = false
+script = SubResource( 3 )
+
+[node name="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground" index="0"]
+visible = true
 
 [node name="Boss" parent="ActStateMachine" index="2"]
 visible = false
+script = SubResource( 3 )
 
 [node name="Finished" parent="ActStateMachine" index="3"]
 visible = false
+script = SubResource( 3 )
+
+[node name="Act1_transition" parent="ActStateMachine" index="4"]
+visible = false
+script = SubResource( 3 )
 
 [node name="AnimationPlayer" parent="ActStateMachine/Act1_transition" index="0"]
 anims/simple_transition = ExtResource( 2 )
@@ -33,6 +307,7 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="Act2_transition" parent="ActStateMachine" index="5"]
 visible = false
+script = SubResource( 3 )
 
 [node name="AnimationPlayer" parent="ActStateMachine/Act2_transition" index="0"]
 anims/simple_transition = ExtResource( 2 )
@@ -44,6 +319,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="Boss_transition" parent="ActStateMachine" index="6"]
 visible = false
 scale = Vector2( 1.00838, 1.00833 )
+script = SubResource( 3 )
 
 [node name="AnimationPlayer" parent="ActStateMachine/Boss_transition" index="0"]
 anims/simple_transition = ExtResource( 2 )
