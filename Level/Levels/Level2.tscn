@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/misc/animations/simple_transition.tres" type="Animation" id=2]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Node2D
 
 # This whole scene acts as a base for levels. Only create levels by inheriting this scene.
@@ -230,7 +229,6 @@ signal act1_finished
 # Called when the act enters the state_machine 
 
 func enter():
-	print(\"Entering level2\")
 	
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
@@ -261,7 +259,7 @@ func _on_ActEnd_body_entered(body):
 "
 
 [node name="Level2" instance=ExtResource( 1 )]
-script = SubResource( 1 )
+script = SubResource( 4 )
 
 [node name="ActStateMachine" parent="." index="0"]
 script = SubResource( 2 )
@@ -269,9 +267,6 @@ script = SubResource( 2 )
 [node name="Act1" parent="ActStateMachine" index="0"]
 position = Vector2( 0, 2 )
 script = SubResource( 3 )
-
-[node name="other" parent="ActStateMachine/Act1" index="1"]
-visible = true
 
 [node name="EndMarker" parent="ActStateMachine/Act1/other/ActEnd" index="0"]
 position = Vector2( -557, 184 )
@@ -285,45 +280,30 @@ script = SubResource( 3 )
 [node name="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground" index="0"]
 visible = true
 
+[node name="other" parent="ActStateMachine/Act2" index="1"]
+visible = true
+
 [node name="Boss" parent="ActStateMachine" index="2"]
-visible = false
 script = SubResource( 3 )
 
 [node name="Finished" parent="ActStateMachine" index="3"]
-visible = false
 script = SubResource( 3 )
 
 [node name="Act1_transition" parent="ActStateMachine" index="4"]
-visible = false
 script = SubResource( 3 )
-
-[node name="AnimationPlayer" parent="ActStateMachine/Act1_transition" index="0"]
-anims/simple_transition = ExtResource( 2 )
 
 [node name="ColorRect" parent="ActStateMachine/Act1_transition/cutscene" index="0"]
-margin_right = 1280.0
 margin_bottom = 723.0
-color = Color( 0, 0, 0, 1 )
 
 [node name="Act2_transition" parent="ActStateMachine" index="5"]
-visible = false
 script = SubResource( 3 )
-
-[node name="AnimationPlayer" parent="ActStateMachine/Act2_transition" index="0"]
-anims/simple_transition = ExtResource( 2 )
 
 [node name="ColorRect" parent="ActStateMachine/Act2_transition/cutscene" index="0"]
 rect_scale = Vector2( 31.9794, 18.085 )
-color = Color( 0, 0, 0, 1 )
 
 [node name="Boss_transition" parent="ActStateMachine" index="6"]
-visible = false
 scale = Vector2( 1.00838, 1.00833 )
 script = SubResource( 3 )
 
-[node name="AnimationPlayer" parent="ActStateMachine/Boss_transition" index="0"]
-anims/simple_transition = ExtResource( 2 )
-
 [node name="ColorRect" parent="ActStateMachine/Boss_transition/cutscene" index="0"]
 rect_scale = Vector2( 31.7764, 18.019 )
-color = Color( 0, 0, 0, 1 )

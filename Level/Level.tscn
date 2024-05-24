@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Level/ActEnd.gd" type="Script" id=1]
+[ext_resource path="res://Assets/misc/animations/simple_transition.tres" type="Animation" id=2]
 [ext_resource path="res://Level/Enemies.gd" type="Script" id=3]
 [ext_resource path="res://Level/PlayerPointer.gd" type="Script" id=4]
 [ext_resource path="res://Level/ParallaxBackground.gd" type="Script" id=5]
@@ -24,10 +25,12 @@ signal can_change_level
 
 func _ready():
 	pass
-		
+
+# This _process function checks whether the level can be switched (via signal_level_change)		
 func _process(_delta):
 	if(current_act == get_node(\"ActStateMachine/Finished\")):
 		signal_level_change()
+
 
 #This method signals the level-controller (inside the Game-scene) that it can change the level: this only happens when level_end_reached is true 
 func signal_level_change():
@@ -56,17 +59,18 @@ signal act1_finished
 # Called when the act enters the state_machine 
 
 func enter():
-	print(\"Entering level2\")
-	
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
 	
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	
+	
+# Called when the act enters the state_machine 
+	
 \"\"\"
 Note: These functions don't do anything right now - may have to be removed
 	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+	  engine, using the following methods doesn't change anything about it -> they are needless 
 
 func exit():
 	pass
@@ -84,10 +88,12 @@ func _ready():
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
 		emit_signal(\"act1_finished\")
+
+
 "
 
 [sub_resource type="RectangleShape2D" id=50]
-extents = Vector2( 86.875, 359.125 )
+extents = Vector2( 100, 360 )
 
 [sub_resource type="GDScript" id=51]
 script/source = "extends ActState
@@ -98,14 +104,16 @@ signal act2_finished
 
 func enter():
 	CameraSettings.reset_camera()
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	CameraSettings.change_camera_move(true)
 	
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
 # Called when the act leaves the state_machine	
+
 \"\"\"
 Note: These functions don't do anything right now - may have to be removed
 	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+	  engine, using the following methods doesn't change anything about it -> they are needless 
 
 func exit():
 	pass
@@ -134,15 +142,16 @@ signal act_boss_finished
 
 func enter():
 	CameraSettings.reset_camera()
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	CameraSettings.change_camera_move(true)
 	
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+
 # Called when the act leaves the state_machine 
 
 \"\"\"
 Note: These functions don't do anything right now - may have to be removed
 	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+	  engine, using the following methods doesn't change anything about it -> they are needless 
 
 func exit():
 	pass
@@ -195,16 +204,32 @@ func _on_ActEnd_body_entered(body):
 script/source = "extends ActState
 
 signal act1_transition_finished
+var anime
 
 func handle_input(_event: InputEvent):
 	pass
 
+\"\"\"
+Note:
+	
+Right now a default animation is being played (called simple_transition)
+
+This animation is only a placeholder!!!
+
+\"\"\"
+
+# When the state starts, some values are changed, and then the animation is played directly
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(false)
 	PlayerVariables.change_player_active(false)
-	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
-	pass
+	
+	get_node(\"AnimationPlayer\").play(\"simple_transition\")
+	anime = get_node(\"AnimationPlayer\").current_animation
+	
+	
+	
+	
 	
 func exit():
 	CameraSettings.change_camera_move(true)
@@ -225,6 +250,7 @@ func physics_update(_delta: float):
 
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
+
 
 func _on_AnimationPlayer_animation_finished(act1_transition):
 	emit_signal(\"act1_transition_finished\")
@@ -247,12 +273,21 @@ signal act2_transition_finished
 func handle_input(_event: InputEvent):
 	pass
 
+\"\"\"
+Note:
+	
+Right now a default animation is being played (called simple_transition)
+
+This animation is only a placeholder!!!
+
+\"\"\"
+
+# When the state starts, some values are changed, and then the animation is played directly
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(false)
 	PlayerVariables.change_player_active(false)
-	get_node(\"AnimationPlayer\").play(\"act2_transition\")
-	pass
+	get_node(\"AnimationPlayer\").play(\"simple_transition\")
 	
 func exit():
 	CameraSettings.change_camera_move(true)
@@ -292,12 +327,25 @@ script/source = "extends ActState
 
 signal act_boss_finished
 
-# This function is called when the act enters the state_machine 
+func handle_input(_event: InputEvent):
+	pass
+
+\"\"\"
+Note:
+	
+Right now a default animation is being played (called simple_transition)
+
+This animation is only a placeholder!!!
+
+\"\"\"
+
+# When the state starts, some values are changed, and then the animation is played directly
 func enter():
 	CameraSettings.reset_camera()
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"simple_transition\")
 	
-# This function is called when the act leaves the state_machine
 func exit():
 	CameraSettings.change_camera_move(true)
 	PlayerVariables.change_player_active(true)
@@ -315,8 +363,13 @@ func physics_update(_delta: float):
 
 \"\"\"
 
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
 func _on_AnimationPlayer_animation_finished(act2_transition):
-	emit_signal(\"act_boss_transition_finished\")
+	emit_signal(\"act2_transition_finished\")
+
+\"\"\"\"\"\"
 "
 
 [sub_resource type="GDScript" id=35]
@@ -339,69 +392,69 @@ initial_state = NodePath("Act1")
 script = SubResource( 49 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Act1"]
+scroll_offset = Vector2( 0.3, 0 )
 script = ExtResource( 5 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
-visible = false
-z_index = -10
+z_index = -1
+z_as_relative = false
+motion_scale = Vector2( 0.2, 1 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 8 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 6400, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer"]
 centered = false
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
-z_index = -9
+z_index = -10
+z_as_relative = false
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
 z_index = -8
-motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3"]
 modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3"]
 centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
 z_index = -7
-motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="other" type="Node2D" parent="ActStateMachine/Act1"]
-visible = false
 
 [node name="enemyHandler" type="Node2D" parent="ActStateMachine/Act1/other"]
 script = ExtResource( 3 )
@@ -422,23 +475,26 @@ show_collision = true
 format = 1
 
 [node name="ActEnd" type="Area2D" parent="ActStateMachine/Act1/other"]
-position = Vector2( 1184, 169 )
+position = Vector2( 1188, 166 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 1 )
 
 [node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Act1/other/ActEnd"]
-position = Vector2( 335, 195 )
+position = Vector2( -345, 194 )
 shape = SubResource( 50 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="ActStateMachine/Act1/other/ActEnd/EndMarker"]
-margin_left = -89.0
-margin_top = -358.0
-margin_right = 111.0
-margin_bottom = 362.0
-rect_scale = Vector2( 0.91476, 1.00247 )
+margin_left = -100.0
+margin_top = -360.0
+margin_right = 100.0
+margin_bottom = 360.0
 texture = ExtResource( 9 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": true
 }
 
@@ -447,6 +503,7 @@ position = Vector2( 132, 126 )
 script = ExtResource( 4 )
 
 [node name="Act2" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 51 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Act2"]
@@ -455,9 +512,9 @@ script = ExtResource( 5 )
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
 z_index = -10
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 8 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 6400, 720 )
@@ -469,6 +526,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
 z_index = -9
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2"]
 centered = false
@@ -483,7 +541,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
 z_index = -8
-motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3"]
 modulate = Color( 1, 1, 1, 0.298039 )
@@ -499,7 +557,7 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
 z_index = -7
-motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer4"]
 centered = false
@@ -512,7 +570,6 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="other" type="Node2D" parent="ActStateMachine/Act2"]
-visible = false
 
 [node name="enemyHandler" type="Node2D" parent="ActStateMachine/Act2/other"]
 script = ExtResource( 3 )
@@ -533,23 +590,28 @@ show_collision = true
 format = 1
 
 [node name="ActEnd" type="Area2D" parent="ActStateMachine/Act2/other"]
-position = Vector2( 1184, 169 )
+position = Vector2( 1260, 155 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 1 )
 
 [node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Act2/other/ActEnd"]
-position = Vector2( 335, 195 )
+position = Vector2( -406, 205 )
 shape = SubResource( 50 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="ActStateMachine/Act2/other/ActEnd/EndMarker"]
-margin_left = -89.0
-margin_top = -358.0
-margin_right = 111.0
-margin_bottom = 362.0
-rect_scale = Vector2( 0.91476, 1.00247 )
+margin_left = -100.0
+margin_top = -360.0
+margin_right = 100.0
+margin_bottom = 360.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource( 9 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": true
 }
 
@@ -558,6 +620,7 @@ position = Vector2( 132, 126 )
 script = ExtResource( 4 )
 
 [node name="Boss" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 52 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Boss"]
@@ -568,7 +631,6 @@ visible = false
 z_index = -10
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 8 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 6400, 720 )
@@ -580,50 +642,51 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
 z_index = -9
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
 z_index = -8
 motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3"]
 modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
 z_index = -7
-motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -500, 0 )
 
 [node name="image1" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 1280, 720 )
+region_rect = Rect2( 0, 0, 10000, 720 )
 
 [node name="other" type="Node2D" parent="ActStateMachine/Boss"]
-visible = false
 
 [node name="enemyHandler" type="Node2D" parent="ActStateMachine/Boss/other"]
 script = ExtResource( 3 )
@@ -644,7 +707,8 @@ show_collision = true
 format = 1
 
 [node name="ActEnd" type="Area2D" parent="ActStateMachine/Boss/other"]
-position = Vector2( 1184, 169 )
+visible = false
+position = Vector2( 1172, 166 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 1 )
@@ -652,15 +716,18 @@ script = ExtResource( 1 )
 [node name="EndMarker" type="CollisionShape2D" parent="ActStateMachine/Boss/other/ActEnd"]
 position = Vector2( 335, 195 )
 shape = SubResource( 50 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="ActStateMachine/Boss/other/ActEnd/EndMarker"]
-margin_left = -89.0
-margin_top = -358.0
-margin_right = 111.0
-margin_bottom = 362.0
-rect_scale = Vector2( 0.91476, 1.00247 )
+margin_left = -99.0
+margin_top = -360.0
+margin_right = 101.0
+margin_bottom = 360.0
 texture = ExtResource( 9 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": true
 }
 
@@ -669,6 +736,7 @@ position = Vector2( 132, 126 )
 script = ExtResource( 4 )
 
 [node name="Finished" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 53 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ActStateMachine/Finished"]
@@ -780,42 +848,54 @@ position = Vector2( 132, 126 )
 script = ExtResource( 4 )
 
 [node name="Act1_transition" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 29 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Act1_transition"]
+anims/simple_transition = ExtResource( 2 )
 
 [node name="cutscene" type="Node2D" parent="ActStateMachine/Act1_transition"]
 script = SubResource( 37 )
 
 [node name="ColorRect" type="ColorRect" parent="ActStateMachine/Act1_transition/cutscene"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Act2_transition" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 31 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Act2_transition"]
+anims/simple_transition = ExtResource( 2 )
 
 [node name="cutscene" type="Node2D" parent="ActStateMachine/Act2_transition"]
 script = SubResource( 36 )
 
 [node name="ColorRect" type="ColorRect" parent="ActStateMachine/Act2_transition/cutscene"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Boss_transition" type="Node2D" parent="ActStateMachine"]
+visible = false
 script = SubResource( 54 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ActStateMachine/Boss_transition"]
+anims/simple_transition = ExtResource( 2 )
 
 [node name="cutscene" type="Node2D" parent="ActStateMachine/Boss_transition"]
 script = SubResource( 35 )
 
 [node name="ColorRect" type="ColorRect" parent="ActStateMachine/Boss_transition/cutscene"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 1 )
 
 [connection signal="body_entered" from="ActStateMachine/Act1/other/ActEnd" to="ActStateMachine/Act1" method="_on_ActEnd_body_entered"]
 [connection signal="body_entered" from="ActStateMachine/Act2/other/ActEnd" to="ActStateMachine/Act2" method="_on_ActEnd_body_entered"]
 [connection signal="body_entered" from="ActStateMachine/Boss/other/ActEnd" to="ActStateMachine/Boss" method="_on_ActEnd_body_entered"]
 [connection signal="body_entered" from="ActStateMachine/Finished/other/ActEnd" to="ActStateMachine/Finished" method="_on_ActEnd_body_entered"]
+[connection signal="animation_finished" from="ActStateMachine/Act1_transition/AnimationPlayer" to="ActStateMachine" method="_on_Act1_transition_finished"]
+[connection signal="animation_finished" from="ActStateMachine/Act2_transition/AnimationPlayer" to="ActStateMachine" method="_on_Act2_transition_finished"]
+[connection signal="animation_finished" from="ActStateMachine/Boss_transition/AnimationPlayer" to="ActStateMachine" method="_on_Act_Boss_transition_finished"]

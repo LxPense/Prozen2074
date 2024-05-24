@@ -19,12 +19,14 @@ func set_player_spawn_position(newPlayerPos : Vector2):
 func set_player_position(newPlayerPos: Vector2):
 	player_instance.position = newPlayerPos
 	
-# Enables or disables the player completely and hide him from the view
+# Enables or disables the player completely and hides him from the view
 func change_player_active(active : bool):
 	player_instance.set_physics_process(active)
 	player_visible = active
 	player_instance.visible = player_visible
 	
+	#Experimental (19.05.24), might cause issues!
+	screen_exited_expected = true
 
 func set_lives(_lives):
 	lives = _lives

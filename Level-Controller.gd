@@ -20,9 +20,10 @@ var level_path: String = "res://Level/Levels/Level%d.tscn"
 var node_name: String = "Level_%d"
 
 func _ready():
-	get_node("Level1/Level").connect("can_change_level", self, "change_level")
-	get_node("Level1/Level/ActStateMachine").connect("_on_AnimationPlayer_animation_finished", self, "change_level")
-	
+	print("Called ready in Level_Controller")
+	get_node("Level1/").connect("can_change_level", self, "change_level")
+	get_node("Level1/ActStateMachine").connect("_on_AnimationPlayer_animation_finished", self, "change_level")
+	get_node("Level1/ActStateMachine").connect("_on_Act_Boss_transition_finished", self, "level_finished")
 	
 # Note: For the first time (before the first level runs), the change_level function isn't actually called, because the Level is already set
 # therefore the current_level_num is 1 for the very first level 
@@ -52,6 +53,8 @@ func change_level():
 	
 	get_node(new_node_name).connect("can_change_level", self, "change_level")
 	
-	
+
+# Gets called when the last Act of an level is finished 
+# Therefore the ActStateMachine is notified and signals a level_finished signal 
 func _on_ActStateMachine_level_finished():
 	change_level()

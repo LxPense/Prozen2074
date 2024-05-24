@@ -47,10 +47,9 @@ func _ready():
 		child.state_machine = self
 	
 	# The first call of the enter-Function: This is used to enter the first act
-	
-	activate_act(state)
-	
 	state.set_process(true)
+	activate_act(act1)
+	
 	state.enter();
 	
 """
@@ -87,7 +86,7 @@ func deactivate_act(node : Node):
 		for child in node.get_children():
 			deactivate_act(child)
 
-""""
+"""
  This function activates everything inside an act (it works recursively)
  This function is therefore used to prevent the various acts to influence each other, as they are 
  all inside the scene-tree
@@ -129,9 +128,12 @@ func _process(delta):
 		
 func _physics_process(delta):
 	state.physics_update(delta)
+	pass
 	
 # Is used to enter various acts, but not the first one (entering the first one is handled seperately)
 func transition_to(target_state_name) -> void:
+	
+	# Check whether the targed state actually exists in the scene-tree
 	if not has_node(target_state_name):
 		return 
 	
@@ -143,18 +145,22 @@ func transition_to(target_state_name) -> void:
 	
 	state = get_node(target_state_name)
 	current_act = state
+	
 	activate_act(state)
 	
 	state.enter()
-	
+
 # After the last tranisition has played, this function resets all values inside the scene to its defaults
 # It is used because transition_to can't be used in that context
 func conclude_level() -> void:
 	state.exit()
+	
+
 
 func _on_Act1_act_finished():
 	transition_to(act1_transition.get_path())
-
+	
+	
 func _on_Act2_act_finished():
 	transition_to(act2_transition.get_path())
 
@@ -163,15 +169,20 @@ func _on_Boss_act_finished():
 
 func _on_Finished_act_finished():
 	print("Congrats!")
+	
+"""
+Note: Each function has an argument, which holds the value "simple_transition".
+It was chosen because the signal-handler of the animation_finished signal requires 
+a string with the name of the animation
+"""
 
-func _on_Act1_transition_finished():
+func _on_Act1_transition_finished(simple_transition):
 	transition_to(act2.get_path())
 	
-func _on_Act2_transition_finished():
+func _on_Act2_transition_finished(simple_transition):
 	transition_to(act_boss.get_path())
 
 #If the transition after the boss-act has finished, the level_controller is notified that it can change the level
-func _on_Act_Boss_transition_finished():
+func _on_Act_Boss_transition_finished(simple_transition):
 	conclude_level()
 	emit_signal("level_finished")
-

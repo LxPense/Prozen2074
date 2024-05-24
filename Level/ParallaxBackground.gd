@@ -28,3 +28,10 @@ func physics_update(_delta: float):
 func _on_AnimationPlayer_animation_finished(act1_transition):
 	emit_signal("act1_transition_finished")
 
+# Note: The x-offset of each ParallaxLayer is set to -500, so each layer starts a bit left to
+# the beginning of the background (this is needed because the backgrounds are drawn a bit to the right by the ParallaxLayers per default 
+
+# Note: Each image gets repeated by changing the region of each sprite seperately.
+# There is another solution to this by using the mirroring-attribute of each ParallaxLayer.
+# This achieves the same effect, but somehow it doesn't work because the z-index isn't considered
+# which makes the sprites overlap
