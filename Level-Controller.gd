@@ -21,9 +21,18 @@ var node_name: String = "Level_%d"
 
 func _ready():
 	print("Called ready in Level_Controller")
+	
+	# The following code is only relevant for the ActStateMachine of the first level.
+	# After each line gets executed, a signal called "level_finished" is emitted by the ActStateMachine
+	# After all this code gets executed, the change_level-function deals with the upcoming level-switching
+	
 	get_node("Level1/").connect("can_change_level", self, "change_level")
-	get_node("Level1/ActStateMachine").connect("_on_AnimationPlayer_animation_finished", self, "change_level")
-	get_node("Level1/ActStateMachine").connect("_on_Act_Boss_transition_finished", self, "level_finished")
+	get_node("Level1/ActStateMachine").connect("level_finished", self, "change_level")
+	
+	# Probably not necessary anymore
+	#get_node("Level1/ActStateMachine").connect("_on_AnimationPlayer_animation_finished", self, "change_level")
+	
+	
 	
 # Note: For the first time (before the first level runs), the change_level function isn't actually called, because the Level is already set
 # therefore the current_level_num is 1 for the very first level 

@@ -8,9 +8,6 @@
 
 [node name="Level1" instance=ExtResource( 1 )]
 
-[node name="Act1" parent="ActStateMachine" index="0"]
-visible = false
-
 [node name="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground" index="0"]
 visible = false
 z_index = -10
@@ -51,3 +48,9 @@ texture = ExtResource( 5 )
 
 [node name="ActEnd" parent="ActStateMachine/Boss/other" index="2"]
 visible = true
+
+[node name="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground" index="0"]
+visible = true
+
+[node name="image1" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false

@@ -2,7 +2,7 @@ extends Node
 
 signal transitioned(state_name)
 
-# Is used to notify the level_controller that the level is finished, level_nr is used to identify the level in itself by its number (f.e. 1, 2 ...)
+# Is used to notify the level_controller that the level is finished, level_nr is used to identify the level itself by its number (f.e. 1, 2 ...)
 signal level_finished
 
 export var initial_state := NodePath()
@@ -28,7 +28,7 @@ func _ready():
 	
 	act1_transition.connect("act1_transition_finished", self, "_on_Act1_transition_finished")
 	act2_transition.connect("act2_transition_finished", self, "_on_Act2_transition_finished")
-	act_boss_transition.connect("boss_transition_finished", self, "_on_Act_Boss_transition_finished")
+	act_boss_transition.connect("act_boss_finished", self, "_on_Act_Boss_transition_finished")
 	# Note: The first act (act1) isn't deactivated because it's the starting act
 	
 	deactivate_act(act2)
@@ -154,12 +154,9 @@ func transition_to(target_state_name) -> void:
 # It is used because transition_to can't be used in that context
 func conclude_level() -> void:
 	state.exit()
-	
-
 
 func _on_Act1_act_finished():
 	transition_to(act1_transition.get_path())
-	
 	
 func _on_Act2_act_finished():
 	transition_to(act2_transition.get_path())

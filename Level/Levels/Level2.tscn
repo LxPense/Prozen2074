@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/backgrounds/BG_spacebase.png" type="Texture" id=2]
+[ext_resource path="res://Assets/backgrounds/spaceshipact2.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends Node2D
@@ -221,7 +223,7 @@ func _on_Act_Boss_transition_finished():
 
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=7]
 script/source = "extends ActState
 
 signal act1_finished
@@ -233,7 +235,7 @@ func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
 	
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	#PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	
 \"\"\"
 Note: These functions don't do anything right now - may have to be removed
@@ -255,7 +257,157 @@ func _ready():
 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
-		emit_signal(\"act1_finished\")
+		emit_signal(\"act_boss_finished\")
+"
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends ActState
+
+signal act2_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
+	#PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+\"\"\"
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_boss_finished\")
+"
+
+[sub_resource type="TileSet" id=5]
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends ActState
+
+signal act_boss_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
+	#PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+\"\"\"
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_boss_finished\")
+"
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends ActState
+
+signal act_end_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
+	#PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+\"\"\"
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_boss_finished\")
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends ActState
+
+signal act2_finished
+
+# Called when the act enters the state_machine 
+
+func enter():
+	
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(true)
+	
+	#PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
+\"\"\"
+Note: These functions don't do anything right now - may have to be removed
+	  The methods _physics_process and _process are being called automatically by the
+	  engine, using the following methods doesn't influence that whatsoever -> they are needless 
+
+func exit():
+	pass
+		
+func update_game(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+func _ready():
+	pass
+\"\"\"
+
+func _on_ActEnd_body_entered(body):
+	if(body.is_in_group(\"player\")):
+		emit_signal(\"act_boss_finished\")
 "
 
 [node name="Level2" instance=ExtResource( 1 )]
@@ -266,7 +418,17 @@ script = SubResource( 2 )
 
 [node name="Act1" parent="ActStateMachine" index="0"]
 position = Vector2( 0, 2 )
-script = SubResource( 3 )
+script = SubResource( 7 )
+
+[node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
+texture = ExtResource( 2 )
+
+[node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="1"]
+visible = false
+
+[node name="ActEnd" parent="ActStateMachine/Act1/other" index="2"]
+position = Vector2( 1703, 171 )
 
 [node name="EndMarker" parent="ActStateMachine/Act1/other/ActEnd" index="0"]
 position = Vector2( -557, 184 )
@@ -275,35 +437,40 @@ position = Vector2( -557, 184 )
 position = Vector2( 187, 485 )
 
 [node name="Act2" parent="ActStateMachine" index="1"]
-script = SubResource( 3 )
+script = SubResource( 8 )
 
 [node name="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground" index="0"]
 visible = true
 
-[node name="other" parent="ActStateMachine/Act2" index="1"]
-visible = true
+[node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
+texture = ExtResource( 3 )
+
+[node name="TileMap_1" parent="ActStateMachine/Act2/other/tilemapHandler" index="0"]
+mode = 1
+tile_set = SubResource( 5 )
 
 [node name="Boss" parent="ActStateMachine" index="2"]
-script = SubResource( 3 )
+script = SubResource( 9 )
 
 [node name="Finished" parent="ActStateMachine" index="3"]
-script = SubResource( 3 )
+script = SubResource( 10 )
 
 [node name="Act1_transition" parent="ActStateMachine" index="4"]
-script = SubResource( 3 )
+script = SubResource( 6 )
 
 [node name="ColorRect" parent="ActStateMachine/Act1_transition/cutscene" index="0"]
 margin_bottom = 723.0
 
 [node name="Act2_transition" parent="ActStateMachine" index="5"]
-script = SubResource( 3 )
+script = SubResource( 6 )
 
 [node name="ColorRect" parent="ActStateMachine/Act2_transition/cutscene" index="0"]
 rect_scale = Vector2( 31.9794, 18.085 )
 
 [node name="Boss_transition" parent="ActStateMachine" index="6"]
 scale = Vector2( 1.00838, 1.00833 )
-script = SubResource( 3 )
+script = SubResource( 6 )
 
 [node name="ColorRect" parent="ActStateMachine/Boss_transition/cutscene" index="0"]
 rect_scale = Vector2( 31.7764, 18.019 )

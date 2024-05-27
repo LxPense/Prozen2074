@@ -251,9 +251,6 @@ func physics_update(_delta: float):
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
 
-
-func _on_AnimationPlayer_animation_finished(act1_transition):
-	emit_signal(\"act1_transition_finished\")
 "
 
 [sub_resource type="GDScript" id=37]
@@ -308,9 +305,6 @@ func physics_update(_delta: float):
 
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
-
-func _on_AnimationPlayer_animation_finished(act2_transition):
-	emit_signal(\"act2_transition_finished\")
 "
 
 [sub_resource type="GDScript" id=36]
@@ -366,10 +360,8 @@ func physics_update(_delta: float):
 # After the animation inside the AnimationPlayer has finished,
 # a signal for changing the current act is emitted
 
-func _on_AnimationPlayer_animation_finished(act2_transition):
-	emit_signal(\"act2_transition_finished\")
 
-\"\"\"\"\"\"
+
 "
 
 [sub_resource type="GDScript" id=35]
@@ -405,11 +397,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
@@ -421,11 +419,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
@@ -436,10 +440,16 @@ motion_offset = Vector2( -500, 0 )
 modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3"]
 centered = false
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground"]
 visible = false
@@ -449,10 +459,16 @@ motion_offset = Vector2( -500, 0 )
 [node name="image1" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="other" type="Node2D" parent="ActStateMachine/Act1"]
 
@@ -518,10 +534,16 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 6400, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer"]
 centered = false
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
@@ -532,11 +554,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
@@ -548,11 +576,17 @@ modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground"]
 visible = false
@@ -563,11 +597,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="other" type="Node2D" parent="ActStateMachine/Act2"]
 
@@ -634,10 +674,16 @@ z_index = -10
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 6400, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer"]
 centered = false
 region_rect = Rect2( 0, 0, 1280, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
@@ -648,11 +694,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
@@ -665,11 +717,17 @@ modulate = Color( 1, 1, 1, 0.298039 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground"]
 visible = false
@@ -680,11 +738,17 @@ motion_offset = Vector2( -500, 0 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="image2" type="Sprite" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer4"]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 10000, 720 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="other" type="Node2D" parent="ActStateMachine/Boss"]
 
