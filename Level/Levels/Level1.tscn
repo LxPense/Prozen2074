@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/backgrounds/bg_black.png" type="Texture" id=2]
@@ -6,7 +6,130 @@
 [ext_resource path="res://Assets/backgrounds/BG_spacecloudact2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/backgrounds/BG_spacestar2.png" type="Texture" id=5]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends ActState
+
+signal act2_transition_finished
+
+func handle_input(_event: InputEvent):
+	pass
+
+func enter():
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
+	pass
+	
+func exit():
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
+	
+func update(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
+func _on_AnimationPlayer_animation_finished(act1_transition):
+	emit_signal(\"act1_transition_finished\")
+
+# Note: The x-offset of each ParallaxLayer is set to -500, so each layer starts a bit left to
+# the beginning of the background (this is needed because the backgrounds are drawn a bit to the right by the ParallaxLayers per default 
+
+# Note: Each image gets repeated by changing the region of each sprite seperately.
+# There is another solution to this by using the mirroring-attribute of each ParallaxLayer.
+# This achieves the same effect, but somehow it doesn't work because the z-index isn't considered
+# which makes the sprites overlap
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ActState
+
+signal act2_transition_finished
+
+func handle_input(_event: InputEvent):
+	pass
+
+func enter():
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
+	pass
+	
+func exit():
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
+	
+func update(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
+func _on_AnimationPlayer_animation_finished(act1_transition):
+	emit_signal(\"act1_transition_finished\")
+
+# Note: The x-offset of each ParallaxLayer is set to -500, so each layer starts a bit left to
+# the beginning of the background (this is needed because the backgrounds are drawn a bit to the right by the ParallaxLayers per default 
+
+# Note: Each image gets repeated by changing the region of each sprite seperately.
+# There is another solution to this by using the mirroring-attribute of each ParallaxLayer.
+# This achieves the same effect, but somehow it doesn't work because the z-index isn't considered
+# which makes the sprites overlap
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends ActState
+
+signal act2_transition_finished
+
+func handle_input(_event: InputEvent):
+	pass
+
+func enter():
+	CameraSettings.reset_camera()
+	CameraSettings.change_camera_move(false)
+	PlayerVariables.change_player_active(false)
+	get_node(\"AnimationPlayer\").play(\"animation_act1_transition\")
+	pass
+	
+func exit():
+	CameraSettings.change_camera_move(true)
+	PlayerVariables.change_player_active(true)
+	
+func update(_delta: float):
+	pass
+	
+func physics_update(_delta: float):
+	pass
+
+# After the animation inside the AnimationPlayer has finished,
+# a signal for changing the current act is emitted
+
+func _on_AnimationPlayer_animation_finished(act1_transition):
+	emit_signal(\"act1_transition_finished\")
+
+# Note: The x-offset of each ParallaxLayer is set to -500, so each layer starts a bit left to
+# the beginning of the background (this is needed because the backgrounds are drawn a bit to the right by the ParallaxLayers per default 
+
+# Note: Each image gets repeated by changing the region of each sprite seperately.
+# There is another solution to this by using the mirroring-attribute of each ParallaxLayer.
+# This achieves the same effect, but somehow it doesn't work because the z-index isn't considered
+# which makes the sprites overlap
+"
+
 [node name="Level1" instance=ExtResource( 1 )]
+
+[node name="ParallaxBackground" parent="ActStateMachine/Act1" index="0"]
+script = SubResource( 1 )
 
 [node name="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground" index="0"]
 visible = false
@@ -22,6 +145,12 @@ z_index = -9
 [node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2" index="0"]
 texture = ExtResource( 3 )
 
+[node name="PlayerPointer" parent="ActStateMachine/Act1/other" index="3"]
+position = Vector2( 251, 346 )
+
+[node name="ParallaxBackground" parent="ActStateMachine/Act2" index="0"]
+script = SubResource( 2 )
+
 [node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer" index="0"]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 10000, 720 )
@@ -32,6 +161,12 @@ z_index = -6
 [node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2" index="0"]
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 10000, 720 )
+
+[node name="PlayerPointer" parent="ActStateMachine/Act2/other" index="3"]
+position = Vector2( 100, 200 )
+
+[node name="ParallaxBackground" parent="ActStateMachine/Boss" index="0"]
+script = SubResource( 3 )
 
 [node name="ParallaxLayer" parent="ActStateMachine/Boss/ParallaxBackground" index="0"]
 visible = true

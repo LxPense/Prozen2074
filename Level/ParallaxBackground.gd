@@ -1,6 +1,6 @@
 extends ActState
 
-signal act1_transition_finished
+signal act2_transition_finished
 
 func handle_input(_event: InputEvent):
 	pass

@@ -17,6 +17,7 @@ script = ExtResource( 2 )
 
 [node name="Player" parent="View" instance=ExtResource( 1 )]
 position = Vector2( 60.1837, 340.481 )
+z_index = 100
 
 [node name="BulletsList" type="Node2D" parent="View"]
 __meta__ = {

@@ -1,0 +1,157 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Assets/bosses/boss_space/bossSpSpritesheet.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/bosses/boss_space/AnimationTree.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/bosses/boss_space/SpaceBoss.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "SpaceBoss_jump"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "SpaceBoss_preShoot"
+length = 0.25
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "SpaceBoss_reload"
+length = 5.0
+step = 0.21
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05, 1.26, 1.47, 1.68, 1.89, 2.1, 2.31, 2.52, 2.73, 2.94, 3.15, 3.36, 3.57, 3.78, 3.99, 4.2, 4.41, 4.62 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "SpaceBoss_shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 25, 26, 27, 28, 29 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "RESET"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "SpaceBoss_jump"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "SpaceBoss_preShoot"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "SpaceBoss_reload"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "SpaceBoss_shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+switch_mode = 2
+advance_condition = "shots_fired"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+states/RESET/node = SubResource( 8 )
+states/RESET/position = Vector2( 190, 81 )
+states/SpaceBoss_jump/node = SubResource( 9 )
+states/SpaceBoss_jump/position = Vector2( 740, 81 )
+states/SpaceBoss_preShoot/node = SubResource( 10 )
+states/SpaceBoss_preShoot/position = Vector2( 455, 81 )
+states/SpaceBoss_reload/node = SubResource( 11 )
+states/SpaceBoss_reload/position = Vector2( 925, 181.84 )
+states/SpaceBoss_shoot/node = SubResource( 12 )
+states/SpaceBoss_shoot/position = Vector2( 1035, 81 )
+transitions = [ "RESET", "SpaceBoss_preShoot", SubResource( 13 ), "SpaceBoss_preShoot", "SpaceBoss_jump", SubResource( 14 ), "SpaceBoss_jump", "SpaceBoss_shoot", SubResource( 15 ), "SpaceBoss_shoot", "SpaceBoss_reload", SubResource( 16 ), "SpaceBoss_reload", "SpaceBoss_jump", SubResource( 17 ) ]
+start_node = "RESET"
+graph_offset = Vector2( 0, -29.16 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
+[node name="SpaceBoss" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 7 )
+anims/SpaceBoss_jump = SubResource( 1 )
+anims/SpaceBoss_preShoot = SubResource( 2 )
+anims/SpaceBoss_reload = SubResource( 3 )
+anims/SpaceBoss_shoot = SubResource( 4 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="Sprites"]
+
+[node name="Sprite" type="Sprite" parent="Sprites/Node2D"]
+texture = ExtResource( 1 )
+hframes = 35
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 6 )
+parameters/conditions/shots_fired = false
+script = ExtResource( 2 )
