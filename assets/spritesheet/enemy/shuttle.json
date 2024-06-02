@@ -1,0 +1,46 @@
+{ "frames": {
+   "shuttle #idle.ase": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 24 },
+    "sourceSize": { "w": 48, "h": 24 },
+    "duration": 83
+   },
+   "shuttle #lazer 0.ase": {
+    "frame": { "x": 0, "y": 24, "w": 48, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 24 },
+    "sourceSize": { "w": 48, "h": 24 },
+    "duration": 83
+   },
+   "shuttle #lazer 1.ase": {
+    "frame": { "x": 48, "y": 24, "w": 48, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 24 },
+    "sourceSize": { "w": 48, "h": 24 },
+    "duration": 83
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.7-x64",
+  "image": "shuttle.png",
+  "format": "RGBA8888",
+  "size": { "w": 96, "h": 48 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
+   { "name": "lazer", "from": 1, "to": 2, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "colour", "opacity": 255, "blendMode": "normal" },
+   { "name": "shading", "opacity": 61, "blendMode": "normal" },
+   { "name": "lines", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
