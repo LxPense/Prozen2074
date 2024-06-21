@@ -1,11 +1,58 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/enemy/dynamic/Drone/spritesheet_drone.png" type="Texture" id=2]
+[ext_resource path="res://Assets/spritesheet/enemy/sdrone.png" type="Texture" id=2]
 [ext_resource path="res://Enemies/dynamic/Drone/Drone.gd" type="Script" id=14]
 
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "idle", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+
 [sub_resource type="Animation" id=1]
-resource_name = "spawn"
+resource_name = "Spawn"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -20,8 +67,45 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=2]
-loop = true
+[sub_resource type="Animation" id=4]
+resource_name = "Turn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Spawn"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "Turn"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+states/Spawn/node = SubResource( 7 )
+states/Spawn/position = Vector2( 308, 66 )
+states/Turn/node = SubResource( 8 )
+states/Turn/position = Vector2( 574, 58 )
+transitions = [ "Spawn", "Turn", SubResource( 9 ), "Turn", "Spawn", SubResource( 10 ) ]
+start_node = "Spawn"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
 [node name="Drone" instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
@@ -31,17 +115,18 @@ script = ExtResource( 14 )
 disabled = false
 
 [node name="Sprite" parent="." index="1"]
-position = Vector2( 0.854747, -1 )
 texture = ExtResource( 2 )
-hframes = 12
-frame = 2
+hframes = 8
+vframes = 2
 
 [node name="bulletPosition" parent="Sprite" index="0"]
 position = Vector2( -26.1881, 4 )
 
 [node name="AnimationPlayer" parent="Sprite" index="1"]
-anims/spawn = SubResource( 1 )
-anims/triggered = SubResource( 2 )
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+anims/Spawn = SubResource( 1 )
+anims/Turn = SubResource( 4 )
 
 [node name="PlayerCollision" parent="EntityHitbox" index="0"]
 disabled = false
@@ -51,3 +136,9 @@ disabled = false
 
 [node name="BulletCollision" parent="BulletHitbox" index="0"]
 disabled = false
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="7"]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../Sprite/AnimationPlayer")
+active = true
+parameters/playback = SubResource( 6 )

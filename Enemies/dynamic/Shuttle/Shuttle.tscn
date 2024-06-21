@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/enemy/dynamic/Shuttle/spritesheet_shuttle.png" type="Texture" id=2]
+[ext_resource path="res://Assets/spritesheet/enemy/shuttle.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemy/dynamic/Shuttle/laser/spritesheet_laser.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
@@ -74,10 +74,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		$Laser/LaserHitbox.disabled = true
 "
 
-[sub_resource type="Animation" id=2]
-resource_name = "shoot"
-length = 0.5
-loop = true
+[sub_resource type="Animation" id=23]
+resource_name = "Idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -85,10 +83,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Shoot"
+length = 0.249
+loop = true
+step = 0.083
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.083, 0.166 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2 ]
+"values": [ 0, 2, 3 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("..")
@@ -265,6 +281,26 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "Shoot"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachine" id=20]
+states/Shoot/node = SubResource( 24 )
+states/Shoot/position = Vector2( 489, 103 )
+states/idle/node = SubResource( 17 )
+states/idle/position = Vector2( 240, 103 )
+transitions = [ "idle", "Shoot", SubResource( 25 ), "Shoot", "idle", SubResource( 26 ) ]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
+
 [node name="Shuttle" instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
 script = SubResource( 1 )
@@ -275,10 +311,12 @@ disabled = false
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 2 )
-hframes = 3
+hframes = 2
+vframes = 2
 
 [node name="AnimationPlayer" parent="Sprite" index="1"]
-anims/shoot = SubResource( 2 )
+anims/Idle = SubResource( 23 )
+anims/Shoot = SubResource( 2 )
 
 [node name="EntityHitbox" parent="." index="2"]
 collision_mask = 9
@@ -320,13 +358,13 @@ texture = SubResource( 12 )
 position = Vector2( -6.26801, 0 )
 scale = Vector2( 1.02695, 1.47206 )
 shape = SubResource( 13 )
-disabled = true
 
 [node name="Sprite" type="Sprite" parent="Laser" index="3"]
 position = Vector2( -6.34375, 0 )
 scale = Vector2( 1, 0.5 )
 texture = ExtResource( 3 )
 hframes = 17
+frame = 15
 region_rect = Rect2( 0, 0, 200, 200 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Laser/Sprite" index="0"]
@@ -342,5 +380,11 @@ disabled = false
 
 [node name="BulletCollision" parent="BulletHitbox" index="0"]
 disabled = false
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="8"]
+tree_root = SubResource( 20 )
+anim_player = NodePath("../Sprite/AnimationPlayer")
+active = true
+parameters/playback = SubResource( 21 )
 
 [connection signal="animation_finished" from="Laser/Sprite/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

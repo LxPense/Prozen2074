@@ -39,7 +39,6 @@ func _init(_score = 0, _speed = 150, _health = 1):
 
 func _ready():
 	starting_pos = position
-	$Sprite/AnimationPlayer.play("spawn")
 	pass
 
 #If some unnecessary movement (like flying into the screen) is finished, the enemy can shoot normally, max_movement specifies until which part of the movement it is considered unnecessary
@@ -48,10 +47,8 @@ func can_shoot_at(max_movement):
 		can_shoot = true
 	
 func _physics_process(_delta) -> void:
-	#states._physics_process(_delta)
 	
-	check_inside_camera()
-	if(inside_camera):
+	if($VisibilityNotifier2D.is_on_screen()):
 		
 		$CurrentPosition.position = position
 		canMove = true
@@ -101,32 +98,7 @@ func move(movement_vector, movement_nr, keep_movement, loop): #movement_nr ident
 		
 	elif current_movement != movement_nr:
 		pass	
-	
-# Checks whether the enemy is inside/near the camera
-func check_inside_camera():
-	#If the enemy is inside the camera, then active is set to true
-	if position.x + $"EntityHitbox/PlayerCollision".shape.extents.x > $"/root/Game/View/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x <= $"/root/Game/View/Camera".offset.x + 1280 + OUTSIDE_BUFFER \
-	  and position.y > 0 and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y < 720:
-		inside_camera = true
-		
-	
-	#If the enemy spawns above the camera and is OUTSIDE_BUFFER pixels outside of it, this code makes it move
-	# NOTE: The outside buffer is important so that the truster doesn't stop for some reason
-	elif position.x > $"/root/Game/View/Camera".offset.x and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x < $"/root/Game/View/Camera".offset.x + 1280 \
-		and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y + OUTSIDE_BUFFER > 0: 
-		handle_movement()
-		inside_camera = false
 
-	
-	#If the enemy spawns to the right of the camera and is OUTSIDE_BUFFER pixels outside of it, this code makes it move
-	elif position.y > 0 and position.y + $"EntityHitbox/PlayerCollision".shape.extents.y < 720  \
-		and position.x > $"/root/Game/View/Camera".offset.x + 1280 and position.x + $"EntityHitbox/PlayerCollision".shape.extents.x - OUTSIDE_BUFFER < $"/root/Game/View/Camera".offset.x + 1280:
-		handle_movement()
-		inside_camera = true
-		
-	elif position.x <= $"/root/Game/View/Camera".offset.x - OUTSIDE_BUFFER:
-		inside_camera = false
-			
 func onHit():
 	health -= 1;
 	if(health <= 0):
@@ -150,7 +122,7 @@ func _on_ShotTimer_timeout():
 func _on_Activation_area_body_entered(body):	# If the player enters the activation_area, for further implementation see enemy-classes
 	pass
 			
-func _on_Activation_area_body_exited(body):			# If the player leaves the activation area, for further implementation see enemy-classes
+func _on_Activation_area_body_exited(body):		# If the player leaves the activation area, for further implementation see enemy-classes
 	pass
 			
 func followPlayer():
@@ -165,5 +137,9 @@ func _on_BulletHitbox_area_entered(area):
 	if area.is_in_group("bullet"):
 			onHit()
 
+func _on_VisibilityNotifier2D_screen_entered():
+	inside_camera = true
 
 
+func _on_VisibilityNotifier2D_screen_exited():
+	inside_camera = false

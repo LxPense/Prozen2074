@@ -2,124 +2,106 @@
 
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/static/Portal/Portal.gd" type="Script" id=2]
-[ext_resource path="res://assets/enemy/static/Portal/spritesheet_portal.png" type="Texture" id=28]
+[ext_resource path="res://Assets/spritesheet/enemy/portalspawn.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.9071, 6.4251 )
 
-[sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Hide"
-
-[sub_resource type="AnimationNodeAnimation" id=4]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=5]
-animation = "spawn"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=6]
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id=7]
-states/Hide/node = SubResource( 10 )
-states/Hide/position = Vector2( 84, 145 )
-states/idle/node = SubResource( 4 )
-states/idle/position = Vector2( 617, 131 )
-states/spawn/node = SubResource( 5 )
-states/spawn/position = Vector2( 332, 159 )
-transitions = [ "spawn", "idle", SubResource( 6 ), "Hide", "spawn", SubResource( 11 ) ]
-start_node = "Hide"
-graph_offset = Vector2( -109, 21 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
-
-[sub_resource type="Animation" id=9]
-resource_name = "Hide"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 9 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("AnimationTree")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
-}
-
 [sub_resource type="Animation" id=2]
-resource_name = "idle"
-loop = true
-step = 0.142
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
+resource_name = "Idle"
+length = 0.5
+step = 0.25
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.142, 0.284, 0.426, 0.568, 0.71, 0.852 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "spawn"
-length = 1.7
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("AnimationPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1.7 ),
+"times": PoolRealArray( 0.25 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ "idle", -1, 1.0, false ],
+"args": [ "spawn", -1, 1.0, false ],
 "method": "play"
 } ]
 }
-tracks/2/type = "method"
-tracks/2/path = NodePath("..")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
 }
+
+[sub_resource type="Animation" id=13]
+resource_name = "Main"
+length = 0.875
+loop = true
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19, 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Spawn"
+length = 1.105
+step = 0.065
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.065, 0.13, 0.195, 0.26, 0.325, 0.39, 0.455, 0.52, 0.585, 0.65, 0.715, 0.78, 0.845, 0.91, 0.975, 1.04 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "Main"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "Spawn"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+switch_mode = 2
+advance_condition = "triggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=17]
+states/Idle/node = SubResource( 21 )
+states/Idle/position = Vector2( 113, 170 )
+states/Main/node = SubResource( 22 )
+states/Main/position = Vector2( 519, 152 )
+states/Spawn/node = SubResource( 23 )
+states/Spawn/position = Vector2( 305, 157 )
+transitions = [ "Idle", "Spawn", SubResource( 24 ), "Spawn", "Main", SubResource( 25 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -162, 37 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
 
 [node name="Portal" instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
@@ -130,24 +112,18 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-texture = ExtResource( 28 )
-hframes = 25
-frame = 9
+position = Vector2( 0, 0 )
+texture = ExtResource( 3 )
+hframes = 17
+vframes = 2
 
 [node name="bulletPosition" parent="Sprite" index="0"]
 position = Vector2( -16, 0 )
 
-[node name="AnimationTree" type="AnimationTree" parent="Sprite" index="1"]
-tree_root = SubResource( 7 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-process_mode = 2
-parameters/playback = SubResource( 8 )
-
-[node name="AnimationPlayer" parent="Sprite" index="2"]
-anims/Hide = SubResource( 9 )
-anims/idle = SubResource( 2 )
-anims/spawn = SubResource( 3 )
+[node name="AnimationPlayer" parent="Sprite" index="1"]
+anims/Idle = SubResource( 2 )
+anims/Main = SubResource( 13 )
+anims/Spawn = SubResource( 3 )
 
 [node name="EntityHitbox" parent="." index="2"]
 position = Vector2( 1.08333, 0 )
@@ -156,8 +132,11 @@ scale = Vector2( 0.489336, 2.42642 )
 [node name="PlayerCollision" parent="EntityHitbox" index="0"]
 disabled = false
 
+[node name="Activation_area" parent="." index="5"]
+collision_mask = 8
+
 [node name="activation" parent="Activation_area" index="0"]
-scale = Vector2( 0.144571, 0.795198 )
+scale = Vector2( 0.2, 0.2 )
 disabled = false
 
 [node name="BulletHitbox" parent="." index="6"]
@@ -167,3 +146,15 @@ scale = Vector2( 0.374124, 1.9095 )
 [node name="BulletCollision" parent="BulletHitbox" index="0"]
 scale = Vector2( 0.866324, 1 )
 disabled = false
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="7"]
+tree_root = SubResource( 17 )
+anim_player = NodePath("../Sprite/AnimationPlayer")
+active = true
+parameters/playback = SubResource( 8 )
+parameters/conditions/triggered = false
+
+[node name="VisibilityNotifier2D" parent="." index="8"]
+position = Vector2( 1, -11 )
+scale = Vector2( 1.05, 1.05 )
+rect = Rect2( -10, -10, 20, 40 )
