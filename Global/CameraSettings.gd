@@ -9,13 +9,18 @@ var camera : Camera2D = null
 # Shows whether the camera is moving or not
 var moving : bool
 
+# Used to apply automatic movement to the player due to the shifting camera
+# Used in combination with change_camera_move to stop the movement of the camera and as such the player
+func move():
+	if(moving):
+		return WALL_CURRENT_MOVEMENT
+	else:
+		return Vector2(0, 0)
 
 # Resets the camera to the coordinates (0, 0)
 func reset_camera():
 	if(camera != null):
 		camera.offset = Vector2(0, 0)
-		
-		#PlayerVariables.screen_exited_expected = true
 		
 # Enables or disables the movement of the camera by activating or disabling it
 func change_camera_move(moving : bool):

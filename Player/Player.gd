@@ -35,9 +35,13 @@ func _ready():
 	PlayerVariables.player_instance = self
 	
 func _physics_process(_delta):
+	
+	# This method is only responsible for moving the player by pressing a key
 	check_input()
 	
-	position = position + CameraSettings.WALL_CURRENT_MOVEMENT
+	
+	# This code moves the player by the shift-amount of the shifting wall
+	position = position + CameraSettings.move()
 
 func check_input():
 	var velocity = Vector2.ZERO	
@@ -51,6 +55,7 @@ func check_input():
 
 	if Input.is_action_pressed("move_left") and (position.x >= $"/root/Game/View/Camera".offset.x):
 		velocity.x -= 1
+		
 	elif Input.is_action_pressed("move_left") and position.x <= $"/root/Game/View/Camera".offset.x:
 		velocity.x += 0															#There is no change because the player can get crushed by tiles in the left direction, changing it would mean that the player couldn't get crushed
 

@@ -871,10 +871,15 @@ z_index = -9
 texture = ExtResource( 3 )
 
 [node name="SpaceBoss" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 9 )]
-position = Vector2( 1466, 314 )
+position = Vector2( 1313, 313 )
 
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
+z_index = 20
 tile_set = SubResource( 4 )
+tile_data = PoolIntArray( 589849, -1610612727, 0, 589850, -1610612729, 0, 589851, -1610612729, 0, 589852, -1610612729, 0, 589853, -1610612729, 0, 589854, 1610612745, 0, 655385, 1, 0, 655386, 8, 0, 655387, 8, 0, 655388, 8, 0, 655389, 8, 0, 655390, 1610612737, 0, 720921, 2, 0, 720922, -1073741823, 0, 720923, -1073741823, 0, 720924, -1073741823, 0, 720925, -1073741823, 0, 720926, -1073741822, 0 )
+
+[node name="TileMap_2" parent="ActStateMachine/Act1/other/tilemapHandler" index="1"]
+z_index = 20
 
 [node name="ActEnd" parent="ActStateMachine/Act1/other" index="2"]
 position = Vector2( 3709, 169 )

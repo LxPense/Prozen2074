@@ -147,7 +147,6 @@ scale = Vector2( 0.99689, 0.99689 )
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 4
-frame = 11
 
 [node name="bulletPosition" type="Position2D" parent="TileCollision/Sprite" index="0"]
 position = Vector2( -17.1881, 0 )
