@@ -20,7 +20,6 @@ var level_path: String = "res://Level/Levels/Level%d.tscn"
 var node_name: String = "Level_%d"
 
 func _ready():
-	print("Called ready in Level_Controller")
 	
 	# The following code is only relevant for the ActStateMachine of the first level.
 	# After each line gets executed, a signal called "level_finished" is emitted by the ActStateMachine

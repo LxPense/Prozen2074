@@ -871,7 +871,7 @@ z_index = -9
 texture = ExtResource( 3 )
 
 [node name="SpaceBoss" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 9 )]
-position = Vector2( 1313, 313 )
+position = Vector2( 1344, 208 )
 
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
 z_index = 20
@@ -883,6 +883,8 @@ z_index = 20
 
 [node name="ActEnd" parent="ActStateMachine/Act1/other" index="2"]
 position = Vector2( 3709, 169 )
+collision_layer = 64
+collision_mask = 0
 
 [node name="PlayerPointer" parent="ActStateMachine/Act1/other" index="3"]
 position = Vector2( 251, 346 )
@@ -901,8 +903,15 @@ z_index = -6
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 10000, 720 )
 
+[node name="ActEnd" parent="ActStateMachine/Act2/other" index="2"]
+collision_layer = 64
+collision_mask = 0
+
 [node name="PlayerPointer" parent="ActStateMachine/Act2/other" index="3"]
 position = Vector2( 100, 200 )
+
+[node name="Boss" parent="ActStateMachine" index="2"]
+visible = true
 
 [node name="ParallaxBackground" parent="ActStateMachine/Boss" index="0"]
 script = SubResource( 3 )
@@ -922,6 +931,8 @@ texture = ExtResource( 5 )
 
 [node name="ActEnd" parent="ActStateMachine/Boss/other" index="2"]
 visible = true
+collision_layer = 64
+collision_mask = 0
 
 [node name="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground" index="0"]
 visible = true

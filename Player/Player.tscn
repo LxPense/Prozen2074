@@ -231,7 +231,7 @@ extents = Vector2( 24.8099, 10.5892 )
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 scale = Vector2( 3, 3 )
 collision_layer = 8
-collision_mask = 2
+collision_mask = 66
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -239,7 +239,7 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 12
+frame = 10
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 16 )
@@ -266,24 +266,22 @@ anims/Stop = SubResource( 26 )
 position = Vector2( 47.089, 9.9484 )
 
 [node name="TileCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 19.548, 8.83983 )
 scale = Vector2( 0.73, 0.73 )
 shape = SubResource( 27 )
 
 [node name="EnemyHitBox" type="Area2D" parent="."]
 position = Vector2( -0.210226, 6.58702 )
-collision_layer = 0
+collision_layer = 8
 
 [node name="EnemyCollision" type="CollisionShape2D" parent="EnemyHitBox"]
-visible = false
 position = Vector2( 18.4551, 5.0467 )
 scale = Vector2( 0.73, 0.73 )
 shape = SubResource( 28 )
 
 [node name="BulletHitBox" type="Area2D" parent="."]
 position = Vector2( 24.1758, 4.41471 )
-collision_layer = 0
+collision_layer = 8
 collision_mask = 4
 
 [node name="BulletCollision" type="CollisionShape2D" parent="BulletHitBox"]

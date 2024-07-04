@@ -3,7 +3,7 @@ extends ActState
 # State for normally playing the level
 
 func enter():
-	print("Entered Act1")
+	pass
 	
 func exit():
 	pass

@@ -145,16 +145,18 @@ func stop_flashing():
 func _on_FlashTimer_timeout():
 	stop_flashing()
 	
-func _on_BulletHitBox_area_entered(_area):
-	if _area != null:
-		hit()
-		current_hitting_area = _area
-	
-func _on_EnemyHitBox_area_entered(area):
-	if area.name == "EntityHitbox" and current_hitting_area != area or area != null:
+# Checks if a bullet hits the BulletHitbox
+func _on_BulletHitBox_area_entered(area):
+	if area != null:
 		current_hitting_area = area
 		hit()
-
+	
+# Checks if the player collides with an area named EntityHitbox (Every enemy has one)
+func _on_EnemyHitBox_area_entered(area):
+	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
+		current_hitting_area = area
+		hit()
+		
 
 # Checks whether the player is inside the visible area of the screen, if not, the game is interrupted
 # When an act is changed, there is a small window in which the player is not inside the screen

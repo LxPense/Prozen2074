@@ -8,7 +8,6 @@ var level_end_reached: bool = false
 
 
 func Enter():
-	print("Entered Boss")
 	pass
 	
 func Exit():

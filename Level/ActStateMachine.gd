@@ -72,7 +72,7 @@ func deactivate_act(node : Node):
 	elif node is ColorRect:
 		var tempColorRect = node as ColorRect
 		tempColorRect.visible = false
-	elif node is KinematicBody2D:
+	elif node is KinematicBody2D && node.is_in_group("Player"):
 		var tempKinematicBody = node as KinematicBody2D
 		tempKinematicBody.visible = true
 		tempKinematicBody.set_collision_layer_bit(1, 0)
@@ -106,7 +106,7 @@ func activate_act(node):
 	elif node is ColorRect:
 		var tempColorRect = node as ColorRect
 		tempColorRect.visible = true
-	elif node is KinematicBody2D:
+	elif node is KinematicBody2D && node.is_in_group("Player"):
 		var tempKinematicBody = node as KinematicBody2D
 		tempKinematicBody.visible = true
 		tempKinematicBody.set_collision_layer_bit(1, 2)
@@ -165,7 +165,7 @@ func _on_Boss_act_finished():
 	transition_to(act_boss_transition.get_path())
 
 func _on_Finished_act_finished():
-	print("Congrats!")
+	pass
 	
 """
 Note: Each function has an argument, which holds the value "simple_transition".
