@@ -135,7 +135,7 @@ func followPlayer():
 		
 func _on_BulletHitbox_area_entered(area):
 	if area.is_in_group("bullet"):
-			onHit()
+		onHit()
 
 func _on_VisibilityNotifier2D_screen_entered():
 	inside_camera = true

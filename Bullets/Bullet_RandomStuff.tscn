@@ -1,7 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Bullets/Bullet.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Bullet.gd" type="Script" id=2]
 [ext_resource path="res://assets/bullet/portal_bullet/p-flag2.png" type="Texture" id=3]
 [ext_resource path="res://assets/bullet/portal_bullet/p-mug1.png" type="Texture" id=4]
 [ext_resource path="res://assets/bullet/portal_bullet/p-mug3.png" type="Texture" id=5]
@@ -14,6 +13,22 @@
 [ext_resource path="res://assets/bullet/portal_bullet/p-puree3.png" type="Texture" id=12]
 [ext_resource path="res://assets/bullet/portal_bullet/p-flag1.png" type="Texture" id=13]
 [ext_resource path="res://assets/bullet/portal_bullet/p-puree2.png" type="Texture" id=14]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends \"res://Bullets/Bullet.gd\"
+
+func _ready():
+	pick_random_bullet()
+	
+func pick_random_bullet():
+	var animations = [\"mug\", \"flag\", \"phone\", \"puree\"]
+	set_bullet_animation(animations[randi() % 4])		# picks a random animation out of the animations-list
+
+func _on_Bullet_RandomStuff_area_entered(area):
+	if area.name == \"Bullet\":
+		queue_free()
+		
+"
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -42,12 +57,11 @@ animations = [ {
 extents = Vector2( 4.9913, 5.52176 )
 
 [node name="Bullet_RandomStuff" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+script = SubResource( 3 )
 
 [node name="BulletAnimation" parent="." index="0"]
 frames = SubResource( 1 )
 animation = "phone"
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" parent="." index="1"]

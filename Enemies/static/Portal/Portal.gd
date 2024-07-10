@@ -9,7 +9,6 @@ func _init().(100, 0, 3):
 	shot_ready = false
 	hasActivation = true
 	follow = false
-	
 
 func shoot():
 	var current_animation = animation_state.get_current_node()

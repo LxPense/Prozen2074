@@ -56,6 +56,7 @@ func enable_apex(var is_at_apex: bool):
 func enable_shots_fired(var has_fired_shots: bool):
 	$AnimationTree["parameters/conditions/shots_fired"] = has_fired_shots
 
+
 func onHit():
 	print("Boss hit!")
 	$HealthBar.value = $HealthBar.value - 10
@@ -102,5 +103,5 @@ func _on_EntityHitbox_area_entered(area):
 # Keeps track of the the healthbar, if it reaches 0, the boss dies
 func _on_HealthBar_value_changed(value):
 	if(value == 0):
-		print("Boss dead!!!!!!")
 		change_scroll(true)
+		$AnimationTree["parameters/conditions/dead"] = true

@@ -1,7 +1,43 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/bullet/normal_bullet/RedBullet.png" type="Texture" id=1]
-[ext_resource path="res://Bullets/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Assets/bullet/normal_bullet/RedBullet.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Area2D
+
+export var speed = 200
+var direction = \"right\" # Default direction for bullets is right
+
+func set_direction(_direction):
+	direction = _direction
+
+func set_speed(_speed):
+	speed = _speed
+
+func _physics_process(delta):
+	check_out_of_bounds()
+	if(direction == \"right\"):
+		position += transform.x * speed * delta
+	if(direction == \"left\"):
+		position -= transform.x * speed * delta 
+	if(direction == \"left_down\"):
+		position -= transform.x * speed * delta
+		position -= (transform.y * speed * delta) / 15
+	if(direction == \"left_up\"):
+		position -= transform.x * speed * delta
+		position += (transform.y * speed * delta) / 15
+	
+func check_out_of_bounds():
+	if(!$VisibilityNotifier2D.is_on_screen()):
+		self.queue_free()
+		
+func set_bullet_animation(animation):
+	$\"BulletAnimation\".animation = animation
+
+# removes bullet when it hits something
+func _on_Bullet_area_entered(_area):
+	self.queue_free()
+"
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,7 +54,7 @@ extents = Vector2( 4.49289, 1.5 )
 scale = Vector2( 1.36, 1.36 )
 collision_layer = 4
 collision_mask = 0
-script = ExtResource( 2 )
+script = SubResource( 3 )
 
 [node name="BulletAnimation" type="AnimatedSprite" parent="."]
 position = Vector2( -0.491076, -0.508923 )
@@ -26,5 +62,7 @@ frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]

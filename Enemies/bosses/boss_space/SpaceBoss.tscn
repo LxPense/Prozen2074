@@ -1,10 +1,27 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Assets/spritesheet/enemy/boss/bossSpace.png" type="Texture" id=1]
+[ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemies/bosses/boss_space/SpaceBoss.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=40]
 extents = Vector2( 56, 78 )
+
+[sub_resource type="Animation" id=48]
+resource_name = "Dead"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Node2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "SpaceBoss_jump"
@@ -290,6 +307,48 @@ tracks/2/keys = {
 "method": "check_for_reload"
 } ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("BulletSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_once"
+} ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("BulletSpawner2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_once"
+} ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("BulletSpawner3")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_once"
+} ]
+}
 
 [sub_resource type="Animation" id=23]
 resource_name = "shootready"
@@ -327,6 +386,9 @@ extents = Vector2( 45, 80 )
 [sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 37.5, 48.875 )
 
+[sub_resource type="AnimationNodeAnimation" id=49]
+animation = "Dead"
+
 [sub_resource type="AnimationNodeAnimation" id=36]
 animation = "idle"
 
@@ -362,7 +424,21 @@ auto_advance = true
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+advance_condition = "dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=51]
+advance_condition = "dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=52]
+advance_condition = "dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=53]
+advance_condition = "dead"
+
 [sub_resource type="AnimationNodeStateMachine" id=5]
+states/Dead/node = SubResource( 49 )
+states/Dead/position = Vector2( 788.105, 128.087 )
 states/idle/node = SubResource( 36 )
 states/idle/position = Vector2( 212.105, 50.84 )
 states/jump/node = SubResource( 26 )
@@ -373,7 +449,7 @@ states/shoot/node = SubResource( 28 )
 states/shoot/position = Vector2( 993.105, 214.84 )
 states/shootready/node = SubResource( 29 )
 states/shootready/position = Vector2( 609.105, 214.84 )
-transitions = [ "jump", "shootready", SubResource( 30 ), "shootready", "shoot", SubResource( 31 ), "shoot", "reload", SubResource( 32 ), "reload", "jump", SubResource( 33 ), "idle", "jump", SubResource( 37 ) ]
+transitions = [ "jump", "shootready", SubResource( 30 ), "shootready", "shoot", SubResource( 31 ), "shoot", "reload", SubResource( 32 ), "reload", "jump", SubResource( 33 ), "idle", "jump", SubResource( 37 ), "jump", "Dead", SubResource( 50 ), "reload", "Dead", SubResource( 51 ), "shoot", "Dead", SubResource( 52 ), "shootready", "Dead", SubResource( 53 ) ]
 start_node = "idle"
 graph_offset = Vector2( 45.105, 9.0871 )
 
@@ -391,6 +467,33 @@ func set_condition(condition_name, value):
 [sub_resource type="StyleBoxFlat" id=41]
 bg_color = Color( 0.403922, 0, 0, 1 )
 
+[sub_resource type="GDScript" id=42]
+script/source = "extends Node2D
+
+\"\"\"
+This node is used to spawn bullets freely
+\"\"\"
+
+# The direction-argument sets the direction of the bullet
+# Possible directions are: left, right
+
+export var direction: String
+
+# The speed-argument is used to set a custom speed for the bullets
+
+export var speed: int
+
+var BULLET = preload(\"res://Bullets/Bullet_Spaceboss.tscn\")
+
+func spawn_once():
+	var newBullet = BULLET.instance()
+	newBullet.transform = global_transform
+	newBullet.set_direction(direction)
+	newBullet.set_speed(speed)
+	
+	$\"/root/Game/View/BulletsList\".add_child(newBullet)
+"
+
 [node name="SpaceBoss" type="KinematicBody2D"]
 collision_layer = 32
 collision_mask = 2
@@ -404,6 +507,7 @@ position = Vector2( 0, 17 )
 shape = SubResource( 40 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Dead = SubResource( 48 )
 anims/SpaceBoss_jump = SubResource( 1 )
 anims/SpaceBoss_preShoot = SubResource( 2 )
 anims/SpaceBoss_reload = SubResource( 3 )
@@ -446,6 +550,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 6 )
 parameters/conditions/atapex = false
+parameters/conditions/dead = false
 parameters/conditions/shots_fired = false
 script = SubResource( 18 )
 
@@ -462,6 +567,21 @@ margin_bottom = -74.0
 custom_colors/font_color = Color( 1, 0.980392, 0.980392, 1 )
 custom_styles/fg = SubResource( 41 )
 value = 100.0
+
+[node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
+position = Vector2( -75, 0 )
+script = SubResource( 42 )
+direction = "left"
+speed = 400
+
+[node name="BulletSpawner2" parent="." instance=ExtResource( 2 )]
+position = Vector2( -75, 5 )
+speed = 400
+
+[node name="BulletSpawner3" parent="." instance=ExtResource( 2 )]
+position = Vector2( -75, -6 )
+direction = "left_down"
+speed = 400
 
 [connection signal="area_entered" from="EntityHitbox" to="." method="_on_EntityHitbox_area_entered"]
 [connection signal="area_entered" from="BulletHitbox" to="." method="_on_BulletHitbox_area_entered"]

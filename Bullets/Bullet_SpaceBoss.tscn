@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Bullets/Bullet_SpaceBoss.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bullet/spaceboss_bullet/BlueBullet.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 34.1144, 27.158 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Bullet_SpaceBoss" type="Area2D"]
+scale = Vector2( 3, 3 )
+collision_layer = 4
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2, -1.95833 )
+scale = Vector2( 0.527636, 0.219395 )
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -1.33333, -0.666667 )
+scale = Vector2( 1.96338, 1.11955 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 2 )
+
+[connection signal="area_entered" from="." to="." method="_on_Bullet_SpaceBoss_area_entered"]

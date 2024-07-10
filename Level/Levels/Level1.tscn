@@ -871,7 +871,7 @@ z_index = -9
 texture = ExtResource( 3 )
 
 [node name="SpaceBoss" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 9 )]
-position = Vector2( 1344, 208 )
+position = Vector2( 1331, 337 )
 
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
 z_index = 20
