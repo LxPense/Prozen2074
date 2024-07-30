@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Assets/spritesheet/enemy/boss/bossSpace.png" type="Texture" id=1]
 [ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
@@ -308,7 +308,7 @@ tracks/2/keys = {
 } ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("BulletSpawner")
+tracks/3/path = NodePath("Bullets/BulletSpawner")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -322,7 +322,7 @@ tracks/3/keys = {
 } ]
 }
 tracks/4/type = "method"
-tracks/4/path = NodePath("BulletSpawner2")
+tracks/4/path = NodePath("Bullets/BulletSpawner2")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -336,7 +336,7 @@ tracks/4/keys = {
 } ]
 }
 tracks/5/type = "method"
-tracks/5/path = NodePath("BulletSpawner3")
+tracks/5/path = NodePath("Bullets/BulletSpawner3")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -467,33 +467,6 @@ func set_condition(condition_name, value):
 [sub_resource type="StyleBoxFlat" id=41]
 bg_color = Color( 0.403922, 0, 0, 1 )
 
-[sub_resource type="GDScript" id=42]
-script/source = "extends Node2D
-
-\"\"\"
-This node is used to spawn bullets freely
-\"\"\"
-
-# The direction-argument sets the direction of the bullet
-# Possible directions are: left, right
-
-export var direction: String
-
-# The speed-argument is used to set a custom speed for the bullets
-
-export var speed: int
-
-var BULLET = preload(\"res://Bullets/Bullet_Spaceboss.tscn\")
-
-func spawn_once():
-	var newBullet = BULLET.instance()
-	newBullet.transform = global_transform
-	newBullet.set_direction(direction)
-	newBullet.set_speed(speed)
-	
-	$\"/root/Game/View/BulletsList\".add_child(newBullet)
-"
-
 [node name="SpaceBoss" type="KinematicBody2D"]
 collision_layer = 32
 collision_mask = 2
@@ -519,6 +492,7 @@ anims/shoot = SubResource( 24 )
 anims/shootready = SubResource( 23 )
 
 [node name="EntityHitbox" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 8
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="EntityHitbox"]
@@ -543,6 +517,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 hframes = 23
 vframes = 4
+frame = 46
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 5 )
@@ -555,7 +530,6 @@ parameters/conditions/shots_fired = false
 script = SubResource( 18 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-visible = false
 position = Vector2( -35, -120 )
 rect = Rect2( -10, -10, 100, 300 )
 
@@ -568,22 +542,34 @@ custom_colors/font_color = Color( 1, 0.980392, 0.980392, 1 )
 custom_styles/fg = SubResource( 41 )
 value = 100.0
 
-[node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
-position = Vector2( -75, 0 )
-script = SubResource( 42 )
-direction = "left"
-speed = 400
+[node name="Bullets" type="Node2D" parent="."]
 
-[node name="BulletSpawner2" parent="." instance=ExtResource( 2 )]
-position = Vector2( -75, 5 )
-speed = 400
+[node name="BulletSpawner" parent="Bullets" instance=ExtResource( 2 )]
+position = Vector2( -73, -1 )
+speed = 60
 
-[node name="BulletSpawner3" parent="." instance=ExtResource( 2 )]
-position = Vector2( -75, -6 )
-direction = "left_down"
-speed = 400
+[node name="Target" parent="Bullets/BulletSpawner" index="0"]
+position = Vector2( -6, -1 )
+
+[node name="BulletSpawner2" parent="Bullets" instance=ExtResource( 2 )]
+position = Vector2( -73, -1 )
+speed = 60
+
+[node name="Target" parent="Bullets/BulletSpawner2" index="0"]
+position = Vector2( -6, 0 )
+
+[node name="BulletSpawner3" parent="Bullets" instance=ExtResource( 2 )]
+position = Vector2( -73, -1 )
+speed = 60
+
+[node name="Target" parent="Bullets/BulletSpawner3" index="0"]
+position = Vector2( -6, 1 )
 
 [connection signal="area_entered" from="EntityHitbox" to="." method="_on_EntityHitbox_area_entered"]
 [connection signal="area_entered" from="BulletHitbox" to="." method="_on_BulletHitbox_area_entered"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="value_changed" from="HealthBar" to="." method="_on_HealthBar_value_changed"]
+
+[editable path="Bullets/BulletSpawner"]
+[editable path="Bullets/BulletSpawner2"]
+[editable path="Bullets/BulletSpawner3"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/backgrounds/bg_black.png" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Assets/spritesheet/terrain/aster-tile.png" type="Texture" id=6]
 [ext_resource path="res://Assets/spritesheet/terrain/domeshard.png" type="Texture" id=7]
 [ext_resource path="res://Assets/spritesheet/terrain/spaceshiptiles.png" type="Texture" id=8]
-[ext_resource path="res://Enemies/bosses/boss_space/SpaceBoss.tscn" type="PackedScene" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ActState
@@ -54,7 +53,7 @@ func _on_AnimationPlayer_animation_finished(act1_transition):
 points = PoolVector2Array( 4.92311, 0, 48, 0, 48, 48, 4.7293, 48 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( 48, 48, 5.76238, 48, 5.76238, 0, 48, 0 )
+points = PoolVector2Array( 48, 48, 5.76238, 48, 6, 0, 48, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=15]
 points = PoolVector2Array( 48, 46.5915, 18.9641, 38.064, 0, 0, 48, 0 )
@@ -129,7 +128,7 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
 points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
 
 [sub_resource type="ConvexPolygonShape2D" id=14]
-points = PoolVector2Array( 48, 48, 20.4505, 35.3508, 0.10083, 0.0779419, 48, 0.0779419 )
+points = PoolVector2Array( 48, 41.4403, 20.4505, 35.3508, 0.10083, 0.0779419, 48, 0.0779419 )
 
 [sub_resource type="TileSet" id=4]
 0/name = "aster-tile.png 0"
@@ -851,57 +850,92 @@ func _on_AnimationPlayer_animation_finished(act1_transition):
 "
 
 [node name="Level1" instance=ExtResource( 1 )]
-position = Vector2( -50, 7 )
+position = Vector2( 0, 1 )
 
 [node name="ParallaxBackground" parent="ActStateMachine/Act1" index="0"]
 script = SubResource( 1 )
 
 [node name="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground" index="0"]
-visible = false
 z_index = -10
 motion_scale = Vector2( 0.3, 1 )
 
 [node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="0"]
 texture = ExtResource( 2 )
 
+[node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="1"]
+visible = false
+
 [node name="ParallaxLayer2" parent="ActStateMachine/Act1/ParallaxBackground" index="1"]
 z_index = -9
 
 [node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2" index="0"]
+visible = false
 texture = ExtResource( 3 )
 
-[node name="SpaceBoss" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 9 )]
-position = Vector2( 1331, 337 )
+[node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer3" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4" index="1"]
+visible = false
 
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
+position = Vector2( 1, -1 )
 z_index = 20
 tile_set = SubResource( 4 )
-tile_data = PoolIntArray( 589849, -1610612727, 0, 589850, -1610612729, 0, 589851, -1610612729, 0, 589852, -1610612729, 0, 589853, -1610612729, 0, 589854, 1610612745, 0, 655385, 1, 0, 655386, 8, 0, 655387, 8, 0, 655388, 8, 0, 655389, 8, 0, 655390, 1610612737, 0, 720921, 2, 0, 720922, -1073741823, 0, 720923, -1073741823, 0, 720924, -1073741823, 0, 720925, -1073741823, 0, 720926, -1073741822, 0 )
+tile_data = PoolIntArray( 458772, -1610612730, 0, 524308, -1610612730, 0, 589844, -1610612730, 0, 589849, -1610612727, 0, 589850, -1610612729, 0, 589851, -1610612729, 0, 589852, -1610612729, 0, 589853, -1610612729, 0, 589854, 1610612745, 0, 655385, 1, 0, 655386, 8, 0, 655387, 8, 0, 655388, 8, 0, 655389, 8, 0, 655390, 1610612737, 0, 720921, 9, 0, 720922, -1073741823, 0, 720923, -1073741823, 0, 720924, -1073741823, 0, 720925, -1073741823, 0, 720926, -1073741815, 0 )
 
 [node name="TileMap_2" parent="ActStateMachine/Act1/other/tilemapHandler" index="1"]
 z_index = 20
 
 [node name="ActEnd" parent="ActStateMachine/Act1/other" index="2"]
-position = Vector2( 3709, 169 )
+position = Vector2( 2674, 164 )
 collision_layer = 64
 collision_mask = 0
 
 [node name="PlayerPointer" parent="ActStateMachine/Act1/other" index="3"]
-position = Vector2( 251, 346 )
+position = Vector2( -169, 455 )
 
 [node name="ParallaxBackground" parent="ActStateMachine/Act2" index="0"]
 script = SubResource( 2 )
 
+[node name="ParallaxLayer" parent="ActStateMachine/Act2/ParallaxBackground" index="0"]
+visible = true
+
 [node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 10000, 720 )
 
+[node name="image2" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer" index="1"]
+visible = false
+
 [node name="ParallaxLayer2" parent="ActStateMachine/Act2/ParallaxBackground" index="1"]
+visible = true
 z_index = -6
 
 [node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2" index="0"]
+visible = false
+z_index = 30
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 10000, 720 )
+
+[node name="image2" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer2" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Act2/ParallaxBackground/ParallaxLayer3" index="1"]
+visible = false
 
 [node name="ActEnd" parent="ActStateMachine/Act2/other" index="2"]
 collision_layer = 64
@@ -910,9 +944,6 @@ collision_mask = 0
 [node name="PlayerPointer" parent="ActStateMachine/Act2/other" index="3"]
 position = Vector2( 100, 200 )
 
-[node name="Boss" parent="ActStateMachine" index="2"]
-visible = true
-
 [node name="ParallaxBackground" parent="ActStateMachine/Boss" index="0"]
 script = SubResource( 3 )
 
@@ -920,22 +951,54 @@ script = SubResource( 3 )
 visible = true
 
 [node name="image1" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 10000, 720 )
+
+[node name="image2" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer" index="1"]
+visible = false
 
 [node name="ParallaxLayer2" parent="ActStateMachine/Boss/ParallaxBackground" index="1"]
 visible = true
 
 [node name="image1" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2" index="0"]
+visible = false
 texture = ExtResource( 5 )
+
+[node name="image2" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer2" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer3" index="1"]
+visible = false
 
 [node name="ActEnd" parent="ActStateMachine/Boss/other" index="2"]
 visible = true
 collision_layer = 64
 collision_mask = 0
 
-[node name="ParallaxLayer" parent="ActStateMachine/Finished/ParallaxBackground" index="0"]
-visible = true
-
 [node name="image1" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer2" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer2" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer3" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer3" index="1"]
+visible = false
+
+[node name="image1" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer4" index="0"]
+visible = false
+
+[node name="image2" parent="ActStateMachine/Finished/ParallaxBackground/ParallaxLayer4" index="1"]
 visible = false

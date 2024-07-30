@@ -134,7 +134,7 @@ func followPlayer():
 				
 		
 func _on_BulletHitbox_area_entered(area):
-	if area.is_in_group("bullet"):
+	if area.is_in_group("player_bullet"):
 		onHit()
 
 func _on_VisibilityNotifier2D_screen_entered():

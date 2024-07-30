@@ -14,8 +14,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Bullet_SpaceBoss" type="Area2D"]
-scale = Vector2( 3, 3 )
+[node name="Bullet_SpaceBoss" type="Area2D" groups=["bullets"]]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource( 1 )

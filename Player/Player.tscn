@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Player/Player.shader" type="Shader" id=1]
+[ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=4]
 [ext_resource path="res://assets/shoe/spritesheet_shoe.png" type="Texture" id=21]
 
@@ -222,6 +223,34 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeAnimation" id=33]
+animation = "move_down"
+
+[sub_resource type="AnimationNodeAnimation" id=35]
+animation = "move_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=34]
+blend_point_0/node = SubResource( 29 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 30 )
+blend_point_1/pos = Vector2( -1, 0 )
+blend_point_2/node = SubResource( 31 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 33 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_point_4/node = SubResource( 35 )
+blend_point_4/pos = Vector2( 0, 1 )
+blend_mode = 1
+
 [sub_resource type="RectangleShape2D" id=27]
 extents = Vector2( 22.7914, 14.4114 )
 
@@ -229,6 +258,7 @@ extents = Vector2( 22.7914, 14.4114 )
 extents = Vector2( 24.8099, 10.5892 )
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
+position = Vector2( -50, -66 )
 scale = Vector2( 3, 3 )
 collision_layer = 8
 collision_mask = 66
@@ -239,12 +269,11 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 12
+frame = 13
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 17 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Move/blend_position = Vector2( -0.00154561, 0.00862074 )
@@ -262,8 +291,11 @@ anims/move_up = SubResource( 24 )
 anims/Start = SubResource( 25 )
 anims/Stop = SubResource( 26 )
 
-[node name="BulletSpawn" type="Position2D" parent="."]
-position = Vector2( 47.089, 9.9484 )
+[node name="AnimationTree2" type="AnimationTree" parent="Sprite"]
+tree_root = SubResource( 34 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/blend_position = Vector2( -0.0120096, 0.0223464 )
 
 [node name="TileCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 19.548, 8.83983 )
@@ -303,9 +335,15 @@ wait_time = 2.0
 one_shot = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-visible = false
 position = Vector2( 19.3333, 8 )
 scale = Vector2( 2, 1.4 )
+
+[node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
+position = Vector2( 41.3333, 15.3333 )
+speed = 20
+
+[node name="Target" parent="BulletSpawner" index="0"]
+position = Vector2( 1, 0 )
 
 [connection signal="area_entered" from="EnemyHitBox" to="." method="_on_EnemyHitBox_area_entered"]
 [connection signal="area_entered" from="BulletHitBox" to="." method="_on_BulletHitBox_area_entered"]
@@ -314,3 +352,5 @@ scale = Vector2( 2, 1.4 )
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+
+[editable path="BulletSpawner"]

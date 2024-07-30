@@ -35,7 +35,13 @@ func get_gravity() -> float:
 	 
 func _ready():
 	$HealthBar.value = health
-
+	
+	var spaceboss_bullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
+	
+	$Bullets/BulletSpawner.set_bullet_type(spaceboss_bullet)
+	$Bullets/BulletSpawner2.set_bullet_type(spaceboss_bullet)
+	$Bullets/BulletSpawner3.set_bullet_type(spaceboss_bullet)
+	
 func increase_shot_amount():
 	shots_amount += 1
 
@@ -58,7 +64,6 @@ func enable_shots_fired(var has_fired_shots: bool):
 
 
 func onHit():
-	print("Boss hit!")
 	$HealthBar.value = $HealthBar.value - 10
 	
 func _physics_process(delta):
@@ -94,7 +99,7 @@ func _on_VisibilityNotifier2D_screen_entered():
 	$AnimationTree.get("parameters/playback").travel("idle")	
 
 func _on_BulletHitbox_area_entered(area):
-	if area.is_in_group("bullet"):
+	if area.is_in_group("player_bullet"): 
 		onHit()
 
 func _on_EntityHitbox_area_entered(area):

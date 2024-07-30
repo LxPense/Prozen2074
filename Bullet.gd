@@ -8,6 +8,6 @@ func pick_random_bullet():
 	set_bullet_animation(animations[randi() % 4])		# picks a random animation out of the animations-list
 
 func _on_Bullet_RandomStuff_area_entered(area):
-	if area.name == "Bullet":
+	if area.name == "bullets":
 		queue_free()
 		

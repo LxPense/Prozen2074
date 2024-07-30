@@ -25,6 +25,9 @@ onready var animationTree = $Sprite/AnimationTree
 #onready var animationState = $Sprite/AnimationTree.get("parameters/playback")
 onready var flashShaderPlayer = $Sprite/FlashShaderPlayer 
 
+var playerbullet = load("res://Bullets/Bullet.tscn")
+var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
+
 # is used to handle the logic of what happens when the player leaves the screen
 onready var screen_exited_expected = false
 
@@ -33,6 +36,8 @@ func _ready():
 	position = PlayerVariables.player_spawn_position
 	screen_exited_expected = PlayerVariables.screen_exited_expected
 	PlayerVariables.player_instance = self
+	
+	$BulletSpawner.set_bullet_type(playerbullet)
 	
 func _physics_process(_delta):
 	
@@ -49,27 +54,27 @@ func check_input():
 	# Code to check in which direction the player is going
 	
 	if Input.is_action_pressed("move_right") and (position.x + 110 < $"/root/Game/View/Camera".offset.x + 1280):
-		velocity.x += 1
+		velocity.x += 1.0
 	elif Input.is_action_pressed("move_right") and position.x + 110 >= $"/root/Game/View/Camera".offset.x + 1280:			#Not good: values (128, , 52) are from trial and error, are not exact
-		velocity.x = 0															#Too bad!
+		velocity.x = 0.0															#Too bad!
 
 	if Input.is_action_pressed("move_left") and (position.x >= $"/root/Game/View/Camera".offset.x):
-		velocity.x -= 1
+		velocity.x -= 1.0
 		
 	elif Input.is_action_pressed("move_left") and position.x <= $"/root/Game/View/Camera".offset.x:
-		velocity.x += 0															#There is no change because the player can get crushed by tiles in the left direction, changing it would mean that the player couldn't get crushed
+		velocity.x += 0.0															#There is no change because the player can get crushed by tiles in the left direction, changing it would mean that the player couldn't get crushed
 
 	if Input.is_action_pressed("move_up") and (position.y >= 0):
-		velocity.y -= 1
+		velocity.y -= 1.0
 		
 	elif Input.is_action_pressed("move_up") and position.y <= 0:
-		velocity.y = 0
+		velocity.y = 0.0
 	
 	if Input.is_action_pressed("move_down") and (position.y + 92 <= 720):
-		velocity.y += 1
+		velocity.y += 1.0
 		
 	elif Input.is_action_pressed("move_down") and position.y + 92 >= 720:
-		velocity.y = 0
+		velocity.y = 0.0
 	
 	# Code to handle the shooting
 	
@@ -80,10 +85,11 @@ func check_input():
 		
 	if Input.is_action_pressed("shoot"):
 		if(automatic_shot_ready):
-			shoot_auto()	
+			shoot_auto()
+			pass
 	
 	position = position + move_and_slide(velocity.normalized() * SPEED)
-	animate(velocity)
+	#animate(velocity)
 		
 func animate(velocity):
 	animationTree.set("parameters/Move/blend_position", velocity)
@@ -92,18 +98,11 @@ func animate(velocity):
 	
 func shoot_manual():
 	if manual_shot_ready:
-		var bullet = Bullet.instance()
-		bullet.transform = $BulletSpawn.global_transform
-		bullet.set_collision_layer_bit(4, true)
-		$"/root/Game/View/BulletsList".add_child(bullet)
-		manual_shot_ready = false
+		$BulletSpawner.spawn_once()
 		
 func shoot_auto():
-	if automatic_shot_ready and $CooldownAuto.time_left <= 0:
-		var bullet = Bullet.instance()
-		bullet.transform = $BulletSpawn.global_transform
-		bullet.set_collision_layer_bit(4, true)
-		$"/root/Game/View/BulletsList".add_child(bullet)
+	if(automatic_shot_ready and $CooldownAuto.time_left <= 0):
+		$BulletSpawner.spawn_once()
 		automatic_shot_ready = false
 
 func hit():
