@@ -102,7 +102,7 @@ func move(movement_vector, movement_nr, keep_movement, loop): #movement_nr ident
 func onHit():
 	health -= 1;
 	if(health <= 0):
-		player.add_score(score)
+		PlayerVariables.set_score(score + score)
 		queue_free()
 		
 func shoot():

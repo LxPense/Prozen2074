@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Player/Player.shader" type="Shader" id=1]
 [ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
@@ -9,76 +9,40 @@
 shader = ExtResource( 1 )
 shader_param/active = false
 
-[sub_resource type="AnimationNodeAnimation" id=2]
-animation = "idle_left"
-
-[sub_resource type="AnimationNodeAnimation" id=3]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=29]
 animation = "move_down"
 
-[sub_resource type="AnimationNodeAnimation" id=5]
+[sub_resource type="AnimationNodeAnimation" id=30]
 animation = "move_right"
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=31]
 animation = "move_up"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=7]
-blend_point_0/node = SubResource( 2 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 3 )
-blend_point_1/pos = Vector2( 0, 0 )
-blend_point_2/node = SubResource( 4 )
-blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 5 )
-blend_point_3/pos = Vector2( 1, 0 )
-blend_point_4/node = SubResource( 6 )
-blend_point_4/pos = Vector2( 0, -1 )
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=32]
 animation = "move_left"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
-animation = "move_down"
-
-[sub_resource type="AnimationNodeAnimation" id=10]
-animation = "move_right"
-
-[sub_resource type="AnimationNodeAnimation" id=11]
-animation = "move_up"
-
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=36]
 animation = "idle"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=13]
-blend_point_0/node = SubResource( 8 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 9 )
-blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 10 )
-blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 11 )
-blend_point_3/pos = Vector2( 0, -1 )
-blend_point_4/node = SubResource( 12 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=33]
+blend_point_0/node = SubResource( 29 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 30 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 31 )
+blend_point_2/pos = Vector2( 0, -1 )
+blend_point_3/node = SubResource( 32 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_point_4/node = SubResource( 36 )
 blend_point_4/pos = Vector2( 0, 0 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+[sub_resource type="AnimationNodeStateMachine" id=34]
+states/BlendSpace2D/node = SubResource( 33 )
+states/BlendSpace2D/position = Vector2( 477, 98 )
+start_node = "BlendSpace2D"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id=16]
-states/Idle/node = SubResource( 7 )
-states/Idle/position = Vector2( 681, 93 )
-states/Move/node = SubResource( 13 )
-states/Move/position = Vector2( 512, 93 )
-transitions = [ "Idle", "Move", SubResource( 14 ), "Move", "Idle", SubResource( 15 ) ]
-start_node = "Move"
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=35]
 
 [sub_resource type="Animation" id=18]
 length = 0.8
@@ -94,39 +58,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 9, 10, 11, 12, 13, 14, 15, 16 ]
-}
-
-[sub_resource type="Animation" id=19]
-length = 0.1
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-
-[sub_resource type="Animation" id=20]
-resource_name = "idle_up"
-length = 0.1
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 19 ]
 }
 
 [sub_resource type="Animation" id=21]
@@ -223,34 +154,6 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=29]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=30]
-animation = "move_left"
-
-[sub_resource type="AnimationNodeAnimation" id=31]
-animation = "move_right"
-
-[sub_resource type="AnimationNodeAnimation" id=33]
-animation = "move_down"
-
-[sub_resource type="AnimationNodeAnimation" id=35]
-animation = "move_up"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=34]
-blend_point_0/node = SubResource( 29 )
-blend_point_0/pos = Vector2( 0, 0 )
-blend_point_1/node = SubResource( 30 )
-blend_point_1/pos = Vector2( -1, 0 )
-blend_point_2/node = SubResource( 31 )
-blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 33 )
-blend_point_3/pos = Vector2( 0, -1 )
-blend_point_4/node = SubResource( 35 )
-blend_point_4/pos = Vector2( 0, 1 )
-blend_mode = 1
-
 [sub_resource type="RectangleShape2D" id=27]
 extents = Vector2( 22.7914, 14.4114 )
 
@@ -272,16 +175,14 @@ hframes = 20
 frame = 13
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
-tree_root = SubResource( 16 )
+tree_root = SubResource( 34 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 17 )
-parameters/Idle/blend_position = Vector2( 0, 0 )
-parameters/Move/blend_position = Vector2( -0.00154561, 0.00862074 )
+active = true
+parameters/playback = SubResource( 35 )
+parameters/BlendSpace2D/blend_position = Vector2( 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/idle = SubResource( 18 )
-anims/idle_left = SubResource( 19 )
-anims/idle_up = SubResource( 20 )
 anims/move_down = SubResource( 21 )
 anims/move_left = SubResource( 22 )
 anims/move_right = SubResource( 23 )
@@ -290,12 +191,6 @@ anims/move_up = SubResource( 24 )
 [node name="FlashShaderPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Start = SubResource( 25 )
 anims/Stop = SubResource( 26 )
-
-[node name="AnimationTree2" type="AnimationTree" parent="Sprite"]
-tree_root = SubResource( 34 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/blend_position = Vector2( -0.0120096, 0.0223464 )
 
 [node name="TileCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 19.548, 8.83983 )

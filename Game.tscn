@@ -1,15 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://Level/Levels/Level1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://BulletsList.gd" type="Script" id=4]
+[ext_resource path="res://Global/BulletsList.gd" type="Script" id=4]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Enemies/bosses/boss_space/SpaceBoss.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Level-Controller.gd" type="Script" id=7]
 [ext_resource path="res://Camera.gd" type="Script" id=9]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Game" type="Node2D"]
 position = Vector2( 0, 6 )
@@ -18,19 +14,6 @@ script = ExtResource( 2 )
 [node name="View" type="Node2D" parent="."]
 
 [node name="HUD" parent="View" instance=ExtResource( 5 )]
-
-[node name="Player" parent="View" instance=ExtResource( 1 )]
-position = Vector2( 60.1837, 340.481 )
-z_index = 100
-
-[node name="Sprite" parent="View/Player" index="0"]
-frame = 9
-
-[node name="AnimationTree" parent="View/Player/Sprite" index="0"]
-parameters/playback = SubResource( 1 )
-
-[node name="BulletSpawner" parent="View/Player" index="8"]
-position = Vector2( 41.2721, 13.8397 )
 
 [node name="BulletsList" type="Node2D" parent="View"]
 script = ExtResource( 4 )
@@ -53,12 +36,7 @@ script = ExtResource( 7 )
 
 [node name="Level1" parent="View/Level_Controller" instance=ExtResource( 3 )]
 
-[node name="SpaceBoss" parent="View/Level_Controller/Level1/ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 6 )]
-position = Vector2( 1344, 310 )
-
 [node name="PlayerPointer" parent="View/Level_Controller/Level1/ActStateMachine/Act1/other" index="3"]
 position = Vector2( 50, 506 )
 
-[editable path="View/Player"]
-[editable path="View/Player/BulletSpawner"]
 [editable path="View/Level_Controller/Level1"]

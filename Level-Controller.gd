@@ -59,7 +59,7 @@ func change_level():
 	# The new level gets added to the level_controller-tree
 	add_child(new_level)
 	
-	get_node(new_node_name).connect("can_change_level", self, "change_level")
+	get_node(new_node_name).connsssect("can_change_level", self, "change_level")
 	
 
 # Gets called when the last Act of an level is finished 

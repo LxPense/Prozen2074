@@ -3,13 +3,15 @@
 [ext_resource path="res://UI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://UI/Player/main.png" type="Texture" id=3]
 [ext_resource path="res://UI/Player/extralife.png" type="Texture" id=4]
-[ext_resource path="res://UI/Prozen-Regular.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://UI/HeartDisplay.gd" type="Script" id=16]
 [ext_resource path="res://UI/Player/spritesheet_heart.png" type="Texture" id=17]
 
+[sub_resource type="DynamicFontData" id=13]
+font_path = "res://Assets/misc/fonts/Prozen-Regular.otf"
+
 [sub_resource type="DynamicFont" id=1]
 size = 36
-font_data = ExtResource( 5 )
+font_data = SubResource( 13 )
 
 [sub_resource type="Animation" id=2]
 length = 0.6
@@ -192,7 +194,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="DynamicFontData" id=11]
-font_path = "res://assets/UI/Prozen-Regular.otf"
+font_path = "res://Assets/misc/fonts/Prozen-Regular.otf"
 
 [sub_resource type="DynamicFont" id=12]
 size = 28
@@ -224,9 +226,12 @@ rect_clip_content = false
 size_flags_horizontal = 2
 size_flags_vertical = 2
 custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
 bbcode_text = "
+
 "
 text = "
+
 "
 scroll_active = false
 __meta__ = {
@@ -246,6 +251,8 @@ rect_clip_content = false
 size_flags_horizontal = 2
 size_flags_vertical = 2
 custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "Life:"
 text = "Life:"
 scroll_active = false
 __meta__ = {
@@ -266,9 +273,6 @@ margin_right = 428.0
 margin_bottom = 59.0
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HealthMain" type="TextureRect" parent="HeartDisplay"]
 margin_top = 96.0
@@ -276,9 +280,6 @@ margin_right = 428.0
 margin_bottom = 131.0
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Heart1" type="Sprite" parent="HeartDisplay/HealthMain"]
 position = Vector2( 90.75, 8 )
@@ -331,6 +332,7 @@ margin_top = 666.023
 margin_right = 1213.01
 margin_bottom = 706.023
 custom_fonts/normal_font = SubResource( 12 )
+bbcode_text = "x"
 text = "x"
 __meta__ = {
 "_edit_use_anchors_": false

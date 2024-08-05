@@ -104,6 +104,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://json_config_file/json_properties/json_property_string.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "JSONPropertyObject": "",
 "JSONPropertyPercentage": "",
 "JSONPropertyString": "",
+"Player": "",
 "State": ""
 }
 
@@ -143,7 +149,8 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 PlayerVariables="*res://Global/PlayerVariables.gd"
 CameraSettings="*res://Global/CameraSettings.gd"
-BulletsList="*res://BulletsList.gd"
+BulletsList="*res://Global/BulletsList.gd"
+SceneController="*res://Global/SceneController.gd"
 
 [display]
 

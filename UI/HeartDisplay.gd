@@ -1,6 +1,7 @@
 extends Node2D
 		
 func changeHeart(heart, active):
+	
 	if !active:
 		if heart == 2:
 			$HealthMain/Heart1/AnimationPlayer.play("heart_unfold")

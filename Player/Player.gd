@@ -1,49 +1,42 @@
 extends KinematicBody2D
+class_name Player
 
 const SPEED = 8
 
-var score = 0
 var Bullet = preload("res://Bullets/Bullet.tscn")
 
 var manual_shot_ready = true
 var automatic_shot_ready = false
 
-var health = 3
+# Score, health and lives are managed and stored inside the autoload PlayerVariables
+var score : int
+var health : int
+var lives : int
+
 var vulnerable = true
 var inside_screen: bool = false
-
-#Lives is stored inside the singleton PlayerVariables, so it remains the same even when the Level-scene is reset (which happens if the player loses all its health)
-var lives
-
-signal heart_depleted(heart, active)
 
 #NOTE, because this was a problem once: The position of the player is given by only the Player node, trough the position of the red marker in the 2D view!
 # This holds the reference to the current area that hits the player (for example a laser)
 var current_hitting_area = null
 onready var animationPlayer = $Sprite/AnimationPlayer
 onready var animationTree = $Sprite/AnimationTree
-#onready var animationState = $Sprite/AnimationTree.get("parameters/playback")
 onready var flashShaderPlayer = $Sprite/FlashShaderPlayer 
 
 var playerbullet = load("res://Bullets/Bullet.tscn")
 var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
 
-# is used to handle the logic of what happens when the player leaves the screen
-onready var screen_exited_expected = false
-
 func _ready():
+	score = PlayerVariables.score
+	health = PlayerVariables.player_health
+	PlayerVariables.screen_exited_expected = false
 	lives = PlayerVariables.get_lives()
 	position = PlayerVariables.player_spawn_position
-	screen_exited_expected = PlayerVariables.screen_exited_expected
-	PlayerVariables.player_instance = self
-	
 	$BulletSpawner.set_bullet_type(playerbullet)
-	
+
 func _physics_process(_delta):
-	
 	# This method is only responsible for moving the player by pressing a key
 	check_input()
-	
 	
 	# This code moves the player by the shift-amount of the shifting wall
 	position = position + CameraSettings.move()
@@ -55,8 +48,9 @@ func check_input():
 	
 	if Input.is_action_pressed("move_right") and (position.x + 110 < $"/root/Game/View/Camera".offset.x + 1280):
 		velocity.x += 1.0
-	elif Input.is_action_pressed("move_right") and position.x + 110 >= $"/root/Game/View/Camera".offset.x + 1280:			#Not good: values (128, , 52) are from trial and error, are not exact
-		velocity.x = 0.0															#Too bad!
+		
+	elif Input.is_action_pressed("move_right") and position.x + 110 >= $"/root/Game/View/Camera".offset.x + 1280:
+		velocity.x = 0.0
 
 	if Input.is_action_pressed("move_left") and (position.x >= $"/root/Game/View/Camera".offset.x):
 		velocity.x -= 1.0
@@ -89,12 +83,13 @@ func check_input():
 			pass
 	
 	position = position + move_and_slide(velocity.normalized() * SPEED)
-	#animate(velocity)
+	
+	# Is used to map the movement according to the velocity -> is being handled by the AnimationNodeBlendSpace2D
+	
+	animate(velocity)
 		
 func animate(velocity):
-	animationTree.set("parameters/Move/blend_position", velocity)
-	animationTree.set("parameters/Idle/blend_position", velocity)
-	pass
+	animationTree.set("parameters/BlendSpace2D/blend_position", velocity)
 	
 func shoot_manual():
 	if manual_shot_ready:
@@ -107,23 +102,29 @@ func shoot_auto():
 
 func hit():
 	if vulnerable:	
-		health -= 1
+		PlayerVariables.player_health -= 1
+		PlayerVariables.emit_signal("heart_depleted", PlayerVariables.player_health, false)
 		start_flashing()
-		emit_signal("heart_depleted", health, false)
 		
 	#Handles losing lives with the help of the singleton PlayerVariables
-	if health < 0:
-		PlayerVariables.set_lives(PlayerVariables.get_lives() -1)
-		if(PlayerVariables.get_lives() >= 0):
-			get_tree().reload_current_scene()
+	if PlayerVariables.player_health < 0:
+		PlayerVariables.player_lives = PlayerVariables.player_lives - 1
+		PlayerVariables.player_health = 3
+		if(PlayerVariables.player_lives > 0):
+			PlayerVariables.emit_signal("reload_scene_with_player")
 		else:
-			#When the player completely loses, the lives are instantly reset but the player still sees the Menu-screen
-			PlayerVariables.set_lives(3)
-			get_tree().change_scene("res://UI/Menu.tscn")		
-		
+			#When the player loses all lives, he's presented with a Continue-screen, that manages further events
+			SceneController.change_current_scene("scene_continue")
+			PlayerVariables.player_lives = 3
 
 func add_score(score_amount):
 	score += score_amount
+
+func set_score(score_amount):
+	score = score_amount
+
+func set_lives(_lives : int):
+	lives = _lives
 
 func _on_CooldownManual_timeout():
 	manual_shot_ready = true
@@ -154,6 +155,8 @@ func _on_BulletHitBox_area_entered(area):
 func _on_EnemyHitBox_area_entered(area):
 	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
 		current_hitting_area = area
+	
+		PlayerVariables.screen_exited_expected = false
 		hit()
 		
 
@@ -170,14 +173,14 @@ This node checks whether the player enters or leaves the visible screen
 
 func _on_VisibilityNotifier2D_screen_exited():
 	inside_screen = false
-	screen_exited_expected = PlayerVariables.screen_exited_expected
+	PlayerVariables.screen_exited_expected = true
 	
-	if(!screen_exited_expected):
-		get_tree().change_scene("res://UI/Menu.tscn")
+	if(!PlayerVariables.screen_exited_expected):
+		SceneController.change_current_scene("scene_menu")
+		PlayerVariables.screen_exited_expected = true
 
 func _on_VisibilityNotifier2D_screen_entered():
 	PlayerVariables.screen_exited_expected = false
-	screen_exited_expected = PlayerVariables.screen_exited_expected
 	inside_screen = true
 	
 	position = PlayerVariables.player_spawn_position	

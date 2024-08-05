@@ -36,3 +36,7 @@ func _on_Bullet_area_entered(_area):
 # removes bullet when it is outside the screen
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
+
+
+func _on_Bullet_SpaceBoss_area_entered(area):
+	pass # Replace with function body.

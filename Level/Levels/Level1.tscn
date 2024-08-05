@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/backgrounds/bg_black.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/spritesheet/terrain/aster-tile.png" type="Texture" id=6]
 [ext_resource path="res://Assets/spritesheet/terrain/domeshard.png" type="Texture" id=7]
 [ext_resource path="res://Assets/spritesheet/terrain/spaceshiptiles.png" type="Texture" id=8]
+[ext_resource path="res://Enemies/bosses/boss_space/SpaceBoss.tscn" type="PackedScene" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ActState
@@ -886,6 +887,9 @@ visible = false
 
 [node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4" index="1"]
 visible = false
+
+[node name="SpaceBoss" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 9 )]
+position = Vector2( 1342, 314 )
 
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
 position = Vector2( 1, -1 )

@@ -66,6 +66,7 @@ func enable_shots_fired(var has_fired_shots: bool):
 func onHit():
 	$HealthBar.value = $HealthBar.value - 10
 	
+	
 func _physics_process(delta):
 	
 	velocity.y += get_gravity() * delta
@@ -110,3 +111,5 @@ func _on_HealthBar_value_changed(value):
 	if(value == 0):
 		change_scroll(true)
 		$AnimationTree["parameters/conditions/dead"] = true
+		PlayerVariables.add_score(1000)
+		

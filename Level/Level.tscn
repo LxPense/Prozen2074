@@ -58,35 +58,25 @@ signal act1_finished
 
 # Called when the act enters the state_machine 
 
+func _ready():
+	PlayerVariables.connect(\"reload_scene_with_player\", self, \"reload\")
+	var tree = get_tree()
+	print(get_tree())
+	
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
-	
+	add_child(PlayerVariables.spawn_player())
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
-
+	
+	
 func _process(delta):
 	pass
+
+func reload():
+	get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
-	
-\"\"\"
-Note: These functions don't do anything right now - may have to be removed
-	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't change anything about it -> they are needless 
-
-func exit():
-	pass
-		
-func update_game(_delta: float):
-	pass
-	
-func physics_update(_delta: float):
-	pass
-
-func _ready():
-	pass
-\"\"\"
-
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
 		emit_signal(\"act1_finished\")
@@ -104,32 +94,23 @@ signal act2_finished
 
 # Called when the act enters the state_machine 
 
+func _ready():
+	PlayerVariables.connect(\"reload_scene_with_player\", self, \"reload\")
+	
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
-	
+	add_child(PlayerVariables.spawn_player())
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	
-# Called when the act leaves the state_machine	
 
-\"\"\"
-Note: These functions don't do anything right now - may have to be removed
-	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't change anything about it -> they are needless 
+func _process(delta):
+	pass
 
-func exit():
-	pass
-		
-func update_game(_delta: float):
-	pass
+func reload():
+	get_tree().reload_current_scene()
 	
-func physics_update(_delta: float):
-	pass
-
-func _ready():
-	pass
-\"\"\"
-
+# Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
 		emit_signal(\"act2_finished\")
@@ -142,32 +123,22 @@ signal act_boss_finished
 
 # Called when the act enters the state_machine 
 
+func _ready():
+	PlayerVariables.connect(\"reload_scene_with_player\", self, \"reload\")
+
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
-	
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	add_child(PlayerVariables.spawn_player())
 
-# Called when the act leaves the state_machine 
-
-\"\"\"
-Note: These functions don't do anything right now - may have to be removed
-	  The methods _physics_process and _process are being called automatically by the
-	  engine, using the following methods doesn't change anything about it -> they are needless 
-
-func exit():
+func _process(delta):
 	pass
-		
-func update_game(_delta: float):
-	pass
+
+func reload():
+	get_tree().reload_current_scene()
 	
-func physics_update(_delta: float):
-	pass
-
-func _ready():
-	pass
-\"\"\"
-
+# Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
 	if(body.is_in_group(\"player\")):
 		emit_signal(\"act_boss_finished\")
