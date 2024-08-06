@@ -39,7 +39,9 @@ func _physics_process(_delta):
 	check_input()
 	
 	# This code moves the player by the shift-amount of the shifting wall
-	position = position + CameraSettings.move()
+	#global_position = global_position + CameraSettings.move()
+	var camera_velocity = CameraSettings.move()
+	position = position + move_and_slide(camera_velocity.normalized() * CameraSettings.WALL_CURRENT_MOVEMENT)
 
 func check_input():
 	var velocity = Vector2.ZERO	

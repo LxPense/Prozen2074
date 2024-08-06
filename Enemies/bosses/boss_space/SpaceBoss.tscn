@@ -22,6 +22,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("EntityHitbox/PlayerCollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "SpaceBoss_jump"
@@ -494,6 +506,7 @@ anims/shootready = SubResource( 23 )
 [node name="EntityHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitoring = false
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="EntityHitbox"]
 position = Vector2( 6, 17 )
@@ -517,7 +530,6 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 hframes = 23
 vframes = 4
-frame = 4
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 5 )

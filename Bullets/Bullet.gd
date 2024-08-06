@@ -27,7 +27,8 @@ func _physics_process(delta):
 	
 	# Every frame the global position of the bullet is updated according to the 
 	# set rotation (managed by rotated_direction) and the set speed
-	global_position += (rotated_direction) * speed
+	
+	global_position += rotated_direction * speed
 	
 # removes bullet when it hits something
 func _on_Bullet_area_entered(_area):
