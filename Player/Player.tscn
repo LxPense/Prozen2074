@@ -172,7 +172,7 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 16
+frame = 11
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 34 )
@@ -231,8 +231,9 @@ wait_time = 2.0
 one_shot = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 19.3333, 8 )
-scale = Vector2( 2, 1.4 )
+position = Vector2( 11.3333, 9.33333 )
+scale = Vector2( 2.01667, 1.41167 )
+rect = Rect2( -10, -10, 25, 19.995 )
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
 position = Vector2( 41.3333, 15.3333 )

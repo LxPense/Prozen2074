@@ -24,7 +24,8 @@ onready var player_instance
 # The actual player
 var player : Player
 
-# is used to allow the player to no disappear when he's not inside the screen : gets managed by Player-node
+# Is used to allow the player to no disappear when he's not inside the screen : gets managed by Player-node
+# The values true and false are set by the ActStateMachine. It decides if the screen exit was expected or not
 var screen_exited_expected : bool = false
 
 func _init():
@@ -73,6 +74,7 @@ func change_player_active(active : bool):
 	player.set_physics_process(active)
 	player_visible = active
 	player.visible = player_visible
+	
 # This is the only method that should be used when changing the score of the player
 # The null check makes sure that the method is executed only if the player is already instanciated
 func set_score(_score: int):

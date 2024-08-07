@@ -75,9 +75,9 @@ scroll_active = false
 [node name="Button_Yes" type="Button" parent="."]
 anchor_right = 0.094
 anchor_bottom = 0.299
-margin_left = 415.0
+margin_left = 423.0
 margin_top = 619.0
-margin_right = 494.68
+margin_right = 502.68
 margin_bottom = 453.72
 custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 4 )
@@ -87,10 +87,10 @@ text = "Yes"
 [node name="Button_No" type="Button" parent="."]
 anchor_right = 0.094
 anchor_bottom = 0.299
-margin_left = 680.0
-margin_top = 622.0
-margin_right = 759.68
-margin_bottom = 456.72
+margin_left = 688.0
+margin_top = 619.0
+margin_right = 767.68
+margin_bottom = 453.72
 rect_min_size = Vector2( 150, 50 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 6 )

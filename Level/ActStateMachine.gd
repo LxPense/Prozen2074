@@ -140,7 +140,10 @@ func transition_to(target_state_name) -> void:
 	# exit-function is called on the currrent act
 	state.exit()
 	deactivate_act(target_state_name)
+	
 	# After the previous state has exited, it is removed from the scene tree
+	# This results in a time-frame where the player isn't inside the screen, so screen_exited_expected is true
+	PlayerVariables.screen_exited_expected = true
 	remove_child(state)
 	
 	state = get_node(target_state_name)
@@ -148,6 +151,8 @@ func transition_to(target_state_name) -> void:
 	
 	activate_act(state)
 	
+	
+	PlayerVariables.screen_exited_expected = false
 	state.enter()
 
 # After the last tranisition has played, this function resets all values inside the scene to its defaults

@@ -14,7 +14,6 @@ var health : int
 var lives : int
 
 var vulnerable = true
-var inside_screen: bool = false
 
 #NOTE, because this was a problem once: The position of the player is given by only the Player node, trough the position of the red marker in the 2D view!
 # This holds the reference to the current area that hits the player (for example a laser)
@@ -29,7 +28,7 @@ var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
 func _ready():
 	score = PlayerVariables.score
 	health = PlayerVariables.player_health
-	PlayerVariables.screen_exited_expected = false
+	#PlayerVariables.screen_exited_expected = false
 	lives = PlayerVariables.get_lives()
 	position = PlayerVariables.player_spawn_position
 	$BulletSpawner.set_bullet_type(playerbullet)
@@ -108,16 +107,23 @@ func hit():
 		PlayerVariables.emit_signal("heart_depleted", PlayerVariables.player_health, false)
 		start_flashing()
 		
+		check_health_and_decide()
+
+# Checks the health and lives of the player and executes other code according to the result of the checks
+# -> When the player has 0 health, the scene is reloaded
+# -> When the player has 0 lives, the continue-screen is shown
+func check_health_and_decide():
+	
 	#Handles losing lives with the help of the singleton PlayerVariables
 	if PlayerVariables.player_health < 0:
 		PlayerVariables.player_lives = PlayerVariables.player_lives - 1
 		PlayerVariables.player_health = 3
-		if(PlayerVariables.player_lives > 0):
-			PlayerVariables.emit_signal("reload_scene_with_player")
-		else:
-			#When the player loses all lives, he's presented with a Continue-screen, that manages further events
-			SceneController.change_current_scene("scene_continue")
-			PlayerVariables.player_lives = 3
+	if(PlayerVariables.player_lives > 0):
+		PlayerVariables.emit_signal("reload_scene_with_player")
+	else:
+		#When the player loses all lives, he's presented with a Continue-screen, that manages further events
+		SceneController.change_current_scene("scene_continue")
+		PlayerVariables.player_lives = 3
 
 func add_score(score_amount):
 	score += score_amount
@@ -157,7 +163,7 @@ func _on_BulletHitBox_area_entered(area):
 func _on_EnemyHitBox_area_entered(area):
 	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
 		current_hitting_area = area
-	
+		
 		PlayerVariables.screen_exited_expected = false
 		hit()
 		
@@ -168,21 +174,23 @@ func _on_EnemyHitBox_area_entered(area):
 # -> For this reason, there's a variable screen_exited_expected, so that the game won't interrupt
 
 """
-The following two functions handle the spawning of the player
-Generally, there is a Node called VisibilityNotifier2D inside the player. 
+There is a Node called VisibilityNotifier2D inside the player. 
 This node checks whether the player enters or leaves the visible screen
+The variable screen_exited_expected checks if the player exited the screen in a "legal" way, meaning
+that the exit was expected. 
+For example, expected (legel) exits are changing scenes. An unexpected (illegal) exit is the player
+being pushed outside the screen by collision-tiles.
+To differentiate between these two types of exits, there is a screen_exited_expected flag.
+True means the screenexit was planned, false means it wasn't planned
 """
 
+# Player exits the visible screen, only if the exit was not expected (if screen_exit_expected is false) the act gets reloaded
 func _on_VisibilityNotifier2D_screen_exited():
-	inside_screen = false
-	PlayerVariables.screen_exited_expected = true
-	
 	if(!PlayerVariables.screen_exited_expected):
-		SceneController.change_current_scene("scene_menu")
-		PlayerVariables.screen_exited_expected = true
-
-func _on_VisibilityNotifier2D_screen_entered():
-	PlayerVariables.screen_exited_expected = false
-	inside_screen = true
+		PlayerVariables.player_lives = PlayerVariables.player_lives - 1
+		PlayerVariables.player.check_health_and_decide()
 	
+			
+# Player enters the visible screen, after that it is not expected that the player leaves the screen 
+func _on_VisibilityNotifier2D_screen_entered():
 	position = PlayerVariables.player_spawn_position	

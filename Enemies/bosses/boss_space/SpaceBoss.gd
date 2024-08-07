@@ -97,7 +97,7 @@ func change_scroll(var scrolling: bool):
 # Is used to start the animaion when the boss enters the screen
 # The animation-tree does NOT automatically start the animation!
 func _on_VisibilityNotifier2D_screen_entered():
-	$AnimationTree.get("parameters/playback").travel("idle")	
+	$AnimationTree.get("parameters/playback").travel("idle")
 
 func _on_BulletHitbox_area_entered(area):
 	if area.is_in_group("player_bullet"): 

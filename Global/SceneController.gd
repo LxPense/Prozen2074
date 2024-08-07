@@ -38,10 +38,8 @@ func change_current_scene(scene_name):
 	# By setting screen_exited_expected to true the aforementioned behaviour will be ignored
 	# IMPORTANT: the screen_exited_expected-flag has to be turned off after using the change_current_scene-method! 
 	
-	PlayerVariables.screen_exited_expected = true
 	current_scene = loaded_scenes[scene_name]
 	get_tree().change_scene(scenes[scene_name])
-	PlayerVariables.screen_exited_expected = false
 	
 	
 func reload_current_scene():
