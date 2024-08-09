@@ -254,7 +254,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	if(get_tree()):
+		get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
@@ -282,7 +283,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	if(get_tree()):
+		get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
@@ -312,7 +314,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	if(get_tree()):
+		get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):

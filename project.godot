@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://States/ActStates/ActState.gd"
 }, {
+"base": "Node2D",
+"class": "BaseBulletStrategy",
+"language": "GDScript",
+"path": "res://Bullets/BulletStrategies/BulletStrategy.gd"
+}, {
 "base": "Node",
 "class": "BaseState",
 "language": "GDScript",
@@ -24,10 +29,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Bullets/Bullet.gd"
 }, {
-"base": "Area2D",
+"base": "Bullet",
 "class": "Bullet_SpaceBoss",
 "language": "GDScript",
 "path": "res://Bullets/Bullet_SpaceBoss.gd"
+}, {
+"base": "Reference",
+"class": "FastShotBulletStrategy",
+"language": "GDScript",
+"path": "res://Bullets/BulletStrategies/FastShotBulletStrategy.gd"
 }, {
 "base": "Reference",
 "class": "JSONConfigFile",
@@ -104,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://json_config_file/json_properties/json_property_string.gd"
 }, {
+"base": "BaseBulletStrategy",
+"class": "NormalShotBulletStrategy",
+"language": "GDScript",
+"path": "res://Bullets/BulletStrategies/NormalShotBulletStrategy.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -113,12 +128,19 @@ _global_script_classes=[ {
 "class": "State",
 "language": "GDScript",
 "path": "res://Enemies/State.gd"
+}, {
+"base": "BaseBulletStrategy",
+"class": "WideShotBulletStrategy",
+"language": "GDScript",
+"path": "res://Bullets/BulletStrategies/WideShotBulletStrategy.gd"
 } ]
 _global_script_class_icons={
 "ActState": "",
+"BaseBulletStrategy": "",
 "BaseState": "",
 "Bullet": "",
 "Bullet_SpaceBoss": "",
+"FastShotBulletStrategy": "",
 "JSONConfigFile": "",
 "JSONConfigProcessor": "",
 "JSONProperty": "",
@@ -134,8 +156,10 @@ _global_script_class_icons={
 "JSONPropertyObject": "",
 "JSONPropertyPercentage": "",
 "JSONPropertyString": "",
+"NormalShotBulletStrategy": "",
 "Player": "",
-"State": ""
+"State": "",
+"WideShotBulletStrategy": ""
 }
 
 [application]
@@ -151,6 +175,7 @@ PlayerVariables="*res://Global/PlayerVariables.gd"
 CameraSettings="*res://Global/CameraSettings.gd"
 BulletsList="*res://Global/BulletsList.gd"
 SceneController="*res://Global/SceneController.gd"
+AudioPlayer="*res://Audio/AudioPlayer.gd"
 
 [display]
 

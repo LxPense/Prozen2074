@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.shader" type="Shader" id=1]
 [ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Audio/laser_sound.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Player/Player.gd" type="Script" id=4]
 [ext_resource path="res://assets/shoe/spritesheet_shoe.png" type="Texture" id=21]
 
@@ -172,7 +173,7 @@ material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 11
+frame = 10
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 34 )
@@ -237,10 +238,13 @@ rect = Rect2( -10, -10, 25, 19.995 )
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
 position = Vector2( 41.3333, 15.3333 )
-speed = 20
 
 [node name="Target" parent="BulletSpawner" index="0"]
-position = Vector2( 1, 0 )
+position = Vector2( 1.6667, 3.29018e-05 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
 
 [connection signal="area_entered" from="EnemyHitBox" to="." method="_on_EnemyHitBox_area_entered"]
 [connection signal="area_entered" from="BulletHitBox" to="." method="_on_BulletHitBox_area_entered"]

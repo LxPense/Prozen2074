@@ -3,8 +3,6 @@ class_name Player
 
 const SPEED = 8
 
-var Bullet = preload("res://Bullets/Bullet.tscn")
-
 var manual_shot_ready = true
 var automatic_shot_ready = false
 
@@ -28,10 +26,14 @@ var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
 func _ready():
 	score = PlayerVariables.score
 	health = PlayerVariables.player_health
-	#PlayerVariables.screen_exited_expected = false
 	lives = PlayerVariables.get_lives()
 	position = PlayerVariables.player_spawn_position
-	$BulletSpawner.set_bullet_type(playerbullet)
+	
+	# The bulletStrategy only defines the behaviour and the look of the bullet, the bulletSpawner is responsible for the actual physics
+	var bulletStrategy : BaseBulletStrategy = preload("res://Bullets/BulletStrategies/WideShotBulletStrategy.tscn").instance()
+	$BulletSpawner.setTarget($BulletSpawner/Target)
+	$BulletSpawner.setBulletStrategy(bulletStrategy)
+	
 
 func _physics_process(_delta):
 	# This method is only responsible for moving the player by pressing a key
@@ -94,11 +96,13 @@ func animate(velocity):
 	
 func shoot_manual():
 	if manual_shot_ready:
-		$BulletSpawner.spawn_once()
+		$AudioStreamPlayer.play()
+		$BulletSpawner.execute_Strategy()
 		
 func shoot_auto():
 	if(automatic_shot_ready and $CooldownAuto.time_left <= 0):
-		$BulletSpawner.spawn_once()
+		$AudioStreamPlayer.play()
+		$BulletSpawner.execute_Strategy()
 		automatic_shot_ready = false
 
 func hit():
@@ -163,34 +167,15 @@ func _on_BulletHitBox_area_entered(area):
 func _on_EnemyHitBox_area_entered(area):
 	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
 		current_hitting_area = area
-		
-		PlayerVariables.screen_exited_expected = false
 		hit()
 		
 
-# Checks whether the player is inside the visible area of the screen, if not, the game is interrupted
-# When an act is changed, there is a small window in which the player is not inside the screen
-# -> however, this is expected behaviour and gets corrected shortly after
-# -> For this reason, there's a variable screen_exited_expected, so that the game won't interrupt
-
-"""
-There is a Node called VisibilityNotifier2D inside the player. 
-This node checks whether the player enters or leaves the visible screen
-The variable screen_exited_expected checks if the player exited the screen in a "legal" way, meaning
-that the exit was expected. 
-For example, expected (legel) exits are changing scenes. An unexpected (illegal) exit is the player
-being pushed outside the screen by collision-tiles.
-To differentiate between these two types of exits, there is a screen_exited_expected flag.
-True means the screenexit was planned, false means it wasn't planned
-"""
-
 # Player exits the visible screen, only if the exit was not expected (if screen_exit_expected is false) the act gets reloaded
 func _on_VisibilityNotifier2D_screen_exited():
-	if(!PlayerVariables.screen_exited_expected):
+	if(!PlayerVariables.screen_exit_expected):
 		PlayerVariables.player_lives = PlayerVariables.player_lives - 1
 		PlayerVariables.player.check_health_and_decide()
 	
-			
 # Player enters the visible screen, after that it is not expected that the player leaves the screen 
 func _on_VisibilityNotifier2D_screen_entered():
 	position = PlayerVariables.player_spawn_position	

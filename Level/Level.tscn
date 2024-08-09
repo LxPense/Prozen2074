@@ -60,8 +60,6 @@ signal act1_finished
 
 func _ready():
 	PlayerVariables.connect(\"reload_scene_with_player\", self, \"reload\")
-	var tree = get_tree()
-	print(get_tree())
 	
 func enter():
 	CameraSettings.reset_camera()
@@ -74,7 +72,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	var tree = get_tree()
+	tree.reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
@@ -108,7 +107,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	if get_tree():
+		get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
@@ -136,7 +136,8 @@ func _process(delta):
 	pass
 
 func reload():
-	get_tree().reload_current_scene()
+	if(get_tree()):
+		get_tree().reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):

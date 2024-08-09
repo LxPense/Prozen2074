@@ -26,7 +26,7 @@ var player : Player
 
 # Is used to allow the player to no disappear when he's not inside the screen : gets managed by Player-node
 # The values true and false are set by the ActStateMachine. It decides if the screen exit was expected or not
-var screen_exited_expected : bool = false
+var screen_exit_expected : bool = false
 
 func _init():
 	self.player_health = 3

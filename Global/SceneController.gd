@@ -35,8 +35,8 @@ func change_current_scene(scene_name):
 	
 	# This is needed because during the change of the scene the VisibilityNotifier of the player is notified
 	# that the player isn't inside the screen anymore, therefore the menu-scene is loaded automatically.
-	# By setting screen_exited_expected to true the aforementioned behaviour will be ignored
-	# IMPORTANT: the screen_exited_expected-flag has to be turned off after using the change_current_scene-method! 
+	# By setting screen_exit_expected to true the aforementioned behaviour will be ignored
+	# IMPORTANT: the screen_exit_expected-flag has to be turned off after using the change_current_scene-method! 
 	
 	current_scene = loaded_scenes[scene_name]
 	get_tree().change_scene(scenes[scene_name])
