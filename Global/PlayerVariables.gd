@@ -24,9 +24,17 @@ onready var player_instance
 # The actual player
 var player : Player
 
+
+var current_bulletStrategy : BaseBulletStrategy = NormalShotBulletStrategy.new()
+
 # Is used to allow the player to no disappear when he's not inside the screen : gets managed by Player-node
 # The values true and false are set by the ActStateMachine. It decides if the screen exit was expected or not
 var screen_exit_expected : bool = false
+
+# This method is used to set the player's bulletstrategy globally (so it won't be overwritten each new act)
+func setBulletStrategy(var bulletStrategy: BaseBulletStrategy):
+	current_bulletStrategy = bulletStrategy
+	player.bulletSpawner.setBulletStrategy(current_bulletStrategy)
 
 func _init():
 	self.player_health = 3

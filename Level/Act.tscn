@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Level/Enemies.gd" type="Script" id=1]
 [ext_resource path="res://Level/PlayerPointer.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/backgrounds/BG_spacestar1.png" type="Texture" id=6]
 [ext_resource path="res://Level/Act.gd" type="Script" id=7]
 [ext_resource path="res://Level/ActEnd.gd" type="Script" id=8]
+[ext_resource path="res://Level/miscHandler.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=30]
 extents = Vector2( 86.875, 359.125 )
@@ -79,6 +80,9 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="other" type="Node2D" parent="."]
 visible = false
+
+[node name="miscHandler" type="Node2D" parent="other"]
+script = ExtResource( 9 )
 
 [node name="enemyHandler" type="Node2D" parent="other"]
 script = ExtResource( 1 )

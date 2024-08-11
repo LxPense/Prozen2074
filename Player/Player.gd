@@ -22,17 +22,19 @@ onready var flashShaderPlayer = $Sprite/FlashShaderPlayer
 
 var playerbullet = load("res://Bullets/Bullet.tscn")
 var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
+var bulletSpawner = load("res://res://Bullets/BulletSpawner.gd")
 
 func _ready():
 	score = PlayerVariables.score
 	health = PlayerVariables.player_health
 	lives = PlayerVariables.get_lives()
 	position = PlayerVariables.player_spawn_position
+	bulletSpawner = $BulletSpawner
+	
+	bulletSpawner.setTarget($BulletSpawner/Target)
 	
 	# The bulletStrategy only defines the behaviour and the look of the bullet, the bulletSpawner is responsible for the actual physics
-	var bulletStrategy : BaseBulletStrategy = preload("res://Bullets/BulletStrategies/WideShotBulletStrategy.tscn").instance()
-	$BulletSpawner.setTarget($BulletSpawner/Target)
-	$BulletSpawner.setBulletStrategy(bulletStrategy)
+	bulletSpawner.setBulletStrategy(PlayerVariables.current_bulletStrategy)
 	
 
 func _physics_process(_delta):
@@ -125,6 +127,7 @@ func check_health_and_decide():
 	if(PlayerVariables.player_lives > 0):
 		PlayerVariables.emit_signal("reload_scene_with_player")
 	else:
+		
 		#When the player loses all lives, he's presented with a Continue-screen, that manages further events
 		SceneController.change_current_scene("scene_continue")
 		PlayerVariables.player_lives = 3
