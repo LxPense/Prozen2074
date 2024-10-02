@@ -4,6 +4,8 @@
 
 layout: home
 ---
+
+## Intro
 conceived around 2016 **prozen** was a kinda stupid one off answer to a prompt for a game idea and name made from what was basically a stolen avgn joke
 
 gameplay should be comparable to other space shooters, fast paced, quickly passing backgrounds and basic enemies 
@@ -60,21 +62,21 @@ endibg back in space (only conceptualised in ending screen, scorched earth shows
 `late early design concept`
 
 ##  space (the only place not corruprted by capitalism)
-big corridor of basic asteroid obstacles
-3rd act transitions into spaceship
-and you fight boss jumping out of geodesic dome
+big corridor of basic asteroid obstacles<br>
+3rd act transitions into spaceship<br>
+and you fight boss jumping out of geodesic dome<br>
 
 ![image](assets/space enemies.png)
 `enemy concepts`
 ![image](assets/Pasted image 20241002221858.png)
 `boss arena copncept`
 ## sky
-you fall out of sky with clouds rushing by
-rotating island in the bg
-end you fall into ocean
+you fall out of sky with clouds rushing by <br>
+rotating island in the bg<br>
+end you fall into ocean<br>
 
-**to post: enemy concepts**
-**level previs**
+**to post: enemy concepts**<br>
+**level previs**<br>
 **most things**
 
 ## ocean
@@ -93,14 +95,15 @@ small cutscene if possible and results screen with time
 ![image](assets/mockupfi.png)
 ## musical concepts feel and inspo
 ### progress
-- [x] boss music concept
-most music is not done but some is concepted
-will be tried to chiptune it but still not sure
+- [x] boss music concept<br>
+most music is not done but some is concepted<br>
+will be tried to chiptune it but still not sure<br>
 
-whats missing is any uniformity
-as with the graphics i'd like to introduce a more unified palette of not only colour but also sound
-this may be too ambitious looking at time remaining 
--> remains to be seen
+whats missing is any uniformity<br>
+as with the graphics i'd like to introduce a more unified palette of not only colour but also sound<br>
+this may be too ambitious looking at time remaining <br>
+-> remains to be seen<br>
+
 ## todo 
 images
 better explanations
