@@ -2,12 +2,12 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/laser_sound.mp3-83b6b044413a0f0243ca823a1504c7a3.mp3str"
+path="res://.import/laser_sound.mp3-8fa020a959b42915ffacf69e685c4c3f.mp3str"
 
 [deps]
 
-source_file="res://Assets/Audio/laser_sound.mp3"
-dest_files=[ "res://.import/laser_sound.mp3-83b6b044413a0f0243ca823a1504c7a3.mp3str" ]
+source_file="res://assets/Audio/laser_sound.mp3"
+dest_files=[ "res://.import/laser_sound.mp3-8fa020a959b42915ffacf69e685c4c3f.mp3str" ]
 
 [params]
 
