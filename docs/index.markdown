@@ -75,6 +75,9 @@ you fall out of sky with clouds rushing by <br>
 rotating island in the bg<br>
 end you fall into ocean<br>
 
+![image](assets/Pasted image 20241003140738.png)
+`rotating island bg concept in townscaper`
+
 **to post: enemy concepts**<br>
 **level previs**<br>
 **most things**
