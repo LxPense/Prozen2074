@@ -32,6 +32,7 @@ minima:
   skin: solarized-dark
 
 # Build settings
+remote_theme: minima
 theme: minima
 plugins:
   - jekyll-feed
