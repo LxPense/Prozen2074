@@ -4,14 +4,14 @@
 resource_name = "simple_transition"
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("View/Level_Controller/Level1/Level/ActStateMachine/Act2_transition/cutscene/ColorRect:color")
+tracks/0/path = NodePath("cutscene/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.9, 1.4, 1.8, 2.3, 2.9, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.4, 0.286275, 0.286275, 1 ), Color( 0.478431, 0.239216, 0.239216, 1 ), Color( 0.360784, 0.152941, 0.152941, 1 ), Color( 0.776471, 0.184314, 0.184314, 1 ), Color( 0.305882, 0.0627451, 0.0627451, 1 ), Color( 0.188235, 0.0117647, 0.0117647, 1 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.184314, 0.0509804, 0.0509804, 1 ), Color( 0.470588, 0.243137, 0.243137, 1 ), Color( 0.780392, 0.458824, 0.458824, 1 ), Color( 0.72549, 0.654902, 0.498039, 1 ), Color( 0.721569, 0.760784, 0.443137, 1 ), Color( 1, 1, 1, 1 ) ]
 }
