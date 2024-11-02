@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://States/ActStates/ActState.gd"
 }, {
 "base": "Node2D",
+"class": "ActivationAreaComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/ActivationAreaComponent.gd"
+}, {
+"base": "Node2D",
 "class": "BaseBulletStrategy",
 "language": "GDScript",
 "path": "res://Bullets/BulletStrategies/BulletStrategy.gd"
@@ -23,6 +28,11 @@ _global_script_classes=[ {
 "class": "BaseState",
 "language": "GDScript",
 "path": "res://Enemies/BaseState.gd"
+}, {
+"base": "Node2D",
+"class": "BaseSteeringBehaviour",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/SteeringBehaviours/BaseSteeringBehaviour.gd"
 }, {
 "base": "Area2D",
 "class": "Bullet",
@@ -44,10 +54,50 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Bullets/Bullet_SpaceBoss.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "CompositionEnemy",
+"language": "GDScript",
+"path": "res://Enemies/CompositionTest/CompositionEnemy.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Enemies/Enemy.gd"
+}, {
+"base": "Enemy",
+"class": "Enemy_BrokenThruster",
+"language": "GDScript",
+"path": "res://Enemies/dynamic/BrokenThruster/BrokenThruster.gd"
+}, {
+"base": "Enemy",
+"class": "Enemy_Drone",
+"language": "GDScript",
+"path": "res://Enemies/dynamic/Drone/Drone.gd"
+}, {
 "base": "BaseBulletStrategy",
 "class": "FastShotBulletStrategy",
 "language": "GDScript",
 "path": "res://Bullets/BulletStrategies/FastShotBulletStrategy.gd"
+}, {
+"base": "CompositionEnemy",
+"class": "FlamingSkull",
+"language": "GDScript",
+"path": "res://Enemies/dynamic/FlamingSkull/FlamingSkull.gd"
+}, {
+"base": "BaseSteeringBehaviour",
+"class": "FollowSteeringBehaviour",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/SteeringBehaviours/FollowSteeringBehaviour.gd"
+}, {
+"base": "Node2D",
+"class": "HealthComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/HealthComponent.gd"
+}, {
+"base": "Area2D",
+"class": "HurtBoxComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/HurtBoxComponent.gd"
 }, {
 "base": "Reference",
 "class": "JSONConfigFile",
@@ -124,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://json_config_file/json_properties/json_property_string.gd"
 }, {
+"base": "Node2D",
+"class": "MovementComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/MovementComponent.gd"
+}, {
 "base": "BaseBulletStrategy",
 "class": "NormalShotBulletStrategy",
 "language": "GDScript",
@@ -144,6 +199,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Enemies/State.gd"
 }, {
+"base": "Node2D",
+"class": "SteeringBehaviourComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/SteeringBehaviourComponent.gd"
+}, {
+"base": "Node2D",
+"class": "VisualComponent",
+"language": "GDScript",
+"path": "res://Enemies/EnemyComponents/VisualComponent.gd"
+}, {
 "base": "BaseBulletStrategy",
 "class": "WideShotBulletStrategy",
 "language": "GDScript",
@@ -151,13 +216,23 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActState": "",
+"ActivationAreaComponent": "",
 "BaseBulletStrategy": "",
 "BaseState": "",
+"BaseSteeringBehaviour": "",
 "Bullet": "",
 "BulletChange": "",
 "BulletSpawner": "",
 "Bullet_SpaceBoss": "",
+"CompositionEnemy": "",
+"Enemy": "",
+"Enemy_BrokenThruster": "",
+"Enemy_Drone": "",
 "FastShotBulletStrategy": "",
+"FlamingSkull": "",
+"FollowSteeringBehaviour": "",
+"HealthComponent": "",
+"HurtBoxComponent": "",
 "JSONConfigFile": "",
 "JSONConfigProcessor": "",
 "JSONProperty": "",
@@ -173,10 +248,13 @@ _global_script_class_icons={
 "JSONPropertyObject": "",
 "JSONPropertyPercentage": "",
 "JSONPropertyString": "",
+"MovementComponent": "",
 "NormalShotBulletStrategy": "",
 "Pickup": "",
 "Player": "",
 "State": "",
+"SteeringBehaviourComponent": "",
+"VisualComponent": "",
 "WideShotBulletStrategy": ""
 }
 
@@ -194,6 +272,7 @@ CameraSettings="*res://Global/CameraSettings.gd"
 BulletsList="*res://Global/BulletsList.gd"
 SceneController="*res://Global/SceneController.gd"
 AudioPlayer="*res://Audio/AudioPlayer.gd"
+StaticData="*res://Global/StaticData.gd"
 
 [display]
 
@@ -217,6 +296,8 @@ Display=false
 bootsplash=false
 collision=false
 vsync=false
+group=false
+Assets=false
 
 [importer_defaults]
 
@@ -279,6 +360,7 @@ shoot={
 2d_physics/layer_6="Boss"
 2d_physics/layer_7="EndMarker"
 2d_physics/layer_8="Pickup"
+2d_physics/layer_9="Activation"
 
 [physics]
 

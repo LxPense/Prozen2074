@@ -1,105 +1,15 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/static/Portal/Portal.gd" type="Script" id=2]
 [ext_resource path="res://Assets/spritesheet/enemy/portalspawn.png" type="Texture" id=3]
+[ext_resource path="res://Enemies/static/Portal/animations/Portal.tres" type="AnimationNodeStateMachine" id=4]
+[ext_resource path="res://Enemies/static/Portal/animations/PortalSpawn.tres" type="Animation" id=5]
+[ext_resource path="res://Enemies/static/Portal/animations/PortalIdle.tres" type="Animation" id=6]
+[ext_resource path="res://Enemies/static/Portal/animations/PortalMain.tres" type="Animation" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.9071, 6.4251 )
-
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
-length = 0.5
-step = 0.25
-tracks/0/type = "method"
-tracks/0/path = NodePath("AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "spawn", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "Main"
-length = 0.875
-loop = true
-step = 0.125
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 17, 18, 19, 20, 21, 22, 23 ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "Spawn"
-length = 1.105
-step = 0.065
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.065, 0.13, 0.195, 0.26, 0.325, 0.39, 0.455, 0.52, 0.585, 0.65, 0.715, 0.78, 0.845, 0.91, 0.975, 1.04 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
-}
-
-[sub_resource type="AnimationNodeAnimation" id=21]
-animation = "Idle"
-
-[sub_resource type="AnimationNodeAnimation" id=22]
-animation = "Main"
-
-[sub_resource type="AnimationNodeAnimation" id=23]
-animation = "Spawn"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-switch_mode = 2
-advance_condition = "triggered"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachine" id=17]
-states/Idle/node = SubResource( 21 )
-states/Idle/position = Vector2( 113, 170 )
-states/Main/node = SubResource( 22 )
-states/Main/position = Vector2( 519, 152 )
-states/Spawn/node = SubResource( 23 )
-states/Spawn/position = Vector2( 305, 157 )
-transitions = [ "Idle", "Spawn", SubResource( 24 ), "Spawn", "Main", SubResource( 25 ) ]
-start_node = "Idle"
-graph_offset = Vector2( -162, 37 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=8]
 
@@ -117,13 +27,10 @@ texture = ExtResource( 3 )
 hframes = 17
 vframes = 2
 
-[node name="bulletPosition" parent="Sprite" index="0"]
-position = Vector2( -16, 0 )
-
-[node name="AnimationPlayer" parent="Sprite" index="1"]
-anims/Idle = SubResource( 2 )
-anims/Main = SubResource( 13 )
-anims/Spawn = SubResource( 3 )
+[node name="AnimationPlayer" parent="Sprite" index="0"]
+anims/Idle = ExtResource( 6 )
+anims/Main = ExtResource( 7 )
+anims/Spawn = ExtResource( 5 )
 
 [node name="EntityHitbox" parent="." index="2"]
 position = Vector2( 1.08333, 0 )
@@ -137,7 +44,6 @@ collision_mask = 8
 
 [node name="activation" parent="Activation_area" index="0"]
 scale = Vector2( 0.2, 0.2 )
-disabled = false
 
 [node name="BulletHitbox" parent="." index="6"]
 position = Vector2( 2.08333, 0 )
@@ -148,7 +54,7 @@ scale = Vector2( 0.866324, 1 )
 disabled = false
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="7"]
-tree_root = SubResource( 17 )
+tree_root = ExtResource( 4 )
 anim_player = NodePath("../Sprite/AnimationPlayer")
 active = true
 parameters/playback = SubResource( 8 )

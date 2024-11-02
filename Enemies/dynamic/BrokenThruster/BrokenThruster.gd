@@ -1,4 +1,5 @@
-extends "res://Enemies/Enemy.gd"
+extends Enemy
+class_name Enemy_BrokenThruster
 
 export var movement_type = 0
 onready var animation_tree : AnimationTree = $AnimationTree

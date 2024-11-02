@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.shader" type="Shader" id=1]
-[ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Bullets/BulletSpawner.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Audio/laser_sound.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Player/Player.gd" type="Script" id=4]
 [ext_resource path="res://assets/shoe/spritesheet_shoe.png" type="Texture" id=21]
@@ -161,19 +161,19 @@ extents = Vector2( 22.7914, 14.4114 )
 [sub_resource type="RectangleShape2D" id=28]
 extents = Vector2( 24.8099, 10.5892 )
 
-[node name="Player" type="KinematicBody2D" groups=["player"]]
+[node name="Player" type="KinematicBody2D"]
 position = Vector2( -50, -66 )
 scale = Vector2( 3, 3 )
 collision_layer = 8
 collision_mask = 66
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="." groups=["player"]]
 material = SubResource( 1 )
 position = Vector2( 19.4567, 8.88927 )
 texture = ExtResource( 21 )
 hframes = 20
-frame = 16
+frame = 11
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite"]
 tree_root = SubResource( 34 )
@@ -199,17 +199,17 @@ scale = Vector2( 0.73, 0.73 )
 shape = SubResource( 27 )
 one_way_collision_margin = 0.0
 
-[node name="PickupArea" type="Area2D" parent="."]
+[node name="PickupArea" type="Area2D" parent="." groups=["player"]]
 position = Vector2( -0.210224, 6.58702 )
-collision_layer = 8
-collision_mask = 128
+collision_layer = 264
+collision_mask = 256
 
 [node name="PickupCollision" type="CollisionShape2D" parent="PickupArea"]
 position = Vector2( 18.4551, 5.0467 )
 scale = Vector2( 0.73, 0.73 )
 shape = SubResource( 28 )
 
-[node name="EnemyHitBox" type="Area2D" parent="."]
+[node name="EnemyHitBox" type="Area2D" parent="." groups=["player"]]
 position = Vector2( -0.210226, 6.58702 )
 collision_layer = 8
 
@@ -246,10 +246,11 @@ position = Vector2( 11.3333, 9.33333 )
 scale = Vector2( 2.01667, 1.41167 )
 rect = Rect2( -10, -10, 25, 19.995 )
 
-[node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
+[node name="BulletSpawner" type="Node2D" parent="."]
 position = Vector2( 41.3333, 15.3333 )
+script = ExtResource( 2 )
 
-[node name="Target" parent="BulletSpawner" index="0"]
+[node name="Target" type="Node2D" parent="BulletSpawner"]
 position = Vector2( 1.6667, 3.29018e-05 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -263,5 +264,3 @@ volume_db = -5.0
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
-
-[editable path="BulletSpawner"]

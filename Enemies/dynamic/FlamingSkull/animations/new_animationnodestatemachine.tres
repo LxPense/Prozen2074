@@ -1,0 +1,33 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=7 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "Attack"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "Transition"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
+advance_condition = "triggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+switch_mode = 2
+advance_condition = "untriggered"
+
+[resource]
+states/Attack/node = SubResource( 23 )
+states/Attack/position = Vector2( 724, 73.592 )
+states/Idle/node = SubResource( 26 )
+states/Idle/position = Vector2( 91, 94.592 )
+states/Transition/node = SubResource( 21 )
+states/Transition/position = Vector2( 405, -23.408 )
+transitions = [ "Transition", "Attack", SubResource( 25 ), "Idle", "Transition", SubResource( 27 ), "Attack", "Idle", SubResource( 30 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -49, -77.408 )

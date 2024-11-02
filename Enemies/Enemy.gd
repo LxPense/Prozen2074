@@ -1,7 +1,8 @@
 extends KinematicBody2D
+class_name Enemy
 
 var player = null
-var inside_camera = false	#determines whether enemy is inside camera or not, see check_inside_camera()
+#var inside_camera = false	#determines whether enemy is inside camera or not, see check_inside_camera()
 var firstActivation = false #holds boolean if the activation is the first one or not, used in combination with AnimationPlayer
 var starting_pos
 var movement
@@ -39,6 +40,7 @@ func _init(_score = 0, _speed = 150, _health = 1):
 
 func _ready():
 	starting_pos = position
+	player = PlayerVariables.player
 	pass
 
 #If some unnecessary movement (like flying into the screen) is finished, the enemy can shoot normally, max_movement specifies until which part of the movement it is considered unnecessary
@@ -49,18 +51,14 @@ func can_shoot_at(max_movement):
 func _physics_process(_delta) -> void:
 	
 	if($VisibilityNotifier2D.is_on_screen()):
-		
 		$CurrentPosition.position = position
 		canMove = true
-		
-		if player == null:
-			player = $"/root/Game/View/Player"
-	
+
 		if canMove:
 			handle_movement()
 		
 		if can_shoot == true:
-			shoot()
+			print("Shooting???")
 
 # Handles the default-movement pattern of an enemy
 func handle_movement():
@@ -104,42 +102,26 @@ func onHit():
 	if(health <= 0):
 		PlayerVariables.set_score(score + score)
 		queue_free()
-		
-func shoot():
-	if(shot_ready && can_shoot):
-		var newBullet = BULLET.instance()
-		newBullet.transform = $Sprite/bulletPosition.global_transform
-		newBullet.set_direction("left")
-		$"/root/Game/View/BulletsList".add_child(newBullet)
-		shot_ready = false
+
+#
+#func shoot():
+#	if(shot_ready && can_shoot):
+#		$BulletSpawner.execute_Strategy()
+#		newBullet.transform = $Sprite/bulletPosition.global_transform
+#		newBullet.set_direction("left")
+#		$"/root/Game/View/BulletsList".add_child(newBullet)
+#		shot_ready = false
 	
 func despawn():
 	queue_free()
 
 func _on_ShotTimer_timeout():
 	shot_ready = true
-
-func _on_Activation_area_body_entered(body):	# If the player enters the activation_area, for further implementation see enemy-classes
-	pass
-			
-func _on_Activation_area_body_exited(body):		# If the player leaves the activation area, for further implementation see enemy-classes
-	pass
 			
 func followPlayer():
-	if inside_camera && follow && hasActivation:
+	if $VisibilityNotifier2D.visible && follow && hasActivation:
 		if following:
 			movement = position.direction_to(player.position)
 			movement = movement.normalized() * (speed)
 			move_and_slide(movement)
 				
-		
-func _on_BulletHitbox_area_entered(area):
-	if area.is_in_group("player_bullet"):
-		onHit()
-
-func _on_VisibilityNotifier2D_screen_entered():
-	inside_camera = true
-
-
-func _on_VisibilityNotifier2D_screen_exited():
-	inside_camera = false

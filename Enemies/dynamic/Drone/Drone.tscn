@@ -1,28 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/spritesheet/enemy/sdrone.png" type="Texture" id=2]
+[ext_resource path="res://Bullets/BulletSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/dynamic/Drone/animations/DroneSpawn.tres" type="Animation" id=4]
+[ext_resource path="res://Enemies/dynamic/Drone/animations/DroneTurn.tres" type="Animation" id=5]
+[ext_resource path="res://Enemies/dynamic/Drone/animations/DroneIdle.tres" type="Animation" id=6]
+[ext_resource path="res://Enemies/dynamic/Drone/animations/DroneTurn_backwards.tres" type="Animation" id=7]
 [ext_resource path="res://Enemies/dynamic/Drone/Drone.gd" type="Script" id=14]
-
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
-length = 0.1
-loop = true
-step = 0.05
-tracks/0/type = "method"
-tracks/0/path = NodePath("AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/keys = {
-"times": PoolRealArray( 0.05 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "idle", -1, 1.0, false ],
-"method": "play"
-} ]
-}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -51,59 +36,43 @@ tracks/1/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Spawn"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "Turn"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11 ]
-}
-
 [sub_resource type="AnimationNodeAnimation" id=7]
-animation = "Spawn"
+animation = "Idle"
 
 [sub_resource type="AnimationNodeAnimation" id=8]
+animation = "Spawn"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Turn"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Turn_backwards"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+advance_condition = "activated"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
 switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachine" id=5]
-states/Spawn/node = SubResource( 7 )
-states/Spawn/position = Vector2( 308, 66 )
-states/Turn/node = SubResource( 8 )
-states/Turn/position = Vector2( 574, 58 )
-transitions = [ "Spawn", "Turn", SubResource( 9 ), "Turn", "Spawn", SubResource( 10 ) ]
-start_node = "Spawn"
+states/Idle/node = SubResource( 7 )
+states/Idle/position = Vector2( 314, 112 )
+states/Spawn/node = SubResource( 8 )
+states/Spawn/position = Vector2( 595, 105 )
+states/Turn/node = SubResource( 9 )
+states/Turn/position = Vector2( 899, 62 )
+states/Turn_backwards/node = SubResource( 12 )
+states/Turn_backwards/position = Vector2( 877, 180 )
+transitions = [ "Idle", "Spawn", SubResource( 10 ), "Spawn", "Turn", SubResource( 13 ), "Turn", "Turn_backwards", SubResource( 14 ), "Turn_backwards", "Spawn", SubResource( 15 ) ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
@@ -119,19 +88,14 @@ texture = ExtResource( 2 )
 hframes = 8
 vframes = 2
 
-[node name="bulletPosition" parent="Sprite" index="0"]
-position = Vector2( -26.1881, 4 )
-
-[node name="AnimationPlayer" parent="Sprite" index="1"]
-anims/Idle = SubResource( 2 )
+[node name="AnimationPlayer" parent="Sprite" index="0"]
+anims/Idle = ExtResource( 6 )
 anims/RESET = SubResource( 3 )
-anims/Spawn = SubResource( 1 )
-anims/Turn = SubResource( 4 )
+anims/Spawn = ExtResource( 4 )
+anims/Turn = ExtResource( 5 )
+anims/Turn_backwards = ExtResource( 7 )
 
 [node name="PlayerCollision" parent="EntityHitbox" index="0"]
-disabled = false
-
-[node name="activation" parent="Activation_area" index="0"]
 disabled = false
 
 [node name="BulletCollision" parent="BulletHitbox" index="0"]
@@ -142,3 +106,16 @@ tree_root = SubResource( 5 )
 anim_player = NodePath("../Sprite/AnimationPlayer")
 active = true
 parameters/playback = SubResource( 6 )
+parameters/conditions/activated = false
+
+[node name="BulletSpawner" parent="." index="9" instance=ExtResource( 3 )]
+position = Vector2( -21.3333, 3.66667 )
+
+[node name="Target" parent="BulletSpawner" index="0"]
+position = Vector2( -4.66667, -2.38419e-07 )
+
+[connection signal="area_entered" from="Activation_area" to="." method="_on_Activation_area_area_entered"]
+[connection signal="body_entered" from="Activation_area" to="." method="_on_Activation_area_body_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+
+[editable path="BulletSpawner"]

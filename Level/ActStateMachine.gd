@@ -128,7 +128,6 @@ func _process(delta):
 		
 func _physics_process(delta):
 	state.physics_update(delta)
-	pass
 	
 # Is used to enter various acts, but not the first one (entering the first one is handled seperately)
 func transition_to(target_state_name) -> void:

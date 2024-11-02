@@ -66,7 +66,8 @@ func enter():
 	CameraSettings.change_camera_move(true)
 	add_child(PlayerVariables.spawn_player())
 	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
-	
+	print(\"Global pos:\")
+	print(PlayerVariables.player.global_position)
 	
 func _process(delta):
 	pass
@@ -107,8 +108,9 @@ func _process(delta):
 	pass
 
 func reload():
-	if get_tree():
-		get_tree().reload_current_scene()
+	var tree = get_tree()
+	if(tree != null):
+		tree.reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):
@@ -129,15 +131,17 @@ func _ready():
 func enter():
 	CameraSettings.reset_camera()
 	CameraSettings.change_camera_move(true)
-	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
 	add_child(PlayerVariables.spawn_player())
+	PlayerVariables.set_player_position(get_node(\"other/PlayerPointer\").position)
+	
 
 func _process(delta):
 	pass
 
 func reload():
-	if(get_tree()):
-		get_tree().reload_current_scene()
+	var tree = get_tree()
+	if(tree != null):
+		tree.reload_current_scene()
 	
 # Called when the act enters the state_machine 
 func _on_ActEnd_body_entered(body):

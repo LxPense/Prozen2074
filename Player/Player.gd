@@ -22,7 +22,7 @@ onready var flashShaderPlayer = $Sprite/FlashShaderPlayer
 
 var playerbullet = load("res://Bullets/Bullet.tscn")
 var spacebossbullet = load("res://Bullets/Bullet_SpaceBoss.tscn")
-var bulletSpawner = load("res://res://Bullets/BulletSpawner.gd")
+var bulletSpawner = load("res://Bullets/BulletSpawner.gd")
 
 func _ready():
 	score = PlayerVariables.score
@@ -30,7 +30,6 @@ func _ready():
 	lives = PlayerVariables.get_lives()
 	position = PlayerVariables.player_spawn_position
 	bulletSpawner = $BulletSpawner
-	
 	bulletSpawner.setTarget($BulletSpawner/Target)
 	
 	# The bulletStrategy only defines the behaviour and the look of the bullet, the bulletSpawner is responsible for the actual physics
@@ -42,8 +41,8 @@ func _physics_process(_delta):
 	check_input()
 	
 	# This code moves the player by the shift-amount of the shifting wall
-	#global_position = global_position + CameraSettings.move()
-	var camera_velocity = CameraSettings.move()
+	#global_position = global_position + CameraSettings.getCameraMove()
+	var camera_velocity = CameraSettings.getCameraMove()
 	position = position + move_and_slide(camera_velocity.normalized() * CameraSettings.WALL_CURRENT_MOVEMENT)
 
 func check_input():
@@ -98,12 +97,12 @@ func animate(velocity):
 	
 func shoot_manual():
 	if manual_shot_ready:
-		$AudioStreamPlayer.play()
-		$BulletSpawner.execute_Strategy()
+		#$AudioStreamPlayer.play()
+		  $BulletSpawner.execute_Strategy()
 		
 func shoot_auto():
 	if(automatic_shot_ready and $CooldownAuto.time_left <= 0):
-		$AudioStreamPlayer.play()
+		#$AudioStreamPlayer.play()
 		$BulletSpawner.execute_Strategy()
 		automatic_shot_ready = false
 
@@ -112,22 +111,23 @@ func hit():
 		PlayerVariables.player_health -= 1
 		PlayerVariables.emit_signal("heart_depleted", PlayerVariables.player_health, false)
 		start_flashing()
-		
+		PlayerVariables.screen_exit_expected = true
 		check_health_and_decide()
 
 # Checks the health and lives of the player and executes other code according to the result of the checks
 # -> When the player has 0 health, the scene is reloaded
 # -> When the player has 0 lives, the continue-screen is shown
+
+# Note: Causes issues as of 20.08.2024!!
 func check_health_and_decide():
 	
 	#Handles losing lives with the help of the singleton PlayerVariables
 	if PlayerVariables.player_health < 0:
 		PlayerVariables.player_lives = PlayerVariables.player_lives - 1
 		PlayerVariables.player_health = 3
-	if(PlayerVariables.player_lives > 0):
 		PlayerVariables.emit_signal("reload_scene_with_player")
-	else:
 		
+	if(PlayerVariables.player_lives < 0):
 		#When the player loses all lives, he's presented with a Continue-screen, that manages further events
 		SceneController.change_current_scene("scene_continue")
 		PlayerVariables.player_lives = 3
@@ -168,10 +168,12 @@ func _on_BulletHitBox_area_entered(area):
 	
 # Checks if the player collides with an area named EntityHitbox (Every enemy has one)
 func _on_EnemyHitBox_area_entered(area):
-	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
+#	if area.name == "EntityHitbox" and (current_hitting_area != area or area != null):
+#		current_hitting_area = area
+#		hit()
+	if area.is_in_group("enemy"):
 		current_hitting_area = area
 		hit()
-		
 
 # Player exits the visible screen, only if the exit was not expected (if screen_exit_expected is false) the act gets reloaded
 func _on_VisibilityNotifier2D_screen_exited():

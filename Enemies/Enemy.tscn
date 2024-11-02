@@ -26,9 +26,6 @@ disabled = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.854747, 0 )
 
-[node name="bulletPosition" type="Position2D" parent="Sprite"]
-position = Vector2( -17.1881, 0 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 
 [node name="EntityHitbox" type="Area2D" parent="."]
@@ -45,14 +42,12 @@ autostart = true
 
 [node name="Activation_area" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 0
 
 [node name="activation" type="CollisionShape2D" parent="Activation_area"]
 shape = SubResource( 5 )
-disabled = true
 
 [node name="BulletHitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 16
 
@@ -63,8 +58,3 @@ disabled = true
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
-[connection signal="body_entered" from="Activation_area" to="." method="_on_Activation_area_body_entered"]
-[connection signal="body_exited" from="Activation_area" to="." method="_on_Activation_area_body_exited"]
-[connection signal="area_entered" from="BulletHitbox" to="." method="_on_BulletHitbox_area_entered"]
-[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

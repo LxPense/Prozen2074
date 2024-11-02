@@ -132,6 +132,8 @@ graph_offset = Vector2( -118, 1 )
 
 [node name="BrokenThruster" instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
+collision_layer = 1
+collision_mask = 10
 script = ExtResource( 11 )
 
 [node name="TileCollision" parent="." index="0"]
@@ -159,12 +161,14 @@ anims/Idle = SubResource( 2 )
 anims/In = SubResource( 4 )
 anims/Out = SubResource( 6 )
 
+[node name="EntityHitbox" parent="." index="2"]
+collision_mask = 8
+
 [node name="PlayerCollision" parent="EntityHitbox" index="0"]
 disabled = false
 
 [node name="activation" parent="Activation_area" index="0"]
 visible = false
-disabled = false
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="6"]
 tree_root = SubResource( 7 )
@@ -174,6 +178,9 @@ parameters/playback = SubResource( 8 )
 parameters/conditions/entered_screen = false
 parameters/conditions/exited_screen = false
 script = ExtResource( 3 )
+
+[node name="BulletHitbox" parent="." index="7"]
+collision_layer = 1
 
 [node name="BulletCollision" parent="BulletHitbox" index="0"]
 disabled = false

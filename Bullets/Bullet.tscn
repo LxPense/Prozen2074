@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4.57757, 1.62277 )
 
-[node name="Bullet" type="Area2D" groups=["player_bullet"]]
+[node name="Bullet" type="Area2D"]
 scale = Vector2( 3, 3 )
 collision_layer = 4
 collision_mask = 41

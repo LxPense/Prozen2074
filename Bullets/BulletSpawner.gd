@@ -1,5 +1,6 @@
 extends Node2D
 class_name BulletSpawner
+
 """
 This node is used to spawn bullets freely
 """

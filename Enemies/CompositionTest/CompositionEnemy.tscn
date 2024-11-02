@@ -1,0 +1,153 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://Enemies/EnemyComponents/HealthComponent.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/CompositionTest/CompositionEnemy.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/EnemyComponents/HitBoxComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/spritesheet/enemy/bskull.png" type="Texture" id=4]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/animations/FlamingSkullAttack.tres" type="Animation" id=5]
+[ext_resource path="res://Enemies/EnemyComponents/MovementComponent.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemies/EnemyComponents/HurtBoxComponent.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/animations/FlamingSkullIdle.tres" type="Animation" id=9]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/animations/FlamingSkullTransition.tres" type="Animation" id=10]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/animations/FlamingSkullSpawn.tres" type="Animation" id=11]
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/animations/FlamingSkullTransitionBackwards.tres" type="Animation" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends Node2D
+
+
+# This component is ussed to display graphics, for example Animations
+
+func _ready():
+	pass
+"
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "FlamingSkullAttack"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "FlamingSkullIdle"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "FlamingSkullTransition"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "FlamingSkullTransitionBackwards"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+advance_condition = "triggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+advance_condition = "untriggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=15]
+states/FlamingSkullAttack/node = SubResource( 16 )
+states/FlamingSkullAttack/position = Vector2( 793, 98 )
+states/FlamingSkullIdle/node = SubResource( 17 )
+states/FlamingSkullIdle/position = Vector2( 326, 131 )
+states/FlamingSkullTransition/node = SubResource( 18 )
+states/FlamingSkullTransition/position = Vector2( 594, 222 )
+states/FlamingSkullTransitionBackwards/node = SubResource( 24 )
+states/FlamingSkullTransitionBackwards/position = Vector2( 518, 28 )
+transitions = [ "FlamingSkullIdle", "FlamingSkullTransition", SubResource( 19 ), "FlamingSkullTransition", "FlamingSkullAttack", SubResource( 20 ), "FlamingSkullAttack", "FlamingSkullTransitionBackwards", SubResource( 25 ), "FlamingSkullTransitionBackwards", "FlamingSkullIdle", SubResource( 26 ) ]
+start_node = "FlamingSkullIdle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[sub_resource type="RectangleShape2D" id=28]
+resource_local_to_scene = true
+extents = Vector2( 26.6181, 17.1229 )
+
+[node name="CompositionEnemy" type="KinematicBody2D" groups=["enemy"]]
+scale = Vector2( 3, 3 )
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="HealthComponent" parent="." instance=ExtResource( 1 )]
+default_health = 50
+
+[node name="HitBoxComponent" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 4 )
+scale = Vector2( 1.2498, 1.53451 )
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource( 7 )]
+position = Vector2( -0.333333, 3 )
+scale = Vector2( 0.585758, 0.406167 )
+collision_mask = 4
+
+[node name="RectangleShape" parent="HurtBoxComponent" index="0"]
+position = Vector2( 0, 4 )
+scale = Vector2( -2.05392, 3.33564 )
+
+[node name="VisualComponent" type="Node2D" parent="."]
+script = SubResource( 14 )
+
+[node name="Sprite" type="Sprite" parent="VisualComponent"]
+texture = ExtResource( 4 )
+hframes = 13
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VisualComponent/Sprite"]
+anims/FlamingSkullAttack = ExtResource( 5 )
+anims/FlamingSkullIdle = ExtResource( 9 )
+anims/FlamingSkullSpawn = ExtResource( 11 )
+anims/FlamingSkullTransition = ExtResource( 10 )
+anims/FlamingSkullTransitionBackwards = ExtResource( 12 )
+anims/RESET = SubResource( 22 )
+
+[node name="AnimationTree" type="AnimationTree" parent="VisualComponent/Sprite"]
+tree_root = SubResource( 15 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 2 )
+parameters/conditions/triggered = false
+parameters/conditions/untriggered = false
+
+[node name="ActivationAreaComponent2" type="Area2D" parent="."]
+position = Vector2( -1.66667, 2.66667 )
+scale = Vector2( 6.48055, 6.23921 )
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationAreaComponent2"]
+position = Vector2( 0.077154, -1.41578 )
+shape = SubResource( 28 )
+
+[node name="MovementComponent" parent="." instance=ExtResource( 6 )]
+
+[connection signal="notify_enemy_deletion" from="HealthComponent" to="." method="_on_HealthComponent_notify_enemy_deletion"]
+[connection signal="body_entered" from="HitBoxComponent" to="." method="_on_HitBoxComponent_body_entered"]
+[connection signal="area_entered" from="ActivationAreaComponent2" to="." method="_on_ActivationArea_area_entered"]
+[connection signal="area_exited" from="ActivationAreaComponent2" to="." method="_on_ActivationArea_area_exited"]
+
+[editable path="HitBoxComponent"]
+[editable path="HurtBoxComponent"]
+[editable path="MovementComponent"]

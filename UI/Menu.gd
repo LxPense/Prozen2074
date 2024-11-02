@@ -7,3 +7,4 @@ func _on_Button_start_pressed():
 	
 func _on_Button_quit_pressed():
 	get_tree().quit()
+	

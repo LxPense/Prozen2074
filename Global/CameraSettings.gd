@@ -9,9 +9,11 @@ var camera : Camera2D = null
 # Shows whether the camera is moving or not
 var moving : bool
 
-# Used to apply automatic movement to the player due to the shifting camera
-# Used in combination with change_camera_move to stop the movement of the camera and as such the player
-func move():
+# Acts as a getter to get the additional movement caused by the shifting camera
+# If the wall (and as such the camera) is moving, a vector representing this movement WALL_CURRENT_MOVEMENT is returned,
+# otherwise an null vector is returned
+
+func getCameraMove():
 	if(moving):
 		return WALL_CURRENT_MOVEMENT
 	else:

@@ -1,14 +1,14 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Level/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/backgrounds/bg_black.png" type="Texture" id=2]
-[ext_resource path="res://Assets/backgrounds/BG_spacestar1.png" type="Texture" id=3]
+[ext_resource path="res://Enemies/CompositionEnemies/FlamingSkull.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/backgrounds/BG_spacecloudact2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/backgrounds/BG_spacestar2.png" type="Texture" id=5]
 [ext_resource path="res://Assets/spritesheet/terrain/aster-tile.png" type="Texture" id=6]
 [ext_resource path="res://Assets/spritesheet/terrain/domeshard.png" type="Texture" id=7]
 [ext_resource path="res://Assets/spritesheet/terrain/spaceshiptiles.png" type="Texture" id=8]
-[ext_resource path="res://Pickup/BulletChange.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/tiles/air_tile.png" type="Texture" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ActState
@@ -49,6 +49,10 @@ func _on_AnimationPlayer_animation_finished(act1_transition):
 # This achieves the same effect, but somehow it doesn't work because the z-index isn't considered
 # which makes the sprites overlap
 "
+
+[sub_resource type="StreamTexture" id=40]
+flags = 34
+load_path = "res://.import/BG_spacestar1.png-74c0f32e5b28c2cf58816664e596f42c.stex"
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 4.92311, 0, 48, 0, 48, 48, 4.7293, 48 )
@@ -112,6 +116,10 @@ points = PoolVector2Array( 48, 48, 0, 48, 0, 3.40496, 48, 3.56647 )
 
 [sub_resource type="ConvexPolygonShape2D" id=21]
 points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="NavigationPolygon" id=32]
+vertices = PoolVector2Array( 48, 48, 0, 48, 0, 0, 48, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 48, 41.7464, 0.0777283, 41.5526, 0, 0, 48, 0 )
@@ -769,6 +777,167 @@ points = PoolVector2Array( 48, 41.4403, 20.4505, 35.3508, 0.10083, 0.0779419, 48
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 31/z_index = 0
+32/name = "air_tile.png 32"
+32/texture = ExtResource( 9 )
+32/tex_offset = Vector2( 0, 0 )
+32/modulate = Color( 1, 1, 1, 1 )
+32/region = Rect2( 0, 0, 48, 48 )
+32/tile_mode = 0
+32/occluder_offset = Vector2( 0, 0 )
+32/navigation_offset = Vector2( 0, 0 )
+32/navigation = SubResource( 32 )
+32/shape_offset = Vector2( 0, 0 )
+32/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+32/shape_one_way = false
+32/shape_one_way_margin = 0.0
+32/shapes = [  ]
+32/z_index = 0
+
+[sub_resource type="ConvexPolygonShape2D" id=33]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=34]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=35]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=36]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=37]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="ConvexPolygonShape2D" id=38]
+points = PoolVector2Array( 0, 0, 48, 0, 48, 48, 0, 48 )
+
+[sub_resource type="TileSet" id=39]
+0/name = "aster-tile.png 0"
+0/texture = ExtResource( 6 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 48, 48 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 33 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 33 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "aster-tile.png 1"
+1/texture = ExtResource( 6 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 48, 0, 48, 48 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 34 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 34 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "aster-tile.png 2"
+2/texture = ExtResource( 6 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 96, 0, 48, 48 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 35 )
+2/shape_one_way = false
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 35 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+2/z_index = 0
+3/name = "aster-tile.png 3"
+3/texture = ExtResource( 6 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 144, 0, 48, 48 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 36 )
+3/shape_one_way = false
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 36 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+3/z_index = 0
+4/name = "aster-tile.png 4"
+4/texture = ExtResource( 6 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 192, 0, 48, 48 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape = SubResource( 37 )
+4/shape_one_way = false
+4/shape_one_way_margin = 1.0
+4/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 37 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+4/z_index = 0
+5/name = "aster-tile.png 5"
+5/texture = ExtResource( 6 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 240, 0, 48, 48 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape = SubResource( 38 )
+5/shape_one_way = false
+5/shape_one_way_margin = 1.0
+5/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 38 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+5/z_index = 0
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends ActState
@@ -857,21 +1026,26 @@ position = Vector2( 0, 1 )
 script = SubResource( 1 )
 
 [node name="ParallaxLayer" parent="ActStateMachine/Act1/ParallaxBackground" index="0"]
+visible = false
 z_index = -10
 motion_scale = Vector2( 0.3, 1 )
 
 [node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="0"]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer" index="1"]
 visible = false
+region_rect = Rect2( 0, 0, 0, 0 )
 
 [node name="ParallaxLayer2" parent="ActStateMachine/Act1/ParallaxBackground" index="1"]
 z_index = -9
+motion_scale = Vector2( 0.3, 0 )
 
 [node name="image1" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2" index="0"]
 visible = false
-texture = ExtResource( 3 )
+texture = SubResource( 40 )
+region_rect = Rect2( 1198, 10, 0, 0 )
 
 [node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer2" index="1"]
 visible = false
@@ -888,33 +1062,27 @@ visible = false
 [node name="image2" parent="ActStateMachine/Act1/ParallaxBackground/ParallaxLayer4" index="1"]
 visible = false
 
+[node name="FlamingSkull" parent="ActStateMachine/Act1/other/enemyHandler" index="0" instance=ExtResource( 3 )]
+position = Vector2( 1279, 373 )
+
 [node name="TileMap_1" parent="ActStateMachine/Act1/other/tilemapHandler" index="0"]
 position = Vector2( 1, -1 )
 z_index = 20
 tile_set = SubResource( 4 )
-tile_data = PoolIntArray( 458772, -1610612730, 0, 524308, -1610612730, 0, 589844, -1610612730, 0, 589849, -1610612727, 0, 589850, -1610612729, 0, 589851, -1610612729, 0, 589852, -1610612729, 0, 589853, -1610612729, 0, 589854, 1610612745, 0, 655385, 1, 0, 655386, 8, 0, 655387, 8, 0, 655388, 8, 0, 655389, 8, 0, 655390, 1610612737, 0, 720921, 9, 0, 720922, -1073741823, 0, 720923, -1073741823, 0, 720924, -1073741823, 0, 720925, -1073741823, 0, 720926, -1073741815, 0 )
+tile_data = PoolIntArray( 0, 32, 0, 1, 32, 0, 2, 32, 0, 3, 32, 0, 4, 32, 0, 5, 32, 0, 6, 32, 0, 7, 32, 0, 8, 32, 0, 9, 32, 0, 10, 32, 0, 11, 32, 0, 12, 32, 0, 13, 32, 0, 14, 32, 0, 15, 32, 0, 16, 32, 0, 17, 32, 0, 18, 32, 0, 19, 32, 0, 20, 32, 0, 21, 32, 0, 22, 32, 0, 23, 32, 0, 24, 32, 0, 25, 32, 0, 26, 32, 0, 27, 32, 0, 28, 32, 0, 29, 32, 0, 30, 32, 0, 65536, 32, 0, 65537, 32, 0, 65538, 32, 0, 65539, 32, 0, 65540, 32, 0, 65541, 32, 0, 65542, 32, 0, 65543, 32, 0, 65544, 32, 0, 65545, 32, 0, 65546, 32, 0, 65547, 32, 0, 65548, 32, 0, 65549, 32, 0, 65550, 32, 0, 65551, 32, 0, 65552, 32, 0, 65553, 32, 0, 65554, 32, 0, 65555, 32, 0, 65556, 32, 0, 65557, 32, 0, 65558, 32, 0, 65559, 32, 0, 65560, 32, 0, 65561, 32, 0, 65562, 32, 0, 65563, 32, 0, 65564, 32, 0, 65565, 32, 0, 65566, 32, 0, 131072, 32, 0, 131073, 32, 0, 131074, 32, 0, 131075, 32, 0, 131076, 32, 0, 131077, 32, 0, 131078, 32, 0, 131079, 32, 0, 131080, 32, 0, 131081, 32, 0, 131082, 32, 0, 131083, 32, 0, 131084, 32, 0, 131085, 32, 0, 131086, 32, 0, 131087, 32, 0, 131088, 32, 0, 131089, 32, 0, 131090, 32, 0, 131091, 32, 0, 131092, 32, 0, 131093, 32, 0, 131094, 32, 0, 131095, 32, 0, 131096, 32, 0, 131097, 32, 0, 131098, 32, 0, 131099, 32, 0, 131100, 32, 0, 131101, 32, 0, 131102, 32, 0, 196608, 32, 0, 196609, 32, 0, 196610, 32, 0, 196611, 32, 0, 196612, 32, 0, 196613, 32, 0, 196614, 32, 0, 196615, 32, 0, 196616, 32, 0, 196617, 32, 0, 196618, 32, 0, 196619, 32, 0, 196620, 32, 0, 196621, 32, 0, 196622, 32, 0, 196623, 32, 0, 196624, 32, 0, 196625, 32, 0, 196626, 32, 0, 196627, 32, 0, 196628, 32, 0, 196629, 32, 0, 196630, 32, 0, 196631, 32, 0, 196632, 32, 0, 196633, 32, 0, 196634, 32, 0, 196635, 32, 0, 196636, 32, 0, 196637, 32, 0, 196638, 32, 0, 262144, 32, 0, 262145, 32, 0, 262146, 32, 0, 262147, 32, 0, 262148, 32, 0, 262149, 32, 0, 262150, 32, 0, 262151, 32, 0, 262152, 32, 0, 262153, 32, 0, 262154, 32, 0, 262155, 32, 0, 262156, 32, 0, 262157, 32, 0, 262158, 32, 0, 262159, 32, 0, 262160, 32, 0, 262161, 32, 0, 262162, 32, 0, 262163, 32, 0, 262164, 32, 0, 262165, 32, 0, 262166, 32, 0, 262167, 32, 0, 262168, 32, 0, 262169, 32, 0, 262170, 32, 0, 262171, 32, 0, 262172, 32, 0, 262173, 32, 0, 262174, 32, 0, 327680, 32, 0, 327681, 32, 0, 327682, 32, 0, 327683, 32, 0, 327684, 32, 0, 327685, 32, 0, 327686, 32, 0, 327687, 32, 0, 327688, 32, 0, 327689, 32, 0, 327690, 32, 0, 327691, 32, 0, 327692, 32, 0, 327693, 32, 0, 327694, 32, 0, 327695, 32, 0, 327696, 32, 0, 327697, 32, 0, 327698, 32, 0, 327699, 32, 0, 327700, 32, 0, 327701, 32, 0, 327702, 32, 0, 327703, 32, 0, 327704, 32, 0, 327705, 32, 0, 327706, 32, 0, 327707, 32, 0, 327708, 32, 0, 327709, 32, 0, 327710, 32, 0, 393216, 32, 0, 393217, 32, 0, 393218, 32, 0, 393219, 32, 0, 393220, 32, 0, 393224, 32, 0, 393225, 32, 0, 393226, 32, 0, 393227, 32, 0, 393228, 32, 0, 393229, 32, 0, 393230, 32, 0, 393231, 32, 0, 393232, 32, 0, 393233, 32, 0, 393234, 32, 0, 393235, 32, 0, 393236, 32, 0, 393237, 32, 0, 393238, 32, 0, 393239, 32, 0, 393240, 32, 0, 393241, 32, 0, 393242, 32, 0, 393243, 32, 0, 393244, 32, 0, 393245, 32, 0, 393246, 32, 0, 458752, 32, 0, 458753, 32, 0, 458754, 32, 0, 458755, 32, 0, 458756, 32, 0, 458757, 32, 0, 458758, 32, 0, 458767, 32, 0, 458768, 32, 0, 458769, 32, 0, 458770, 32, 0, 458771, 32, 0, 458772, -1610612730, 0, 458773, 32, 0, 458774, 32, 0, 458775, 32, 0, 458776, 32, 0, 458777, 32, 0, 458778, 32, 0, 458779, 32, 0, 458780, 32, 0, 458781, 32, 0, 458782, 32, 0, 524288, 32, 0, 524289, 32, 0, 524290, 32, 0, 524291, 32, 0, 524292, 32, 0, 524293, 32, 0, 524294, 32, 0, 524296, 32, 0, 524297, 32, 0, 524298, 32, 0, 524299, 32, 0, 524300, 32, 0, 524301, 32, 0, 524306, 32, 0, 524307, 32, 0, 524308, -1610612730, 0, 524309, 32, 0, 524310, 32, 0, 524311, 32, 0, 524312, 32, 0, 524313, 32, 0, 524314, 32, 0, 524315, 32, 0, 524316, 32, 0, 524317, 32, 0, 524318, 32, 0, 589824, 32, 0, 589825, 32, 0, 589826, 32, 0, 589827, 32, 0, 589828, 32, 0, 589829, 32, 0, 589830, 32, 0, 589832, 32, 0, 589833, 32, 0, 589834, 32, 0, 589835, 32, 0, 589836, 32, 0, 589837, 32, 0, 589838, 32, 0, 589839, 32, 0, 589840, 32, 0, 589841, 32, 0, 589842, 32, 0, 589843, 32, 0, 589844, -1610612730, 0, 589845, 32, 0, 589846, 32, 0, 589847, 32, 0, 589848, 32, 0, 589849, -1610612727, 0, 589850, -1610612729, 0, 589851, -1610612729, 0, 589852, -1610612729, 0, 589853, -1610612729, 0, 589854, 1610612745, 0, 655360, 32, 0, 655361, 32, 0, 655362, 32, 0, 655363, 32, 0, 655364, 32, 0, 655365, 32, 0, 655366, 32, 0, 655368, 32, 0, 655369, 32, 0, 655370, 32, 0, 655371, 32, 0, 655372, 32, 0, 655373, 32, 0, 655374, 32, 0, 655375, 32, 0, 655376, 32, 0, 655377, 32, 0, 655378, 32, 0, 655379, 32, 0, 655380, 32, 0, 655381, 32, 0, 655382, 32, 0, 655383, 32, 0, 655384, 32, 0, 655385, 1, 0, 655386, 8, 0, 655387, 8, 0, 655388, 8, 0, 655389, 8, 0, 655390, 1610612737, 0, 720896, 32, 0, 720897, 32, 0, 720898, 32, 0, 720899, 32, 0, 720900, 32, 0, 720901, 32, 0, 720902, 32, 0, 720903, 32, 0, 720904, 32, 0, 720905, 32, 0, 720906, 32, 0, 720907, 32, 0, 720908, 32, 0, 720909, 32, 0, 720910, 32, 0, 720911, 32, 0, 720912, 32, 0, 720913, 32, 0, 720914, 32, 0, 720915, 32, 0, 720916, 32, 0, 720917, 32, 0, 720918, 32, 0, 720919, 32, 0, 720920, 32, 0, 720921, 9, 0, 720922, 4, 0, 720923, 4, 0, 720924, 4, 0, 720925, 4, 0, 720926, -1073741815, 0, 786432, 32, 0, 786433, 32, 0, 786434, 32, 0, 786435, 32, 0, 786436, 32, 0, 786437, 32, 0, 786438, 32, 0, 786439, 32, 0, 786440, 32, 0, 786441, 32, 0, 786442, 32, 0, 786443, 32, 0, 786444, 32, 0, 786445, 32, 0, 786446, 32, 0, 786447, 32, 0, 786448, 32, 0, 786449, 32, 0, 786450, 32, 0, 786451, 32, 0, 786452, 32, 0, 786453, 32, 0, 786454, 32, 0, 786455, 32, 0, 786456, 32, 0, 786457, 32, 0, 786458, 32, 0, 786459, 32, 0, 786460, 32, 0, 786461, 32, 0, 786462, 32, 0, 851968, 32, 0, 851969, 32, 0, 851970, 32, 0, 851971, 32, 0, 851972, 32, 0, 851973, 32, 0, 851974, 32, 0, 851975, 32, 0, 851976, 32, 0, 851977, 32, 0, 851978, 32, 0, 851979, 32, 0, 851980, 32, 0, 851981, 32, 0, 851982, 32, 0, 851983, 32, 0, 851984, 32, 0, 851985, 32, 0, 851986, 32, 0, 851987, 32, 0, 851988, 32, 0, 851989, 32, 0, 851990, 32, 0, 851991, 32, 0, 851992, 32, 0, 851993, 32, 0, 851994, 32, 0, 851995, 32, 0, 851996, 32, 0, 851997, 32, 0, 851998, 32, 0 )
 
 [node name="TileMap_2" parent="ActStateMachine/Act1/other/tilemapHandler" index="1"]
+visible = false
 z_index = 20
+tile_set = SubResource( 39 )
 
 [node name="ActEnd" parent="ActStateMachine/Act1/other" index="2"]
-position = Vector2( 2674, 164 )
+position = Vector2( 3448, 162 )
 collision_layer = 64
 collision_mask = 0
 
 [node name="PlayerPointer" parent="ActStateMachine/Act1/other" index="3"]
-position = Vector2( -169, 455 )
-
-[node name="BulletChange" parent="ActStateMachine/Act1/other" index="4" instance=ExtResource( 9 )]
-position = Vector2( 835, 329 )
-
-[node name="BulletChange2" parent="ActStateMachine/Act1/other" index="5" instance=ExtResource( 9 )]
-position = Vector2( 839, 556 )
-choice = "F"
-
-[node name="BulletChange3" parent="ActStateMachine/Act1/other" index="6" instance=ExtResource( 9 )]
-position = Vector2( 835, 130 )
-choice = "N"
+position = Vector2( 138, 233 )
 
 [node name="ParallaxBackground" parent="ActStateMachine/Act2" index="0"]
 script = SubResource( 2 )
@@ -963,7 +1131,6 @@ script = SubResource( 3 )
 visible = true
 
 [node name="image1" parent="ActStateMachine/Boss/ParallaxBackground/ParallaxLayer" index="0"]
-visible = false
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 10000, 720 )
 

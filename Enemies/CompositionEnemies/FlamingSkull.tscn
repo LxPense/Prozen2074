@@ -1,0 +1,231 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://Enemies/dynamic/FlamingSkull/FlamingSkull.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/EnemyComponents/HurtBoxComponent.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemies/EnemyComponents/HitBoxComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/EnemyComponents/HealthComponent.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/EnemyComponents/MovementComponent.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/spritesheet/enemy/bskull.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=27]
+
+[sub_resource type="GDScript" id=28]
+script/source = "extends Node2D
+
+
+# This component is ussed to display graphics, for example Animations
+
+func _ready():
+	pass
+"
+
+[sub_resource type="Animation" id=29]
+resource_name = "Attack"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "Idle"
+length = 1.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "Spawn"
+length = 0.0666667
+step = 0.0666667
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "idle", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "Transition"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15, 16, 17, 18 ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "FlamingSkullTransitionBackwards"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 17, 16, 15, 14, 13 ]
+}
+
+[sub_resource type="Animation" id=34]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "FlamingSkullAttack"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "FlamingSkullIdle"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "FlamingSkullTransition"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "FlamingSkullTransitionBackwards"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+advance_condition = "triggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+advance_condition = "untriggered"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=35]
+states/FlamingSkullAttack/node = SubResource( 16 )
+states/FlamingSkullAttack/position = Vector2( 793, 98 )
+states/FlamingSkullIdle/node = SubResource( 17 )
+states/FlamingSkullIdle/position = Vector2( 326, 131 )
+states/FlamingSkullTransition/node = SubResource( 18 )
+states/FlamingSkullTransition/position = Vector2( 594, 222 )
+states/FlamingSkullTransitionBackwards/node = SubResource( 24 )
+states/FlamingSkullTransitionBackwards/position = Vector2( 518, 28 )
+transitions = [ "FlamingSkullIdle", "FlamingSkullTransition", SubResource( 19 ), "FlamingSkullTransition", "FlamingSkullAttack", SubResource( 20 ), "FlamingSkullAttack", "FlamingSkullTransitionBackwards", SubResource( 25 ), "FlamingSkullTransitionBackwards", "FlamingSkullIdle", SubResource( 26 ) ]
+start_node = "FlamingSkullIdle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=36]
+
+[sub_resource type="RectangleShape2D" id=37]
+resource_local_to_scene = true
+extents = Vector2( 26.6181, 17.1229 )
+
+[node name="FlamingSkull" type="KinematicBody2D" groups=["enemy"]]
+scale = Vector2( 3, 3 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 27 )
+
+[node name="HealthComponent" parent="." instance=ExtResource( 4 )]
+default_health = 50
+
+[node name="HitBoxComponent" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 4 )
+scale = Vector2( 1.2498, 1.53451 )
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource( 2 )]
+position = Vector2( -0.333333, 3 )
+scale = Vector2( 0.585758, 0.406167 )
+collision_mask = 4
+
+[node name="RectangleShape" parent="HurtBoxComponent" index="0"]
+position = Vector2( 0, 4 )
+scale = Vector2( -2.05392, 3.33564 )
+
+[node name="VisualComponent" type="Node2D" parent="."]
+script = SubResource( 28 )
+
+[node name="Sprite" type="Sprite" parent="VisualComponent"]
+texture = ExtResource( 6 )
+hframes = 13
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VisualComponent/Sprite"]
+anims/FlamingSkullAttack = SubResource( 29 )
+anims/FlamingSkullIdle = SubResource( 30 )
+anims/FlamingSkullSpawn = SubResource( 31 )
+anims/FlamingSkullTransition = SubResource( 32 )
+anims/FlamingSkullTransitionBackwards = SubResource( 33 )
+anims/RESET = SubResource( 34 )
+
+[node name="AnimationTree" type="AnimationTree" parent="VisualComponent/Sprite"]
+tree_root = SubResource( 35 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 36 )
+parameters/conditions/triggered = false
+parameters/conditions/untriggered = false
+
+[node name="ActivationAreaComponent" type="Area2D" parent="."]
+position = Vector2( -1.66667, 2.66667 )
+scale = Vector2( 6.48055, 6.23921 )
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationAreaComponent"]
+position = Vector2( 0.077154, -1.41578 )
+shape = SubResource( 37 )
+
+[node name="MovementComponent" parent="." instance=ExtResource( 5 )]
+
+[connection signal="notify_enemy_deletion" from="HealthComponent" to="." method="_on_HealthComponent_notify_enemy_deletion"]
+[connection signal="area_entered" from="ActivationAreaComponent" to="." method="_on_ActivationAreaComponent_area_entered"]
+[connection signal="area_exited" from="ActivationAreaComponent" to="." method="_on_ActivationAreaComponent_area_exited"]
+
+[editable path="HitBoxComponent"]
+[editable path="HurtBoxComponent"]
+[editable path="MovementComponent"]
